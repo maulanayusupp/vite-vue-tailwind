@@ -1,16 +1,16 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 
-import Home from '@/pages/Home.vue';
-import NotFound from '@/pages/NotFound.vue';
-
+// Routes
 const routes = [
-  { name: 'Index', path: '/', component: Home, meta: { title: 'Home', layout: 'main' }, },
+  { name: 'Login', path: '/login', component: () => import('@/pages/auth/Login.vue'), meta: { title: 'Login', layout: 'auth' }, },
+  { name: 'ResetPassword', path: '/reset-password', component: () => import('@/pages/auth/ResetPassword.vue'), meta: { title: 'Reset Password', layout: 'auth' }, },
+  { name: 'Index', path: '/', component: () => import('@/pages/Home.vue'), meta: { title: 'Home', layout: 'main' }, },
   { name: 'Reports', path: '/reports', component: () => import('@/pages/Reports.vue'), meta: { title: 'Reports', layout: 'main' }, },
   { name: 'Users', path: '/users', component: () => import('@/pages/Users.vue'), meta: { title: 'Users', layout: 'main' }, },
   { name: 'Teams', path: '/teams', component: () => import('@/pages/Teams.vue'), meta: { title: 'Teams', layout: 'main' }, },
   { name: 'Events', path: '/events', component: () => import('@/pages/Events.vue'), meta: { title: 'Events', layout: 'main' }, },
   { name: 'Settings', path: '/settings', component: () => import('@/pages/Settings.vue'), meta: { title: 'Settings', layout: 'main' }, },
-  { name: 'NotFound', path: '/:path(.*)', component: NotFound, meta: { title: 'Not Found', layout: 'main' }, },
+  { name: 'NotFound', path: '/:path(.*)', component: () => import('@/pages/NotFound.vue'), meta: { title: 'Not Found', layout: 'main' }, },
 ];
 
 // Middleware here

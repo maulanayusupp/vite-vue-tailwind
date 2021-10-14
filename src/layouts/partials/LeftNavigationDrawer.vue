@@ -19,10 +19,12 @@
 				</div>
 				<div class="mt-5 flex-1 h-0 overflow-y-auto">
 				<nav class="px-2 space-y-1">
-					<a v-for="item in MainMenuItems" :key="item.name" :href="item.href" :class="[item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900', 'group flex items-center px-2 py-2 text-base font-medium rounded-md']">
-					<component :is="item.icon" :class="[item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500', 'mr-4 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
-					{{ item.name }}
-					</a>
+					<router-link
+						v-for="item in MainMenuItems" :key="item.name" :to="item.href" :class="[item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900', 'group flex items-center px-2 py-2 text-base font-medium rounded-md']"
+						@click="__showLeftNavigation">
+						<component :is="item.icon" :class="[item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500', 'mr-4 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
+						{{ item.name }}
+					</router-link>
 				</nav>
 				</div>
 			</div>

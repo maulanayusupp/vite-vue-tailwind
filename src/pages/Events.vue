@@ -1,18 +1,19 @@
 <template>
 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 md:px-8">
-	<div class="text-center mb-10">
-		<svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-		<path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-		</svg>
-		<h3 class="mt-2 text-sm font-medium text-gray-900">No events</h3>
-		<p class="mt-1 text-sm text-gray-500">
-		Get started by creating a new event.
-		</p>
-		<div class="mt-6">
-		<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-			<PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-			New Event
-		</button>
+	<!-- Header -->
+	<div>
+        <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+			Events
+		</h1>
+    </div>
+
+	<!-- Actions -->
+	<div class="mb-10">
+		<div class="mt-6 flex justify-end">
+			<button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="showCreate">
+				<PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+				New Event
+			</button>
 		</div>
 	</div>
 
@@ -49,10 +50,17 @@
 		</li>
 	</ul>
 </div>
+
+<!-- Event Creator -->
+<event-creator
+	:is-show="isShowCreate"
+	@close="closeCreate"
+/>
 </template>
 
 <script>
 import { PlusIcon, MailIcon, PhoneIcon } from '@heroicons/vue/solid';
+import EventCreator from '@/components/events/EventCreator.vue';
 
 const people = [
 	{
@@ -116,11 +124,21 @@ export default {
 		PlusIcon,
 		MailIcon,
 		PhoneIcon,
+		EventCreator,
 	},
-	setup() {
+	data() {
 		return {
 			people,
+			isShowCreate: false,
 		}
+	},
+	methods: {
+		showCreate() {
+			this.isShowCreate = true;
+		},
+		closeCreate() {
+			this.isShowCreate = false;
+		},
 	},
 }
 </script>

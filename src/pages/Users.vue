@@ -108,106 +108,104 @@
 		</div>
 	</header>
 
-	<main class="pt-8 pb-16">
+	<main class="pt-1 pb-16">
 	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 		<div class="px-4 sm:px-0">
-		<h2 class="text-lg font-medium text-gray-900">Candidates</h2>
-
-		<!-- Tabs -->
-		<div class="sm:hidden">
-			<label for="tabs" class="sr-only">Select a tab</label>
-			<!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
-			<select id="tabs" name="tabs" class="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md">
-			<option v-for="tab in tabs" :key="tab.name" :selected="tab.current">{{ tab.name }}</option>
-			</select>
-		</div>
-		<div class="hidden sm:block">
-			<div class="border-b border-gray-200">
-			<nav class="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
-				<a v-for="tab in tabs" :key="tab.name" :href="tab.href" :class="[tab.current ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200', 'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm']">
-				{{ tab.name }}
-				<span v-if="tab.count" :class="[tab.current ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-900', 'hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block']">{{ tab.count }}</span>
-				</a>
-			</nav>
+			<!-- Tabs -->
+			<div class="sm:hidden">
+				<label for="tabs" class="sr-only">Select a tab</label>
+				<!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+				<select id="tabs" name="tabs" class="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md">
+				<option v-for="tab in tabs" :key="tab.name" :selected="tab.current">{{ tab.name }}</option>
+				</select>
 			</div>
-		</div>
+			<div class="hidden sm:block">
+				<div class="border-b border-gray-200">
+				<nav class="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
+					<a v-for="tab in tabs" :key="tab.name" :href="tab.href" :class="[tab.current ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200', 'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm']">
+					{{ tab.name }}
+					<span v-if="tab.count" :class="[tab.current ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-900', 'hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block']">{{ tab.count }}</span>
+					</a>
+				</nav>
+				</div>
+			</div>
 		</div>
 
 		<!-- Stacked list -->
 		<ul role="list" class="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0">
-		<li v-for="candidate in candidates" :key="candidate.email">
-			<a href="#" class="group block">
-			<div class="flex items-center py-5 px-4 sm:py-6 sm:px-0">
-				<div class="min-w-0 flex-1 flex items-center">
-				<div class="flex-shrink-0">
-					<img class="h-12 w-12 rounded-full group-hover:opacity-75" :src="candidate.imageUrl" alt="" />
-				</div>
-				<div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-					<div>
-					<p class="text-sm font-medium text-purple-600 truncate">{{ candidate.name }}</p>
-					<p class="mt-2 flex items-center text-sm text-gray-500">
-						<MailIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-						<span class="truncate">{{ candidate.email }}</span>
-					</p>
+			<li v-for="candidate in candidates" :key="candidate.email">
+				<a href="#" class="group block">
+				<div class="flex items-center py-5 px-4 sm:py-6 sm:px-0">
+					<div class="min-w-0 flex-1 flex items-center">
+					<div class="flex-shrink-0">
+						<img class="h-12 w-12 rounded-full group-hover:opacity-75" :src="candidate.imageUrl" alt="" />
 					</div>
-					<div class="hidden md:block">
-					<div>
-						<p class="text-sm text-gray-900">
-						Applied on
-						{{ ' ' }}
-						<time :datetime="candidate.appliedDatetime">{{ candidate.applied }}</time>
-						</p>
+					<div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+						<div>
+						<p class="text-sm font-medium text-purple-600 truncate">{{ candidate.name }}</p>
 						<p class="mt-2 flex items-center text-sm text-gray-500">
-						<CheckCircleIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" />
-						{{ candidate.status }}
+							<MailIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+							<span class="truncate">{{ candidate.email }}</span>
 						</p>
+						</div>
+						<div class="hidden md:block">
+						<div>
+							<p class="text-sm text-gray-900">
+							Applied on
+							{{ ' ' }}
+							<time :datetime="candidate.appliedDatetime">{{ candidate.applied }}</time>
+							</p>
+							<p class="mt-2 flex items-center text-sm text-gray-500">
+							<CheckCircleIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" />
+							{{ candidate.status }}
+							</p>
+						</div>
+						</div>
 					</div>
 					</div>
+					<div>
+					<ChevronRightIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-700" aria-hidden="true" />
+					</div>
 				</div>
-				</div>
-				<div>
-				<ChevronRightIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-700" aria-hidden="true" />
-				</div>
-			</div>
-			</a>
-		</li>
+				</a>
+			</li>
 		</ul>
 
 		<!-- Pagination -->
 		<nav class="border-t border-gray-200 px-4 flex items-center justify-between sm:px-0" aria-label="Pagination">
-		<div class="-mt-px w-0 flex-1 flex">
-			<a href="#" class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-200">
-			<ArrowNarrowLeftIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-			Previous
-			</a>
-		</div>
-		<div class="hidden md:-mt-px md:flex">
-			<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-			1
-			</a>
-			<!-- Current: "border-purple-500 text-purple-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200" -->
-			<a href="#" class="border-purple-500 text-purple-600 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium" aria-current="page">
-			2
-			</a>
-			<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-			3
-			</a>
-			<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-			4
-			</a>
-			<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-			5
-			</a>
-			<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-			6
-			</a>
-		</div>
-		<div class="-mt-px w-0 flex-1 flex justify-end">
-			<a href="#" class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-200">
-			Next
-			<ArrowNarrowRightIcon class="ml-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-			</a>
-		</div>
+			<div class="-mt-px w-0 flex-1 flex">
+				<a href="#" class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-200">
+				<ArrowNarrowLeftIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+				Previous
+				</a>
+			</div>
+			<div class="hidden md:-mt-px md:flex">
+				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+				1
+				</a>
+				<!-- Current: "border-purple-500 text-purple-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200" -->
+				<a href="#" class="border-purple-500 text-purple-600 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium" aria-current="page">
+				2
+				</a>
+				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+				3
+				</a>
+				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+				4
+				</a>
+				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+				5
+				</a>
+				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
+				6
+				</a>
+			</div>
+			<div class="-mt-px w-0 flex-1 flex justify-end">
+				<a href="#" class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-200">
+				Next
+				<ArrowNarrowRightIcon class="ml-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+				</a>
+			</div>
 		</nav>
 	</div>
 	</main>
