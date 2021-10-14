@@ -1,0 +1,21 @@
+.ease-out-overlay-enter-active,
+.ease-out-overlay-leave-active {
+	@apply transition-opacity ease-linear duration-300;
+}
+.ease-out-overlay-enter {
+	@apply opacity-0 opacity-100;
+}
+.ease-out-overlay-leave-to {
+	@apply opacity-100 opacity-0;
+}
+
+.ease-out-sidebar-enter-active,
+.ease-out-sidebar-leave-active {
+	@apply transition ease-in-out duration-300 transform;
+}
+.ease-out-sidebar-enter {
+	@apply -translate-x-full translate-x-0;
+}
+.ease-out-sidebar-leave-to {
+	@apply translate-x-0 -translate-x-full;
+}
