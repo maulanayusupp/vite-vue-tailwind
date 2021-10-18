@@ -100,8 +100,10 @@ export default {
     },
     setup() {
         return {
-        stats,
+            stats,
         }
+    },
+    mounted() {
     },
 }
 </script>

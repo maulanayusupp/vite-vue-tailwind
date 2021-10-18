@@ -1,4 +1,5 @@
 <template>
+    <span class="hidden">{{ $i18n.locale }}</span>
     <Layout>
         <router-view />
     </Layout>
@@ -11,7 +12,16 @@ export default {
     components: {
         Layout,
     },
-    setup() {
+    setup() {},
+    data () {
+        return {
+        }
+    },
+    mounted() {
+        // Test change language
+        setTimeout(() => {
+            this.$i18n.locale = 'en';
+        }, 4000);
     },
 }
 </script>
