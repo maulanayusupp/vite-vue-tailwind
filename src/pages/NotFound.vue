@@ -1,5 +1,5 @@
 <template>
-<div class="bg-white">
+<div class="bg-white h-screen">
     <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex-shrink-0 pt-16">
         <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="Workflow" />
