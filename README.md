@@ -2,7 +2,7 @@
 
 ![Vite, Vue, Tailwind CSS](https://user-images.githubusercontent.com/11320080/111277027-a9384c00-8640-11eb-8323-21889bd7c609.png)
 
-Libraries:
+#### Libraries
 - [Tailwind CSS v3.0.0-alpha ⚠](https://github.com/tailwindlabs/tailwindcss/releases/tag/v3.0.0-alpha.1)
 - [Vue Router 4.x](https://github.com/vuejs/vue-router-next)
 - [Vuex 4.x](https://next.vuex.vuejs.org/)
@@ -13,13 +13,13 @@ Libraries:
 - [Vue Localization I18n](https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n) - Vite plugin for Vue I18n
 
 
-Plugins needed for Tailwind UI:
+#### Plugins needed for Tailwind UI
 - [tailwindcss/forms](https://github.com/tailwindlabs/tailwindcss-forms)
 - [tailwindcss/typography](https://github.com/tailwindlabs/tailwindcss-typography)
 - [tailwindcss/line-clamp](https://github.com/tailwindlabs/tailwindcss-line-clamp)
 - [tailwindcss/aspect-ratio](https://github.com/tailwindlabs/tailwindcss-aspect-ratio)
 
-Structure:
+#### Structure
 - Api (Communications to API)
 - Assets (CSS/SCSS)
 - Components (Custom Vue Components)
