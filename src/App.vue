@@ -22,6 +22,8 @@ export default {
         setTimeout(() => {
             this.$i18n.locale = 'en';
         }, 4000);
+
+        console.log('VITE_API_URL', import.meta.env.VITE_API_URL);
     },
 }
 </script>
