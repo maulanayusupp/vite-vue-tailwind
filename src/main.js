@@ -20,5 +20,10 @@ app.mixin(globalMixin);
 import i18n from "@/libraries/i18n.js";
 app.use(i18n);
 
+// Notifications
+import Notifications from '@kyvg/vue3-notification';
+import velocity from 'velocity-animate';
+app.use(Notifications, { velocity });
+
 // Mount
 app.mount('#app');

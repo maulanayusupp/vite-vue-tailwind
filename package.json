@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "@grafikri/vue-middleware": "^1.0.0",
+    "@kyvg/vue3-notification": "^2.3.4",
     "axios": "^0.23.0",
     "dayjs": "^1.10.7",
     "secure-ls": "^1.2.6",
+    "velocity-animate": "^1.5.2",
     "vue": "^3.2.24",
     "vue-i18n": "^9.2.0-beta.23",
     "vue-router": "^4.0.12",

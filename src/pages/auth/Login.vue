@@ -134,7 +134,12 @@ export default {
 		}
 	},
 	mounted() {
-		console.log('login');
+		this.$notify({
+			group: 'vue-notification-group',
+			title: 'Error',
+			text: 'TEST',
+			type: 'success',
+		});
 	},
 	methods: {
 		loginSubmit() {
@@ -149,6 +154,13 @@ export default {
 				this.isSubmit = false;
 			};
 			const errorCallback = (error) => {
+				const message = error.response.data.message;
+				this.$notify({
+					group: 'velocity',
+					title: 'Error',
+					text: message,
+					type: 'error',
+				});
 				this.isSubmit = false;
 			};
 			authApi.login(params, callback, errorCallback);
