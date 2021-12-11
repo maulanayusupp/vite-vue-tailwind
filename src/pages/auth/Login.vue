@@ -135,10 +135,10 @@ export default {
 	},
 	mounted() {
 		this.$notify({
-			group: 'vue-notification-group',
-			title: 'Error',
-			text: 'TEST',
-			type: 'success',
+			group: "app",
+			title: 'Login',
+			text: 'Please login using your credentials.',
+			type: 'info',
 		});
 	},
 	methods: {
@@ -156,7 +156,7 @@ export default {
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
 				this.$notify({
-					group: 'velocity',
+					group: 'app',
 					title: 'Error',
 					text: message,
 					type: 'error',

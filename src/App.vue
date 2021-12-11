@@ -5,22 +5,21 @@
     </Layout>
 
     <!-- Notifications -->
-    <!-- :ignoreDuplicates="true"
-        position="bottom right"
-        :max="3"
-        :duration="4000"
-        style="z-index: 99989!important;" -->
     <notifications
+        group="app"
+        :ignoreDuplicates="true"
+        position="top right"
+        :max="3"
+        :duration="9999999"
+        style="z-index: 99989!important; top: 5px;"
         >
         <!-- <template #body="props">
-            <div class="my-notification">
-            <p class="title">
-                {{ item.title }}
-            </p>
-            <button class="close" @click="close">
-                <i class="fa fa-fw fa-close"></i>
-            </button>
-            <div v-html="props.item.text"/>
+            <div class="vue-notification">
+                <p class="title">{{ props.item.title }}</p>
+                <button class="close" @click="close">
+                    <i class="fa fa-fw fa-close"></i>
+                </button>
+                <div v-html="props.item.text" />
             </div>
         </template> -->
     </notifications>
