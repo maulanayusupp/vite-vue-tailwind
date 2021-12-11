@@ -9,6 +9,7 @@
   "dependencies": {
     "@grafikri/vue-middleware": "^1.0.0",
     "axios": "^0.23.0",
+    "dayjs": "^1.10.7",
     "secure-ls": "^1.2.6",
     "vue": "^3.2.24",
     "vue-i18n": "^9.2.0-beta.23",
