@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = process.env.VUE_APP_API_URL;
+const url = import.meta.env.VITE_API_URL;
 const token = localStorage.getItem('access_token');
 
 const globalResponseHandler = response => response;
