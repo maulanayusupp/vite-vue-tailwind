@@ -10,7 +10,7 @@
         :ignoreDuplicates="true"
         position="top right"
         :max="3"
-        :duration="9999999"
+        :duration="5000"
         style="z-index: 99989!important; top: 5px;"
         >
         <!-- <template #body="props">
