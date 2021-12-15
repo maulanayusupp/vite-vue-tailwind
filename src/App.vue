@@ -10,8 +10,7 @@
         :ignoreDuplicates="true"
         position="top right"
         :max="3"
-        :duration="5000"
-        style="z-index: 99989!important; top: 5px;"
+        :duration="999999"
         >
         <!-- <template #body="props">
             <div class="vue-notification">
@@ -48,3 +47,7 @@ export default {
     },
 }
 </script>
+
+<style lang="scss">
+	@import '@/assets/scss/main.scss';
+</style>
