@@ -70,16 +70,16 @@
 					Email address
 					</label>
 					<div class="mt-1">
-					<input id="email" name="email" type="email" autocomplete="email" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" v-model="email" />
+						<t-input :type="`email`" :value="email" v-model="email" />
 					</div>
 				</div>
 
 				<div class="space-y-1">
 					<label for="password" class="block text-sm font-medium text-gray-700">
-					Password
+						Password
 					</label>
 					<div class="mt-1">
-					<input id="password" name="password" type="password" autocomplete="current-password" required="" class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" v-model="password" />
+						<t-input :type="`password`" :value="password" v-model="password" />
 					</div>
 				</div>
 
@@ -118,10 +118,12 @@
 
 import authApi from '@/api/auth';
 import TButton from '@/components/global/Button.vue';
+import TInput from '@/components/form/Input.vue';
 
 export default {
 	components: {
 		TButton,
+		TInput,
 	},
 	data() {
 		return {
