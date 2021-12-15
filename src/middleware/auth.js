@@ -28,7 +28,6 @@ export default ({ store, next, from, to }) => {
 
     // Has session
     const hasSession = store.getters['auth/hasSession'];
-    console.log('hasSession', hasSession);
 
     // Allowed paths without login
     const allowedPaths = [

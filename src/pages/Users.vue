@@ -28,82 +28,77 @@
 				</div>
 			</div>
 			<div class="mt-5 flex xl:mt-0 xl:ml-4">
-			<span class="hidden sm:block">
-				<button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500">
-				<PencilIcon class="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
-				Edit
-				</button>
-			</span>
-
-			<span class="hidden sm:block ml-3">
-				<button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500">
-				<LinkIcon class="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
-				View
-				</button>
-			</span>
-
-			<span class="sm:ml-3 relative z-0">
-				<Listbox as="div" v-model="selected">
-				<ListboxLabel class="sr-only">
-					Change published status
-				</ListboxLabel>
-				<div class="relative">
-					<div class="inline-flex shadow-sm rounded-md divide-x divide-purple-600">
-					<div class="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-purple-600">
-						<div class="relative inline-flex items-center bg-purple-500 py-2 pl-3 pr-4 border border-transparent rounded-l-md shadow-sm text-white">
-						<CheckIcon class="h-5 w-5" aria-hidden="true" />
-						<p class="ml-2.5 text-sm font-medium">{{ selected.name }}</p>
+				<!-- Dropdown Button Box -->
+				<span class="sm:ml-3 relative z-0">
+					<Listbox as="div" v-model="selected">
+					<ListboxLabel class="sr-only">
+						Change published status
+					</ListboxLabel>
+					<div class="relative">
+						<div class="inline-flex shadow-sm rounded-md divide-x divide-purple-600">
+						<div class="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-purple-600">
+							<div class="relative inline-flex items-center bg-purple-500 py-2 pl-3 pr-4 border border-transparent rounded-l-md shadow-sm text-white">
+							<CheckIcon class="h-5 w-5" aria-hidden="true" />
+							<p class="ml-2.5 text-sm font-medium">{{ selected.name }}</p>
+							</div>
+							<ListboxButton class="relative inline-flex items-center bg-purple-500 p-2 rounded-l-none rounded-r-md text-sm font-medium text-white hover:bg-purple-600 focus:outline-none focus:z-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500">
+							<span class="sr-only">Change published status</span>
+							<ChevronDownIcon class="h-5 w-5 text-white" aria-hidden="true" />
+							</ListboxButton>
 						</div>
-						<ListboxButton class="relative inline-flex items-center bg-purple-500 p-2 rounded-l-none rounded-r-md text-sm font-medium text-white hover:bg-purple-600 focus:outline-none focus:z-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500">
-						<span class="sr-only">Change published status</span>
-						<ChevronDownIcon class="h-5 w-5 text-white" aria-hidden="true" />
-						</ListboxButton>
-					</div>
-					</div>
+						</div>
 
-					<transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
-					<ListboxOptions class="origin-top-right absolute left-0 mt-2 -mr-1 w-72 rounded-md shadow-lg overflow-hidden bg-white divide-y divide-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none sm:left-auto sm:right-0">
-						<ListboxOption as="template" v-for="option in publishingOptions" :key="option.name" :value="option" v-slot="{ active, selected }">
-						<li :class="[active ? 'text-white bg-purple-500' : 'text-gray-900', 'cursor-default select-none relative p-4 text-sm']">
-							<div class="flex flex-col">
-							<div class="flex justify-between">
-								<p :class="selected ? 'font-semibold' : 'font-normal'">
-								{{ option.name }}
+						<transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
+						<ListboxOptions class="origin-top-right absolute left-0 mt-2 -mr-1 w-72 rounded-md shadow-lg overflow-hidden bg-white divide-y divide-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none sm:left-auto sm:right-0">
+							<ListboxOption as="template" v-for="option in publishingOptions" :key="option.name" :value="option" v-slot="{ active, selected }">
+							<li :class="[active ? 'text-white bg-purple-500' : 'text-gray-900', 'cursor-default select-none relative p-4 text-sm']">
+								<div class="flex flex-col">
+								<div class="flex justify-between">
+									<p :class="selected ? 'font-semibold' : 'font-normal'">
+									{{ option.name }}
+									</p>
+									<span v-if="selected" :class="active ? 'text-white' : 'text-purple-500'">
+									<CheckIcon class="h-5 w-5" aria-hidden="true" />
+									</span>
+								</div>
+								<p :class="[active ? 'text-purple-200' : 'text-gray-500', 'mt-2']">
+									{{ option.description }}
 								</p>
-								<span v-if="selected" :class="active ? 'text-white' : 'text-purple-500'">
-								<CheckIcon class="h-5 w-5" aria-hidden="true" />
-								</span>
-							</div>
-							<p :class="[active ? 'text-purple-200' : 'text-gray-500', 'mt-2']">
-								{{ option.description }}
-							</p>
-							</div>
-						</li>
-						</ListboxOption>
-					</ListboxOptions>
+								</div>
+							</li>
+							</ListboxOption>
+						</ListboxOptions>
+						</transition>
+					</div>
+					</Listbox>
+				</span>
+
+				<!-- Dropdown Button -->
+				<Menu as="span" class="ml-3 relative">
+					<MenuButton class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+					More
+					<ChevronDownIcon class="-mr-1 ml-2 h-5 w-5 text-gray-500" aria-hidden="true" />
+					</MenuButton>
+
+					<transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+					<MenuItems class="origin-top-right absolute right-0 mt-2 -mr-1 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+						<MenuItem v-slot="{ active }">
+						<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
+						</MenuItem>
+						<MenuItem v-slot="{ active }">
+						<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
+						</MenuItem>
+					</MenuItems>
 					</transition>
-				</div>
-				</Listbox>
-			</span>
+				</Menu>
 
-			<!-- Dropdown -->
-			<Menu as="span" class="ml-3 relative">
-				<MenuButton class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-				More
-				<ChevronDownIcon class="-mr-1 ml-2 h-5 w-5 text-gray-500" aria-hidden="true" />
-				</MenuButton>
-
-				<transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-				<MenuItems class="origin-top-right absolute right-0 mt-2 -mr-1 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-					<MenuItem v-slot="{ active }">
-					<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
-					</MenuItem>
-					<MenuItem v-slot="{ active }">
-					<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
-					</MenuItem>
-				</MenuItems>
-				</transition>
-			</Menu>
+				<!-- Create -->
+				<span class="hidden sm:block">
+					<t-button :color="`purple`" class="ml-3">
+						<PlusIcon class="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
+						Create User
+					</t-button>
+				</span>
 			</div>
 		</div>
 	</header>
@@ -192,41 +187,15 @@
 		</ul>
 
 		<!-- Pagination -->
-		<nav class="border-t border-gray-200 px-4 flex items-center justify-between sm:px-0" aria-label="Pagination">
-			<div class="-mt-px w-0 flex-1 flex">
-				<a href="#" class="border-t-2 border-transparent pt-4 pr-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-200">
-				<ArrowNarrowLeftIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-				Previous
-				</a>
-			</div>
-			<div class="hidden md:-mt-px md:flex">
-				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-				1
-				</a>
-				<!-- Current: "border-purple-500 text-purple-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200" -->
-				<a href="#" class="border-purple-500 text-purple-600 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium" aria-current="page">
-				2
-				</a>
-				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-				3
-				</a>
-				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-				4
-				</a>
-				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-				5
-				</a>
-				<a href="#" class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium">
-				6
-				</a>
-			</div>
-			<div class="-mt-px w-0 flex-1 flex justify-end">
-				<a href="#" class="border-t-2 border-transparent pt-4 pl-1 inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-200">
-				Next
-				<ArrowNarrowRightIcon class="ml-3 h-5 w-5 text-gray-400" aria-hidden="true" />
-				</a>
-			</div>
-		</nav>
+		<pagination
+			:is-number-pages-enabled="true"
+			:current-page="currentPage"
+			:total-page="totalPages"
+			@next="next"
+			@previous="previous"
+			@setPage="setPage"
+			v-if="totalPages > 1"
+        />
 	</div>
 	</main>
 </div>
@@ -258,21 +227,17 @@ import {
 	ChevronDownIcon,
 	ChevronRightIcon,
 	CurrencyDollarIcon,
-	LinkIcon,
 	LocationMarkerIcon,
 	MailIcon,
-	PencilIcon,
+	PlusIcon,
 	SearchIcon,
 	DotsVerticalIcon,
 } from '@heroicons/vue/solid'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline'
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline';
 
-const user = {
-	name: 'Whitney Francis',
-	email: 'whitneyfrancis@example.com',
-	imageUrl:
-		'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+import Pagination from '@/components/global/Pagination.vue';
+import TButton from '@/components/global/Button.vue';
+
 const navigation = [
 	{ name: 'Dashboard', href: '#', current: true },
 	{ name: 'Jobs', href: '#', current: false },
@@ -285,99 +250,19 @@ const userNavigation = [
 	{ name: 'Sign out', href: '#' },
 ]
 const tabs = [
-	{ name: 'Applied', href: '#', count: '2', current: false },
-	{ name: 'Phone Screening', href: '#', count: '4', current: false },
-	{ name: 'Interview', href: '#', count: '6', current: true },
-	{ name: 'Offer', href: '#', current: false },
-	{ name: 'Disqualified', href: '#', current: false },
+	{ id: 'all', name: 'All', href: '#', current: false },
+	{ id: 'client', name: 'Client', href: '#', current: false },
+	{ id: 'admin', name: 'Admin', href: '#', current: false },
+
 ]
-const items = [
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-	{
-		name: 'Emily Selman',
-		email: 'emilyselman@example.com',
-		imageUrl:
-		'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-		applied: 'January 7, 2020',
-		appliedDatetime: '2020-07-01T15:34:56',
-		status: 'Completed phone screening',
-	},
-]
+
 const publishingOptions = [
-	{ name: 'Published', description: 'This job posting can be viewed by anyone who has the link.', current: true },
-	{ name: 'Draft', description: 'This job posting will no longer be publicly accessible.', current: false },
-]
+	{ id: 'published', name: 'Published', description: 'This job posting can be viewed by anyone who has the link.', current: true },
+	{ id: 'draft', name: 'Draft', description: 'This job posting will no longer be publicly accessible.', current: false },
+];
+
+import UserItems from "@/databags/user.js";
+
 
 export default {
 	components: {
@@ -403,26 +288,46 @@ export default {
 		ChevronDownIcon,
 		ChevronRightIcon,
 		CurrencyDollarIcon,
-		LinkIcon,
 		LocationMarkerIcon,
 		MailIcon,
 		MenuIcon,
-		PencilIcon,
+		PlusIcon,
 		SearchIcon,
 		XIcon,
 		DotsVerticalIcon,
+		Pagination,
+		TButton,
 	},
 	setup() {
 		const selected = ref(publishingOptions[0])
 		return {
-			user,
 			navigation,
 			userNavigation,
 			tabs,
-			items,
+			items: UserItems,
 			publishingOptions,
 			selected,
 		}
 	},
+	data() {
+		return {
+			currentPage: 1,
+			totalPages: 10,
+		}
+	},
+	computed: {
+
+	},
+	methods: {
+		setPage(page) {
+			this.currentPage = page;
+		},
+		previous() {
+			if (this.currentPage > 1) this.currentPage--;
+		},
+		next() {
+			if (this.currentPage < this.totalPages) this.currentPage++;
+		},
+	}
 }
 </script>
