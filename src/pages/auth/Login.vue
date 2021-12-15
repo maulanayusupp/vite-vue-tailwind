@@ -134,12 +134,6 @@ export default {
 		}
 	},
 	mounted() {
-		this.$notify({
-			group: "app",
-			title: 'Login',
-			text: 'Please login using your credentials.',
-			type: 'info',
-		});
 	},
 	methods: {
 		loginSubmit() {
@@ -150,17 +144,15 @@ export default {
 				lang: 'en',
 			};
 			const callback = (response) => {
-				console.log(response);
+				const data = response.data;
+				console.log('data', data);
+				this.$store.dispatch('auth/setSession', data);
+				this.$router.push('/');
 				this.isSubmit = false;
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
-				this.$notify({
-					group: 'app',
-					title: 'Error',
-					text: message,
-					type: 'error',
-				});
+				this.__showNotif('error', 'Error', message);
 				this.isSubmit = false;
 			};
 			authApi.login(params, callback, errorCallback);

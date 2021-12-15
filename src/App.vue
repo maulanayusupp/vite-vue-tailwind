@@ -10,7 +10,7 @@
         :ignoreDuplicates="true"
         position="top right"
         :max="3"
-        :duration="999999"
+        :duration="5000"
         >
         <!-- <template #body="props">
             <div class="vue-notification">

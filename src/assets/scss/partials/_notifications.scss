@@ -2,14 +2,15 @@
     display: block;
     position: fixed;
     z-index: 99989!important;
-	top: 5px;
+	top: 5px !important;
 }
 .vue-notification {
 	// styling
 	margin: 0 5px 5px;
-	padding: 10px;
-	font-size: 14px !important;
+	padding: 12px 10px !important;
+	border-radius: 6px;
 	color: #ffffff;
+	font-size: 14px !important;
 
 	// default (blue)
 	background: #44a4fc;

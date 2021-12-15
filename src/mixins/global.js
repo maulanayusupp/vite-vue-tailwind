@@ -8,6 +8,14 @@ export default {
         __showLeftNavigation() {
             this.$store.dispatch("navigation/setShowLeftNavigation", !this.__isShowLeftNavigation);
         },
+        __showNotif(type = 'info', title = '', message = '') {
+            this.$notify({
+                group: "app",
+                type: type,
+                title: title,
+                text: message,
+            });
+        }
     },
     mounted() {
     }

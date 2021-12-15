@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router
 // Routes
 const routes = [
   { name: 'Login', path: '/login', component: () => import('@/pages/auth/Login.vue'), meta: { title: 'Login', layout: 'auth' }, },
+  { name: 'Logout', path: '/logout', component: () => import('@/pages/auth/Logout.vue'), meta: { title: 'Logout', layout: 'auth' }, },
   { name: 'ResetPassword', path: '/reset-password', component: () => import('@/pages/auth/ResetPassword.vue'), meta: { title: 'Reset Password', layout: 'auth' }, },
   { name: 'Index', path: '/', component: () => import('@/pages/Home.vue'), meta: { title: 'Home', layout: 'main' }, },
   { name: 'Reports', path: '/reports', component: () => import('@/pages/Reports.vue'), meta: { title: 'Reports', layout: 'main' }, },

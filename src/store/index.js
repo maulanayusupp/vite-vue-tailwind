@@ -4,7 +4,7 @@ import createPersistedState from "vuex-persistedstate";
 import SecureLS from "secure-ls";
 
 import Application from '@/store/modules/application';
-import Session from '@/store/modules/session';
+import Auth from '@/store/modules/auth';
 import Navigation from '@/store/modules/navigation';
 
 const ls = new SecureLS({ isCompression: false });
@@ -14,13 +14,13 @@ const store = createStore({
     },
     modules: {
 		"app": Application,
-		"session": Session,
+		"auth": Auth,
 		"navigation": Navigation,
     },
     plugins:[
 		createPersistedState({ 
 			key: 'my-app-bro',
-			paths: ['session'],
+			paths: ['auth'],
 			storage: {
 				getItem: key => ls.get(key),
 				setItem: (key, value) => ls.set(key, value),
