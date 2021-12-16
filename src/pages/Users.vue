@@ -110,7 +110,7 @@
 				<t-input :type="`text`" :value="keyword" v-model="keyword" :placeholder="`Search...`" />
 			</div>
 
-			<div class="px-4 sm:px-0" v-if="items.length > 0">
+			<div class="px-4 sm:px-0">
 				<!-- Tabs -->
 				<div class="sm:hidden">
 					<label for="tabs" class="sr-only">Select a tab</label>
@@ -121,21 +121,32 @@
 				</div>
 				<div class="hidden sm:block">
 					<div class="border-b border-gray-200">
-					<nav class="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
-						<a v-for="tab in tabs" :key="tab.name" :href="tab.href" :class="[tab.current ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200', 'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm']">
-						{{ tab.name }}
-						<span v-if="tab.count" :class="[tab.current ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-900', 'hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block']">{{ tab.count }}</span>
-						</a>
-					</nav>
+						<div class="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
+							<div
+								v-for="tab in tabs"
+								:key="tab.name"
+								:href="tab.href"
+								:class="[tab.id === selectedTab ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200', 'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer']"
+								@click="selectedTab = tab.id">
+								{{ tab.name }}
+								<span v-if="tab.count" :class="[tab.id === selectedTab ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-900', 'hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block']">{{ tab.count }}</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+
+			<empty-list
+				:title="`No data available`"
+				:sub-title="`There are no data available at the moment`"
+				v-if="items.length === 0"
+			/>
 
 			<!-- Loader -->
 			<skeleton-page class="p-8" v-if="isFetching" />
 
 			<!-- List -->
-			<ul role="list" class="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0" id="list-container">
+			<ul role="list" class="mt-5 border-t border-gray-200 divide-y divide-gray-200 sm:mt-0 sm:border-t-0" id="list-container" v-if="!isFetching">
 				<li v-for="item in items" :key="item.email">
 					<a href="#" class="group block">
 						<div class="flex items-center py-3 px-4 sm:px-0">
@@ -246,22 +257,10 @@ import Pagination from '@/components/global/Pagination.vue';
 import TButton from '@/components/global/Button.vue';
 import TInput from '@/components/form/Input.vue';
 
-const navigation = [
-	{ name: 'Dashboard', href: '#', current: true },
-	{ name: 'Jobs', href: '#', current: false },
-	{ name: 'Applicants', href: '#', current: false },
-	{ name: 'Company', href: '#', current: false },
-]
-const userNavigation = [
-	{ name: 'Your Profile', href: '#' },
-	{ name: 'Settings', href: '#' },
-	{ name: 'Sign out', href: '#' },
-]
 const tabs = [
 	{ id: 'all', name: 'All', href: '#', current: false },
 	{ id: 'client', name: 'Client', href: '#', current: false },
 	{ id: 'admin', name: 'Admin', href: '#', current: false },
-
 ]
 
 const publishingOptions = [
@@ -276,6 +275,8 @@ import { delay } from '@/libraries/helper';
 import SkeletonPage from '@/components/loader/SkeletonPage.vue';
 import SkeletonBox from '@/components/loader/SkeletonBox.vue';
 import SkeletonLine from '@/components/loader/SkeletonLine.vue';
+
+import EmptyList from '@/components/global/EmptyList.vue';
 
 export default {
 	components: {
@@ -314,12 +315,11 @@ export default {
 		SkeletonBox,
 		SkeletonLine,
 		TInput,
+		EmptyList,
 	},
 	setup() {
 		const selected = ref(publishingOptions[0])
 		return {
-			navigation,
-			userNavigation,
 			tabs,
 			publishingOptions,
 			selected,
@@ -335,6 +335,7 @@ export default {
 			limit: 10,
 			keyword: '',
 			items: [],
+			selectedTab: 'all',
 		}
 	},
 	mounted() {
@@ -344,15 +345,22 @@ export default {
 		currentPage() {
 			this.fetchList();
 		},
+		selectedTab() {
+			this.fetchList();
+		},
 		keyword() {
 			delay(() => {
-				this.fetchList();
+				this.fetchList(true);
 			}, 500);
 		},
 	},
 
 	methods: {
-		fetchList() {
+		fetchList(isReset = false) {
+			if (isReset) {
+				this.currentPage = 1;
+				this.items = [];
+			}
 			this.isFetching = true;
 			const params = {
 				orderBy: this.orderBy,
@@ -361,6 +369,7 @@ export default {
 				page: this.currentPage,
 			};
 			if (this.keyword) params.keyword = this.keyword;
+			if (this.selectedTab !== 'all') params.role = this.selectedTab;
 			const callback = (response) => {
 				const data = response.data;
 				this.totalPage = response.lastPage;
