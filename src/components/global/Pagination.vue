@@ -20,7 +20,7 @@
 				<a
 					v-else
 					@click.stop="moveToPage(n)"
-					:class="[isCurrentPage(n) ? 'border-primary text-purple-600 font-bold' : 'hover:border-gray-300 text-gray-500', 'cursor-pointer border-transparent border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium']">
+					:class="[isCurrentPage(n) ? 'border-purple-600 text-purple-600 font-bold' : 'hover:border-gray-300 text-gray-500', 'cursor-pointer border-transparent border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium']">
 					{{n}}
 				</a>
 			</span>
