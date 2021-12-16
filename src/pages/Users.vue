@@ -157,27 +157,27 @@
 								</div>
 								<div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
 									<div>
-									<p class="text-sm font-medium text-purple-600 truncate">{{ item.name }}</p>
-									<p class="mt-2 flex items-center text-sm text-gray-500">
-										<MailIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-										<span class="truncate">{{ item.email }}</span>
-									</p>
+										<p class="text-sm font-medium text-purple-600 truncate">{{ item.name }}</p>
+										<p class="mt-2 flex items-center text-sm text-gray-500">
+											<MailIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+											<span class="truncate">{{ item.email }}</span>
+										</p>
 									</div>
 									<div class="hidden md:block">
-									<div>
-										<p class="text-xs text-gray-900">
-											Registered at <time :datetime="item.createdAt">{{ item.createdAt }}</time>
-										</p>
-										<p class="mt-2 flex items-center text-xs text-gray-500">
-											<CheckCircleIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" v-if="item.isVerified" />
-											{{ item.isVerified ? 'Verified' : 'Not verified' }}
-										</p>
-									</div>
+										<div>
+											<p class="text-xs text-gray-900">
+												Registered at <time :datetime="item.createdAt">{{ item.createdAt }}</time>
+											</p>
+											<p class="mt-2 flex items-center text-xs text-gray-500">
+												<CheckCircleIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" v-if="item.isVerified" />
+												{{ item.isVerified ? 'Verified' : 'Not verified' }}
+											</p>
+										</div>
 									</div>
 								</div>
 							</div>
 							<div>
-								<!-- Profile dropdown -->
+								<!-- Dropdown Actions -->
 								<Menu as="div" class="ml-3 relative">
 									<div>
 									<MenuButton class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -185,17 +185,17 @@
 									</MenuButton>
 									</div>
 									<transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-									<MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-										<MenuItem v-slot="{ active }">
-											<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
-										</MenuItem>
-										<MenuItem v-slot="{ active }">
-											<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
-										</MenuItem>
-										<MenuItem v-slot="{ active }">
-											<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Delete</a>
-										</MenuItem>
-									</MenuItems>
+										<MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+											<MenuItem v-slot="{ active }">
+												<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
+											</MenuItem>
+											<MenuItem v-slot="{ active }">
+												<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
+											</MenuItem>
+											<MenuItem v-slot="{ active }">
+												<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Delete</a>
+											</MenuItem>
+										</MenuItems>
 									</transition>
 								</Menu>
 							</div>
