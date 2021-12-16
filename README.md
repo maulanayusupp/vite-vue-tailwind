@@ -11,6 +11,7 @@
 - [Heroicons](https://github.com/tailwindlabs/heroicons#vue) - beautiful hand-crafted SVG icons
 - [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 - [Vue Localization I18n](https://github.com/intlify/bundle-tools/tree/main/packages/vite-plugin-vue-i18n) - Vite plugin for Vue I18n
+- [Moment.js](https://momentjs.com) - Parse, validate, manipulate, and display dates and times in JavaScript.
 
 
 #### Plugins needed for Tailwind UI
