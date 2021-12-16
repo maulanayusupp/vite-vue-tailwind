@@ -3,7 +3,7 @@
 ![Vite, Vue, Tailwind CSS](https://user-images.githubusercontent.com/11320080/111277027-a9384c00-8640-11eb-8323-21889bd7c609.png)
 
 #### Libraries
-- [Tailwind CSS v3.0.0-alpha ⚠](https://github.com/tailwindlabs/tailwindcss/releases/tag/v3.0.0-alpha.1)
+- [Tailwind CSS v3.0.5](https://github.com/tailwindlabs/tailwindcss/releases/tag/v3.0.5)
 - [Vue Router 4.x](https://github.com/vuejs/vue-router-next)
 - [Vuex 4.x](https://next.vuex.vuejs.org/)
 - [Inter var font](https://github.com/rsms/inter) (self-hosted, woff2, v3.19, with 'preload' attr, check out index.html)
