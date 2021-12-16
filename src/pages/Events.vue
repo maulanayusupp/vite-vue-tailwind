@@ -73,7 +73,7 @@
 	@close="closeCreate"
 />
 
-<!-- Remove -->
+<!-- Modal Remove -->
 <t-modal
 	:is-show="isShowRemove"
 	@close="closeRemove">
@@ -127,6 +127,7 @@ export default {
 			isShowRemove: false,
 		}
 	},
+	watch: {},
 	methods: {
 		showCreate() {
 			this.isShowCreate = true;
