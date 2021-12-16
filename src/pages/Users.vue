@@ -204,7 +204,7 @@
 									</badge>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
-									<p class="text-xs text-gray-900">
+									<p class="text-xs text-gray-500">
 										<time :datetime="item.createdAt">{{ __dateTimeFormat(item.createdAt) }}</time>
 									</p>
 								</td>
