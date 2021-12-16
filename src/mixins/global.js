@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default {
     computed: {
         __isShowLeftNavigation() {
@@ -15,6 +17,13 @@ export default {
                 title: title,
                 text: message,
             });
+        },
+        __dateTimeFormat(dateTime) {
+            return moment(dateTime).format('MMMM Do YYYY, h:mm:ss');
+        },
+        __parseStringToArray(text) {
+            const items = text && typeof text === 'string' ? JSON.parse(text) : [];
+            return items;
         },
     },
     mounted() {
