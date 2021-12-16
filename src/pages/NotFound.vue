@@ -36,7 +36,7 @@
             </li>
         </ul>
         <div class="mt-8">
-            <a href="#" class="text-base font-medium text-indigo-600 hover:text-indigo-500">Or go back home<span aria-hidden="true"> &rarr;</span></a>
+            <router-link to="/" class="text-base font-medium text-indigo-600 hover:text-indigo-500">Or go back home<span aria-hidden="true"> &rarr;</span></router-link>
         </div>
         </div>
     </div>

@@ -1,40 +1,29 @@
 <template>
-<TransitionRoot as="template" :show="isShow">
-	<Dialog as="div" class="fixed inset-0 overflow-hidden top-0 z-20" @close="close()">
-	<div class="absolute inset-0 overflow-hidden">
-		<TransitionChild as="template" enter="ease-in-out duration-500" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-500" leave-from="opacity-100" leave-to="opacity-0">
-			<DialogOverlay class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </TransitionChild>
-
-		<div class="fixed inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16">
-		<TransitionChild as="template" enter="transform transition ease-in-out duration-500 sm:duration-700" enter-from="translate-x-full" enter-to="translate-x-0" leave="transform transition ease-in-out duration-500 sm:duration-700" leave-from="translate-x-0" leave-to="translate-x-full">
-			<div class="w-screen max-w-2xl">
-			<form class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
-				<div class="flex-1">
-				<!-- Header -->
-				<div class="px-4 py-6 bg-gray-50 sm:px-6">
-					<div class="flex items-start justify-between space-x-3">
+<slide-over :is-show="isShow">
+	<form class="h-full flex flex-col bg-white shadow-xl overflow-y-auto">
+		<div class="flex-1">
+			<!-- Header -->
+			<div class="px-4 py-6 bg-gray-50 sm:px-6">
+				<div class="flex items-start justify-between space-x-3">
 					<div class="space-y-1">
-						<DialogTitle class="text-lg font-medium text-gray-900">
-						New Event
-						</DialogTitle>
+						<div class="text-lg font-medium text-gray-900">New Event</div>
 						<p class="text-sm text-gray-500">
-						Get started by filling in the information below to create your new event.
+							Get started by filling in the information below to create your new event.
 						</p>
 					</div>
 					<div class="h-7 flex items-center">
 						<button type="button" class="text-gray-400 hover:text-gray-500" @click="close()">
-						<span class="sr-only">Close panel</span>
-						<XIcon class="h-6 w-6" aria-hidden="true" />
+							<span class="sr-only">Close panel</span>
+							<XIcon class="h-6 w-6" aria-hidden="true" />
 						</button>
 					</div>
-					</div>
 				</div>
+			</div>
 
-				<!-- Divider container -->
-				<div class="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200">
-					<!-- Event name -->
-					<div class="space-y-1 px-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+			<!-- Divider container -->
+			<div class="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-gray-200">
+				<!-- Event name -->
+				<div class="space-y-1 px-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
 					<div>
 						<label for="event-name" class="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2">
 						Event name
@@ -43,10 +32,10 @@
 					<div class="sm:col-span-2">
 						<input type="text" name="event-name" id="event-name" class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md" />
 					</div>
-					</div>
+				</div>
 
-					<!-- Event description -->
-					<div class="space-y-1 px-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+				<!-- Event description -->
+				<div class="space-y-1 px-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
 					<div>
 						<label for="event-description" class="block text-sm font-medium text-gray-900 sm:mt-px sm:pt-2">
 						Description
@@ -55,10 +44,10 @@
 					<div class="sm:col-span-2">
 						<textarea id="event-description" name="event-description" rows="3" class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md" />
 					</div>
-					</div>
+				</div>
 
-					<!-- Team members -->
-					<div class="space-y-2 px-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:px-6 sm:py-5">
+				<!-- Team members -->
+				<div class="space-y-2 px-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:px-6 sm:py-5">
 					<div>
 						<h3 class="text-sm font-medium text-gray-900">
 						Team Members
@@ -76,17 +65,17 @@
 						</button>
 						</div>
 					</div>
-					</div>
+				</div>
 
-					<!-- Privacy -->
-					<fieldset>
-					<div class="space-y-2 px-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:px-6 sm:py-5">
-						<div>
+				<!-- Privacy -->
+				<fieldset>
+				<div class="space-y-2 px-4 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:px-6 sm:py-5">
+					<div>
 						<legend class="text-sm font-medium text-gray-900">
 							Privacy
 						</legend>
-						</div>
-						<div class="space-y-5 sm:col-span-2">
+					</div>
+					<div class="space-y-5 sm:col-span-2">
 						<div class="space-y-5 sm:mt-0">
 							<div class="relative flex items-start">
 							<div class="absolute flex items-center h-5">
@@ -131,53 +120,48 @@
 						<hr class="border-gray-200" />
 						<div class="flex flex-col space-between space-y-4 sm:flex-row sm:items-center sm:space-between sm:space-y-0">
 							<div class="flex-1">
-							<a href="#" class="group flex items-center text-sm text-indigo-600 hover:text-indigo-900 font-medium space-x-2.5">
-								<LinkIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-900" aria-hidden="true" />
-								<span>
-								Copy link
-								</span>
-							</a>
+								<a href="#" class="group flex items-center text-sm text-indigo-600 hover:text-indigo-900 font-medium space-x-2.5">
+									<LinkIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-900" aria-hidden="true" />
+									<span>
+									Copy link
+									</span>
+								</a>
 							</div>
 							<div>
-							<a href="#" class="group flex items-center text-sm text-gray-500 hover:text-gray-900 space-x-2.5">
-								<QuestionMarkCircleIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-								<span>
-								Learn more about sharing
-								</span>
-							</a>
+								<a href="#" class="group flex items-center text-sm text-gray-500 hover:text-gray-900 space-x-2.5">
+									<QuestionMarkCircleIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+									<span>
+									Learn more about sharing
+									</span>
+								</a>
 							</div>
 						</div>
-						</div>
 					</div>
-					</fieldset>
 				</div>
-				</div>
-
-				<!-- Action buttons -->
-				<div class="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
-				<div class="space-x-3 flex justify-end">
-					<button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="close()">
-					Cancel
-					</button>
-					<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-					Create
-					</button>
-				</div>
-				</div>
-			</form>
+				</fieldset>
 			</div>
-		</TransitionChild>
 		</div>
-	</div>
-	</Dialog>
-</TransitionRoot>
+
+		<!-- Action buttons -->
+		<div class="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
+			<div class="space-x-3 flex justify-end">
+				<button type="button" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="close()">
+					Cancel
+				</button>
+				<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+					Create
+				</button>
+			</div>
+		</div>
+	</form>
+</slide-over>
+
 </template>
 
 <script>
-import { ref } from 'vue'
-import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { XIcon } from '@heroicons/vue/outline'
 import { LinkIcon, PlusSmIcon, QuestionMarkCircleIcon } from '@heroicons/vue/solid'
+import SlideOver from '@/components/global/SlideOver.vue'
 
 const team = [
 	{
@@ -219,15 +203,11 @@ const team = [
 
 export default {
 	components: {
-		Dialog,
-		DialogOverlay,
-		DialogTitle,
-		TransitionChild,
-		TransitionRoot,
 		LinkIcon,
 		PlusSmIcon,
 		QuestionMarkCircleIcon,
 		XIcon,
+		SlideOver,
 	},
 	props: {
 		isShow: {
@@ -235,11 +215,9 @@ export default {
 			default: () => false,
 		},
 	},
-	setup() {
-		const isOpened = ref(false);
+	data() {
 		return {
-			team,
-			isOpened,
+			team: team,
 		}
 	},
 	methods: {

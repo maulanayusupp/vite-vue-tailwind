@@ -53,6 +53,9 @@ export default {
 				case 'purple-solid':
 					btnClass = `focus:ring-indigo-500 text-white bg-indigo-600 hover:bg-indigo-700`;
 					break;
+				case 'red-solid':
+					btnClass = `focus:ring-red-500 text-white bg-red-600 hover:bg-red-700`;
+					break;
 			}
 			const theClass = `${btnClass} ${this.customClass}`;
 			return theClass;
