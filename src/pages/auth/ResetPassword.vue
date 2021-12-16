@@ -16,7 +16,7 @@
 							Email address
 							</label>
 							<div class="mt-1">
-								<t-input :type="`email`" :value="email" v-model="email" />
+								<t-input :type="`email`" :value="email" v-model="email" class="w-full" />
 							</div>
 						</div>
 

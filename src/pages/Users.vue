@@ -103,10 +103,13 @@
 		</div>
 	</header>
 
-	
-
-	<main class="pt-1 pb-16">
+	<main class="pt-6 pb-16">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+			<!-- Filter -->
+			<div class="flex justify-end">
+				<t-input :type="`text`" :value="keyword" v-model="keyword" :placeholder="`Search...`" />
+			</div>
+
 			<div class="px-4 sm:px-0" v-if="items.length > 0">
 				<!-- Tabs -->
 				<div class="sm:hidden">
@@ -241,6 +244,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline';
 
 import Pagination from '@/components/global/Pagination.vue';
 import TButton from '@/components/global/Button.vue';
+import TInput from '@/components/form/Input.vue';
 
 const navigation = [
 	{ name: 'Dashboard', href: '#', current: true },
@@ -266,6 +270,7 @@ const publishingOptions = [
 ];
 // API
 import userApi from '@/api/user';
+import { delay } from '@/libraries/helper';
 
 // Components
 import SkeletonPage from '@/components/loader/SkeletonPage.vue';
@@ -308,6 +313,7 @@ export default {
 		SkeletonPage,
 		SkeletonBox,
 		SkeletonLine,
+		TInput,
 	},
 	setup() {
 		const selected = ref(publishingOptions[0])
@@ -338,7 +344,13 @@ export default {
 		currentPage() {
 			this.fetchList();
 		},
+		keyword() {
+			delay(() => {
+				this.fetchList();
+			}, 500);
+		},
 	},
+
 	methods: {
 		fetchList() {
 			this.isFetching = true;
@@ -347,8 +359,8 @@ export default {
 				sortBy: this.sortBy,
 				limit: this.limit,
 				page: this.currentPage,
-				keyword: this.keyword,
 			};
+			if (this.keyword) params.keyword = this.keyword;
 			const callback = (response) => {
 				const data = response.data;
 				this.totalPage = response.lastPage;

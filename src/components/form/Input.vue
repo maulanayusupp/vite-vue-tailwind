@@ -38,7 +38,6 @@ export default {
 	methods: {
 		onInput(event) {
 			// Can add validation here
-			console.log(event.target.value);
 			this.$emit('update:modelValue', event.target.value);
 		},
 		onChange(event) { // Supports .lazy
@@ -51,7 +50,7 @@ export default {
 			return this.value ? this.value.toLowerCase() : '';
 		},
 		theClass() {
-			const myClass = `appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`;
+			const myClass = `appearance-none block px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`;
 			return myClass;
 		},
 	},

@@ -15,7 +15,7 @@ export default {
                 title: title,
                 text: message,
             });
-        }
+        },
     },
     mounted() {
     }

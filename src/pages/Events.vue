@@ -86,9 +86,10 @@
 				Delete Event
 			</div>
 			<div class="mt-2">
-			<p class="text-sm text-gray-500">
-				Are you sure you want to delete this event? This data will be permanently removed from our servers forever. This action cannot be undone.
-			</p>
+				<p class="text-sm text-gray-500">
+					Are you sure you want to delete this event? This data will be permanently removed from our servers forever.
+					<span class="text-red-500 text-xs mt-2 block">This action cannot be undone.</span>
+				</p>
 			</div>
 		</div>
 	</div>
