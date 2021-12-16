@@ -8,7 +8,7 @@
 				<h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
 					Users
 				</h1>
-				<div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-8">
+				<!-- <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-8">
 					<div class="mt-2 flex items-center text-sm text-gray-500">
 					<BriefcaseIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
 						Full-time
@@ -25,7 +25,7 @@
 					<CalendarIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
 						Closing on January 9, 2020
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="mt-5 flex xl:mt-0 xl:ml-4">
 				<!-- Dropdown Button Box -->
@@ -107,6 +107,11 @@
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
 			<div class="px-4 sm:px-0">
+				<!-- Filter -->
+				<div class="flex justify-end mt-4">
+					<t-input :type="`text`" :value="keyword" v-model="keyword" :placeholder="`Search...`" />
+				</div>
+
 				<!-- Tabs -->
 				<div class="mb-4">
 					<div class="sm:hidden">
@@ -131,10 +136,6 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- Filter -->
-				<div class="flex justify-end mb-4">
-					<t-input :type="`text`" :value="keyword" v-model="keyword" :placeholder="`Search...`" />
 				</div>
 			</div>
 
@@ -197,7 +198,7 @@
 										{{ item.isVerified ? 'Verified' : 'Not verified' }}
 									</p>
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 flex space-x-1">
+								<td class="px-6 py-4 whitespace-nowrap">
 									<badge class="block" v-for="(item, index) in __parseStringToArray(item.roles)" :key="index">
 										{{ item }}
 									</badge>
