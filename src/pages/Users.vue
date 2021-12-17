@@ -194,8 +194,8 @@
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
 									<p class="mt-2 flex items-center text-xs text-gray-500">
-										<CheckCircleIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" v-if="item.isVerified" />
-										{{ item.isVerified ? 'Verified' : 'Not verified' }}
+										<CheckCircleIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" v-if="item.is_verified" />
+										{{ item.is_verified ? 'Verified' : 'Not verified' }}
 									</p>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
@@ -205,7 +205,7 @@
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
 									<p class="text-xs text-gray-500">
-										<time :datetime="item.createdAt">{{ __dateTimeFormat(item.createdAt) }}</time>
+										<time :datetime="item.created_at">{{ __dateTimeFormat(item.created_at) }}</time>
 									</p>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -368,7 +368,7 @@ export default {
 			isFetching: false,
 			currentPage: 1,
 			totalPage: 10,
-			orderBy: 'createdAt',
+			orderBy: 'created_at',
 			sortBy: 'desc',
 			limit: 10,
 			keyword: '',
@@ -401,8 +401,8 @@ export default {
 			}
 			this.isFetching = true;
 			const params = {
-				orderBy: this.orderBy,
-				sortBy: this.sortBy,
+				order_by: this.orderBy,
+				sort_by: this.sortBy,
 				limit: this.limit,
 				page: this.currentPage,
 			};
@@ -410,7 +410,7 @@ export default {
 			if (this.selectedTab !== 'all') params.role = this.selectedTab;
 			const callback = (response) => {
 				const data = response.data;
-				this.totalPage = response.lastPage;
+				this.totalPage = response.last_page;
 				this.items = data;
 				this.isFetching = false;
 			};
