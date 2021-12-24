@@ -10,10 +10,6 @@
 	<!-- Actions -->
 	<div class="mb-8">
 		<div class="mt-6 flex justify-end space-x-2">
-			<t-button :color="`red-solid`" @click="showRemove">
-				<XIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-				Remove Event
-			</t-button>
 			<t-button :color="`purple-solid`" @click="showCreate">
 				<PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
 				New Event
@@ -64,6 +60,7 @@
 				</div>
 			</div>
 			<div>
+				<!-- Actions -->
 				<div class="-mt-px flex divide-x divide-gray-200">
 					<div class="w-0 flex-1 flex">
 						<a :href="`#`" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
@@ -72,10 +69,33 @@
 						</a>
 					</div>
 					<div class="-ml-px w-0 flex-1 flex">
-						<button class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+						<!-- Dropdown Actions -->
+						<Menu as="div" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+							<div>
+							<MenuButton class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+								<DotsVerticalIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-700" aria-hidden="true" />
+								<span class="ml-3">{{ $t('More') }}</span>
+							</MenuButton>
+							</div>
+							<transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+								<MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 text-right">
+									<MenuItem v-slot="{ active }">
+										<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
+									</MenuItem>
+									<MenuItem v-slot="{ active }">
+										<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
+									</MenuItem>
+									<MenuItem v-slot="{ active }" @click="showRemove(item)">
+										<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-500']">Delete</a>
+									</MenuItem>
+								</MenuItems>
+							</transition>
+						</Menu>
+
+						<!-- <button class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
 							<DotsVerticalIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
 							<span class="ml-3">{{ $t('More') }}</span>
-						</button>
+						</button> -->
 					</div>
 				</div>
 			</div>
@@ -138,6 +158,13 @@ import { delay } from '@/libraries/helper';
 
 // Components
 import { PlusIcon, EyeIcon, DotsVerticalIcon, XIcon, ExclamationIcon } from '@heroicons/vue/solid';
+import {
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuItems,
+} from '@headlessui/vue'
+
 import EventCreator from '@/components/events/EventCreator.vue';
 import TInput from '@/components/form/Input.vue';
 import TButton from '@/components/global/Button.vue';
@@ -154,6 +181,10 @@ export default {
 		DotsVerticalIcon,
 		XIcon,
 		ExclamationIcon,
+		Menu,
+		MenuButton,
+		MenuItem,
+		MenuItems,
 		EventCreator,
 		TInput,
 		TButton,
@@ -175,6 +206,7 @@ export default {
 			selectedTab: 'all',
 			isShowCreate: false,
 			isShowRemove: false,
+			selected: null,
 		}
 	},
 	mounted() {
@@ -235,10 +267,12 @@ export default {
 		closeCreate() {
 			this.isShowCreate = false;
 		},
-		showRemove() {
+		showRemove(item) {
+			this.selected = this.__duplicateVar(item);
 			this.isShowRemove = true;
 		},
 		closeRemove() {
+			this.selected = null;
 			this.isShowRemove = false;
 		},
 	},

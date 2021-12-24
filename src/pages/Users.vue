@@ -167,8 +167,8 @@
 												<MenuItem v-slot="{ active }">
 													<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
 												</MenuItem>
-												<MenuItem v-slot="{ active }">
-													<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Delete</a>
+												<MenuItem v-slot="{ active }" @click="showRemove(item)">
+													<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-500']">Delete</a>
 												</MenuItem>
 											</MenuItems>
 										</transition>
@@ -195,6 +195,36 @@
 		</div>
 	</main>
 </div>
+
+<!-- Modal Remove -->
+<t-modal
+	:is-show="isShowRemove"
+	@close="closeRemove">
+	<div class="sm:flex sm:items-start">
+		<div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+			<ExclamationIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
+		</div>
+		<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+			<div as="h3" class="text-lg leading-6 font-medium text-gray-900">
+				Delete User
+			</div>
+			<div class="mt-2">
+				<p class="text-sm text-gray-500">
+					Are you sure you want to delete this user? This data will be permanently removed from our servers forever.
+					<span class="text-red-500 text-xs mt-2 block">This action cannot be undone.</span>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="mt-5 sm:mt-4 sm:ml-10 sm:pl-4 sm:flex space-x-2">
+		<t-button :color="`red-solid`" @click="closeRemove">
+			Yes, Please Remove
+		</t-button>
+		<t-button :color="`default`" @click="closeRemove">
+			Cancel
+		</t-button>
+	</div>
+</t-modal>
 </template>
 
 <script>
@@ -211,9 +241,6 @@ import { delay } from '@/libraries/helper';
 
 // Components
 import {
-	Disclosure,
-	DisclosureButton,
-	DisclosurePanel,
 	Listbox,
 	ListboxButton,
 	ListboxLabel,
@@ -240,6 +267,7 @@ import {
 	PlusIcon,
 	SearchIcon,
 	DotsVerticalIcon,
+	ExclamationIcon,
 } from '@heroicons/vue/solid'
 
 import Pagination from '@/components/global/Pagination.vue';
@@ -248,12 +276,10 @@ import TInput from '@/components/form/Input.vue';
 import SkeletonPage from '@/components/loader/SkeletonPage.vue';
 import Badge from '@/components/global/Badge.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
+import TModal from '@/components/global/Modal.vue';
 
 export default {
 	components: {
-		Disclosure,
-		DisclosureButton,
-		DisclosurePanel,
 		Listbox,
 		ListboxButton,
 		ListboxLabel,
@@ -277,12 +303,14 @@ export default {
 		PlusIcon,
 		SearchIcon,
 		DotsVerticalIcon,
+		ExclamationIcon,
 		Pagination,
 		TButton,
 		SkeletonPage,
 		TInput,
 		EmptyList,
 		Badge,
+		TModal,
 	},
 	setup() {
 		return {
@@ -301,6 +329,9 @@ export default {
 			keyword: '',
 			items: [],
 			selectedTab: 'all',
+			selected: null,
+			isShowCreate: false,
+			isShowRemove: false,
 		}
 	},
 	mounted() {
@@ -355,6 +386,20 @@ export default {
 		},
 		next() {
 			if (this.currentPage < this.totalPage) this.currentPage++;
+		},
+		showCreate() {
+			this.isShowCreate = true;
+		},
+		closeCreate() {
+			this.isShowCreate = false;
+		},
+		showRemove(item) {
+			this.selected = this.__duplicateVar(item);
+			this.isShowRemove = true;
+		},
+		closeRemove() {
+			this.selected = null;
+			this.isShowRemove = false;
 		},
 	}
 }

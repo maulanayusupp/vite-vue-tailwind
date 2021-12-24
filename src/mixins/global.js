@@ -1,5 +1,7 @@
 import moment from 'moment';
 
+export const __duplicateVar = value => JSON.parse(JSON.stringify(value));
+
 export default {
     computed: {
         __isShowLeftNavigation() {
@@ -7,6 +9,7 @@ export default {
         },
     },
     methods: {
+        __duplicateVar,
         __showLeftNavigation() {
             this.$store.dispatch("navigation/setShowLeftNavigation", !this.__isShowLeftNavigation);
         },
