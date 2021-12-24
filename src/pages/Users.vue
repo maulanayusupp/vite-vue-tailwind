@@ -75,6 +75,7 @@
 				</div>
 			</div>
 
+			<!-- Empty Placeholder -->
 			<empty-list
 				:title="`No data available`"
 				:sub-title="`There are no data available at the moment`"

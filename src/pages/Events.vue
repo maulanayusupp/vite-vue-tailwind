@@ -8,7 +8,7 @@
     </div>
 
 	<!-- Actions -->
-	<div class="mb-10">
+	<div class="mb-8">
 		<div class="mt-6 flex justify-end space-x-2">
 			<t-button :color="`red-solid`" @click="showRemove">
 				<XIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
@@ -21,8 +21,15 @@
 		</div>
 	</div>
 
+	<div class="px-4 sm:px-0 mb-6">
+		<!-- Filter -->
+		<div class="flex justify-end mt-4">
+			<t-input :type="`text`" :value="keyword" v-model="keyword" :placeholder="`Search...`" />
+		</div>
+	</div>
 
-	<!-- Empty -->
+
+	<!-- Empty Placeholder -->
 	<empty-list
 		:title="`No data available`"
 		:sub-title="`There are no data available at the moment`"
@@ -46,10 +53,10 @@
 				<div class="p-5">
 					<h3 class="text-gray-900 text-lg font-medium truncate">{{ item.name }}</h3>
 					<dl class="mt-1 flex-grow flex flex-col justify-between">
-						<dt class="sr-only">Title</dt>
+						<dt class="sr-only">{{ $t('Title') }}</dt>
 						<dd class="text-gray-500 text-sm truncate">{{ item.description }}</dd>
-					
-						<dt class="sr-only">Status</dt>
+
+						<dt class="sr-only">{{ $t('Status') }}</dt>
 						<dd class="mt-3">
 							<span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{ item.status }}</span>
 						</dd>
@@ -59,16 +66,16 @@
 			<div>
 				<div class="-mt-px flex divide-x divide-gray-200">
 					<div class="w-0 flex-1 flex">
-						<a :href="`mailto:${item.email}`" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
-						<MailIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
-						<span class="ml-3">Email</span>
+						<a :href="`#`" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+						<EyeIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
+						<span class="ml-3">{{ $t('View') }}</span>
 						</a>
 					</div>
 					<div class="-ml-px w-0 flex-1 flex">
-						<a :href="`tel:${item.telephone}`" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
-						<PhoneIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
-						<span class="ml-3">Call</span>
-						</a>
+						<button class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+							<DotsVerticalIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
+							<span class="ml-3">{{ $t('More') }}</span>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -130,8 +137,9 @@ import eventApi from '@/api/event';
 import { delay } from '@/libraries/helper';
 
 // Components
-import { PlusIcon, MailIcon, PhoneIcon, XIcon, ExclamationIcon } from '@heroicons/vue/solid';
+import { PlusIcon, EyeIcon, DotsVerticalIcon, XIcon, ExclamationIcon } from '@heroicons/vue/solid';
 import EventCreator from '@/components/events/EventCreator.vue';
+import TInput from '@/components/form/Input.vue';
 import TButton from '@/components/global/Button.vue';
 import TModal from '@/components/global/Modal.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
@@ -142,11 +150,12 @@ import SkeletonPage from '@/components/loader/SkeletonPage.vue';
 export default {
 	components: {
 		PlusIcon,
-		MailIcon,
-		PhoneIcon,
+		EyeIcon,
+		DotsVerticalIcon,
 		XIcon,
 		ExclamationIcon,
 		EventCreator,
+		TInput,
 		TButton,
 		TModal,
 		EmptyList,
