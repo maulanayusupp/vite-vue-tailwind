@@ -43,3 +43,50 @@
 		</Listbox>
 	</span>
 </template>
+
+<script>
+// Components
+import {
+	Listbox,
+	ListboxButton,
+	ListboxLabel,
+	ListboxOption,
+	ListboxOptions,
+} from '@headlessui/vue'
+
+import {
+	CheckIcon,
+	ChevronDownIcon,
+} from '@heroicons/vue/solid'
+
+const publishingOptions = [
+	{ id: 'published', name: 'Published', description: 'This job posting can be viewed by anyone who has the link.', current: true },
+	{ id: 'draft', name: 'Draft', description: 'This job posting will no longer be publicly accessible.', current: false },
+];
+
+export default {
+	components: {
+		Listbox,
+		ListboxButton,
+		ListboxLabel,
+		ListboxOption,
+		ListboxOptions,
+		CheckIcon,
+		ChevronDownIcon,
+	},
+	data() {
+		const selected = ref(publishingOptions[0]);
+		return {
+			tabs,
+			publishingOptions,
+			selected,
+		}
+	},
+	created() {},
+	mounted() {},
+	beforeUnmount() {},
+	methods: {},
+	computed: {},
+	watch: {},
+}
+</script>

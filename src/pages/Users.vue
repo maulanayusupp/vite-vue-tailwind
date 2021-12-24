@@ -205,17 +205,11 @@ const tabs = [
 	{ id: 'admin', name: 'Admin', href: '#', current: false },
 ]
 
-const publishingOptions = [
-	{ id: 'published', name: 'Published', description: 'This job posting can be viewed by anyone who has the link.', current: true },
-	{ id: 'draft', name: 'Draft', description: 'This job posting will no longer be publicly accessible.', current: false },
-];
-
 // API
 import userApi from '@/api/user';
 import { delay } from '@/libraries/helper';
 
 // Components
-import { ref } from 'vue';
 import {
 	Disclosure,
 	DisclosureButton,
@@ -247,7 +241,6 @@ import {
 	SearchIcon,
 	DotsVerticalIcon,
 } from '@heroicons/vue/solid'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline';
 
 import Pagination from '@/components/global/Pagination.vue';
 import TButton from '@/components/global/Button.vue';
@@ -272,7 +265,6 @@ export default {
 		MenuItems,
 		ArrowNarrowLeftIcon,
 		ArrowNarrowRightIcon,
-		BellIcon,
 		BriefcaseIcon,
 		CalendarIcon,
 		CheckCircleIcon,
@@ -282,10 +274,8 @@ export default {
 		CurrencyDollarIcon,
 		LocationMarkerIcon,
 		MailIcon,
-		MenuIcon,
 		PlusIcon,
 		SearchIcon,
-		XIcon,
 		DotsVerticalIcon,
 		Pagination,
 		TButton,
@@ -295,15 +285,13 @@ export default {
 		Badge,
 	},
 	setup() {
-		const selected = ref(publishingOptions[0])
 		return {
-			tabs,
-			publishingOptions,
-			selected,
+			
 		}
 	},
 	data() {
 		return {
+			tabs,
 			isFetching: false,
 			currentPage: 1,
 			totalPage: 10,

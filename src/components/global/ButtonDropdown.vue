@@ -17,3 +17,34 @@
 		</transition>
 	</Menu>
 </template>
+
+<script>
+import { ChevronDownIcon } from '@heroicons/vue/solid'
+
+import {
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuItems,
+} from '@headlessui/vue'
+
+export default {
+	components: {
+		Menu,
+		MenuButton,
+		MenuItem,
+		MenuItems,
+		ChevronDownIcon,
+	},
+	data() {
+		return {
+		}
+	},
+	created() {},
+	mounted() {},
+	beforeUnmount() {},
+	methods: {},
+	computed: {},
+	watch: {},
+}
+</script>
