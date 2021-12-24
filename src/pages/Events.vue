@@ -33,7 +33,7 @@
 	<empty-list
 		:title="`No data available`"
 		:sub-title="`There are no data available at the moment`"
-		v-if="items.length === 0"
+		v-if="items.length === 0 && !isFetching"
 	/>
 
 	<!-- Loader -->

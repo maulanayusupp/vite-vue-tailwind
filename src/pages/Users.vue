@@ -53,8 +53,14 @@
 					<div class="sm:hidden">
 						<label for="tabs" class="sr-only">Select a tab</label>
 						<!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
-						<select id="tabs" name="tabs" class="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md">
-							<option v-for="tab in tabs" :key="tab.name" :selected="tab.current">{{ tab.name }}</option>
+						<select
+							v-model="selectedTab"
+							id="tabs"
+							name="tabs"
+							class="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md">
+							<option v-for="tab in tabs" :key="tab.name" :value="tab.id" :selected="tab.id === selectedTab">
+								{{ tab.name }}
+							</option>
 						</select>
 					</div>
 					<div class="hidden sm:block">
@@ -79,7 +85,7 @@
 			<empty-list
 				:title="`No data available`"
 				:sub-title="`There are no data available at the moment`"
-				v-if="items.length === 0"
+				v-if="items.length === 0 && !isFetching"
 			/>
 
 			<!-- Loader -->
@@ -96,13 +102,13 @@
 								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
 									Name
 								</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
 									Status
 								</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
 									Role
 								</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
 									Created
 								</th>
 								<th scope="col" class="relative px-6 py-3">
@@ -129,18 +135,18 @@
 										</div>
 									</div>
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap">
+								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
 									<p class="mt-2 flex items-center text-xs text-gray-500">
 										<CheckCircleIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" v-if="item.is_verified" />
 										{{ item.is_verified ? 'Verified' : 'Not verified' }}
 									</p>
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap">
+								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
 									<badge class="block" v-for="(item, index) in __parseStringToArray(item.roles)" :key="index">
 										{{ item }}
 									</badge>
 								</td>
-								<td class="px-6 py-4 whitespace-nowrap">
+								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
 									<p class="text-xs text-gray-500">
 										<time :datetime="item.created_at">{{ __dateTimeFormat(item.created_at) }}</time>
 									</p>
