@@ -23,48 +23,68 @@
 
 
 	<!-- Empty -->
-	<div class="py-16" v-if="items.length === 0">
-		<div class="mx-auto lg:items-center lg:justify-between text-center">
-			<h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-2xl">
-				<span class="block">Ready to dive in?</span>
-				<span class="block text-indigo-600">Start your event today.</span>
-			</h2>
-		</div>
-	</div>
+	<empty-list
+		:title="`No data available`"
+		:sub-title="`There are no data available at the moment`"
+		v-if="items.length === 0"
+	/>
+
+	<!-- Loader -->
+	<skeleton-page class="p-8" v-if="isFetching" />
 
 	<!-- List -->
-	<ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+	<ul
+		role="list"
+		class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+		v-if="!isFetching && items.length > 0">
 		<li v-for="item in items" :key="item.email" class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
-		<div class="flex-1 flex flex-col p-8">
-			<img class="w-32 h-32 flex-shrink-0 mx-auto rounded-full" :src="item.imageUrl" alt="" />
-			<h3 class="mt-6 text-gray-900 text-sm font-medium">{{ item.name }}</h3>
-			<dl class="mt-1 flex-grow flex flex-col justify-between">
-			<dt class="sr-only">Title</dt>
-			<dd class="text-gray-500 text-sm">{{ item.title }}</dd>
-			<dt class="sr-only">Role</dt>
-			<dd class="mt-3">
-				<span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{ item.role }}</span>
-			</dd>
-			</dl>
-		</div>
-		<div>
-			<div class="-mt-px flex divide-x divide-gray-200">
-			<div class="w-0 flex-1 flex">
-				<a :href="`mailto:${item.email}`" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
-				<MailIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
-				<span class="ml-3">Email</span>
-				</a>
+			<div class="flex-1 flex flex-col">
+				<div class="relative h-32 sm:h-36">
+                    <img class="absolute h-full w-full object-cover rounded-tl-lg rounded-tr-lg" :src="item.icon" alt="">
+                </div>
+
+				<div class="p-5">
+					<h3 class="text-gray-900 text-lg font-medium truncate">{{ item.name }}</h3>
+					<dl class="mt-1 flex-grow flex flex-col justify-between">
+						<dt class="sr-only">Title</dt>
+						<dd class="text-gray-500 text-sm truncate">{{ item.description }}</dd>
+					
+						<dt class="sr-only">Status</dt>
+						<dd class="mt-3">
+							<span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{ item.status }}</span>
+						</dd>
+					</dl>
+				</div>
 			</div>
-			<div class="-ml-px w-0 flex-1 flex">
-				<a :href="`tel:${item.telephone}`" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
-				<PhoneIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
-				<span class="ml-3">Call</span>
-				</a>
+			<div>
+				<div class="-mt-px flex divide-x divide-gray-200">
+					<div class="w-0 flex-1 flex">
+						<a :href="`mailto:${item.email}`" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+						<MailIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
+						<span class="ml-3">Email</span>
+						</a>
+					</div>
+					<div class="-ml-px w-0 flex-1 flex">
+						<a :href="`tel:${item.telephone}`" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+						<PhoneIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
+						<span class="ml-3">Call</span>
+						</a>
+					</div>
+				</div>
 			</div>
-			</div>
-		</div>
 		</li>
 	</ul>
+
+	<!-- Pagination -->
+	<pagination
+		:is-number-pages-enabled="true"
+		:current-page="currentPage"
+		:total-page="totalPage"
+		@next="next"
+		@previous="previous"
+		@setPage="setPage"
+		v-if="totalPage > 1"
+	/>
 </div>
 
 <!-- Event Creator -->
@@ -105,10 +125,19 @@
 </template>
 
 <script>
+// API
+import eventApi from '@/api/event';
+import { delay } from '@/libraries/helper';
+
+// Components
 import { PlusIcon, MailIcon, PhoneIcon, XIcon, ExclamationIcon } from '@heroicons/vue/solid';
 import EventCreator from '@/components/events/EventCreator.vue';
 import TButton from '@/components/global/Button.vue';
 import TModal from '@/components/global/Modal.vue';
+import EmptyList from '@/components/global/EmptyList.vue';
+import Pagination from '@/components/global/Pagination.vue';
+import SkeletonPage from '@/components/loader/SkeletonPage.vue';
+
 
 export default {
 	components: {
@@ -120,16 +149,77 @@ export default {
 		EventCreator,
 		TButton,
 		TModal,
+		EmptyList,
+		Pagination,
+		SkeletonPage,
 	},
 	data() {
 		return {
+			isFetching: false,
+			currentPage: 1,
+			totalPage: 10,
+			orderBy: 'created_at',
+			sortBy: 'desc',
+			limit: 8,
+			keyword: '',
 			items: [],
+			selectedTab: 'all',
 			isShowCreate: false,
 			isShowRemove: false,
 		}
 	},
-	watch: {},
+	mounted() {
+		this.fetchList();
+	},
+	watch: {
+		currentPage() {
+			this.fetchList();
+		},
+		selectedTab() {
+			this.fetchList(true);
+		},
+		keyword() {
+			delay(() => {
+				this.fetchList(true);
+			}, 500);
+		},
+	},
 	methods: {
+		fetchList(isReset = false) {
+			if (isReset) {
+				this.currentPage = 1;
+				this.items = [];
+			}
+			this.isFetching = true;
+			const params = {
+				order_by: this.orderBy,
+				sort_by: this.sortBy,
+				limit: this.limit,
+				page: this.currentPage,
+			};
+			if (this.keyword) params.keyword = this.keyword;
+			const callback = (response) => {
+				const data = response.data;
+				this.totalPage = response.last_page;
+				this.items = data;
+				this.isFetching = false;
+			};
+			const errorCallback = (error) => {
+				const message = error.response.data.message;
+				this.__showNotif('error', 'Error', message);
+				this.isFetching = false;
+			};
+			eventApi.getList(params, callback, errorCallback);
+		},
+		setPage(page) {
+			this.currentPage = page;
+		},
+		previous() {
+			if (this.currentPage > 1) this.currentPage--;
+		},
+		next() {
+			if (this.currentPage < this.totalPage) this.currentPage++;
+		},
 		showCreate() {
 			this.isShowCreate = true;
 		},

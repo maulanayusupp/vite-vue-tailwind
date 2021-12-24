@@ -4,9 +4,8 @@ import { buildQuery } from '@/libraries/helper';
 const endpoint = '/v1/users';
 
 export default {
-
-	// Get Users
-	fetchList(params, cb, errorCb) {
+	// Get List
+	getList(params, cb, errorCb) {
 		const responseHandler = (response) => {
 			if (cb) cb(response.data);
 		};
@@ -20,7 +19,7 @@ export default {
 			.catch(errorHandler);
 	},
 
-	// Create User
+	// Create
 	create(params, cb, errorCb) {
 		const responseHandler = (response) => {
 			if (cb) cb(response.data);
@@ -34,7 +33,7 @@ export default {
 			.catch(errorHandler);
 	},
 
-	// Update user
+	// Update
 	update(id, params, cb, errorCb) {
 		const url = `${endpoint}/${id}`;
 		client.put(url, params)
@@ -48,7 +47,7 @@ export default {
 			});
 	},
 
-	// Get User Profile
+	// Get details
 	get(id, cb, errorCb) {
 		const url = `${endpoint}/${id}`;
 		client.get(url)
@@ -58,6 +57,24 @@ export default {
 			.catch((e) => {
 				errorCb(e);
 			});
+	},
+
+	// Bulk Delete
+	bulkDelete(ids, cb, errorCb) {
+		const params = {
+			user_ids: JSON.stringify(ids),
+			is_deleted: 1,
+		};
+		const url = `${endpoint}`;
+		const responseHandler = (response) => {
+			if (cb) cb(response.data);
+		};
+		const errorHandler = (e) => {
+			if (errorCb) errorCb(e);
+		};
+		client.delete(url, { data: params })
+			.then(responseHandler)
+			.catch(errorHandler);
 	},
 
 	// Get User Profile
@@ -79,31 +96,7 @@ export default {
 				cb(response.data);
 			})
 			.catch((e) => {
-				if (errorCb) {
-					errorCb(e);
-				}
+				if (errorCb) errorCb(e);
 			});
-	},
-
-	// Bulk Delete
-	bulkDelete(ids, cb, errorCb) {
-		const params = {
-			user_ids: JSON.stringify(ids),
-			is_deleted: 1,
-		};
-		const url = `${endpoint}`;
-		const responseHandler = (response) => {
-			if (cb) {
-				cb(response.data);
-			}
-		};
-		const errorHandler = (e) => {
-			if (errorCb) {
-				errorCb(e);
-			}
-		};
-		client.delete(url, { data: params })
-			.then(responseHandler)
-			.catch(errorHandler);
 	},
 };

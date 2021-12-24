@@ -1,7 +1,7 @@
 import { buildQuery } from '@/libraries/helper';
 import client from '@/libraries/http-client';
 
-const endpoint = '/api/files';
+const endpoint = '/v1/events';
 
 export default {
 	/*

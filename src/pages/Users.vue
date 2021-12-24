@@ -28,70 +28,6 @@
 				</div> -->
 			</div>
 			<div class="mt-5 flex xl:mt-0 xl:ml-4">
-				<!-- Dropdown Button Box -->
-				<span class="sm:ml-3 relative z-0">
-					<Listbox as="div" v-model="selected">
-						<ListboxLabel class="sr-only">
-							Change published status
-						</ListboxLabel>
-						<div class="relative">
-							<div class="inline-flex shadow-sm rounded-md divide-x divide-purple-600">
-							<div class="relative z-0 inline-flex shadow-sm rounded-md divide-x divide-purple-600">
-								<div class="relative inline-flex items-center bg-purple-500 py-2 pl-3 pr-4 border border-transparent rounded-l-md shadow-sm text-white">
-								<CheckIcon class="h-5 w-5" aria-hidden="true" />
-								<p class="ml-2.5 text-sm font-medium">{{ selected.name }}</p>
-								</div>
-								<ListboxButton class="relative inline-flex items-center bg-purple-500 p-2 rounded-l-none rounded-r-md text-sm font-medium text-white hover:bg-purple-600 focus:outline-none focus:z-10 focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-purple-500">
-								<span class="sr-only">Change published status</span>
-								<ChevronDownIcon class="h-5 w-5 text-white" aria-hidden="true" />
-								</ListboxButton>
-							</div>
-							</div>
-
-							<transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
-							<ListboxOptions class="origin-top-right absolute left-0 mt-2 -mr-1 w-72 rounded-md shadow-lg overflow-hidden bg-white divide-y divide-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none sm:left-auto sm:right-0">
-								<ListboxOption as="template" v-for="option in publishingOptions" :key="option.name" :value="option" v-slot="{ active, selected }">
-								<li :class="[active ? 'text-white bg-purple-500' : 'text-gray-900', 'cursor-default select-none relative p-4 text-sm']">
-									<div class="flex flex-col">
-									<div class="flex justify-between">
-										<p :class="selected ? 'font-semibold' : 'font-normal'">
-										{{ option.name }}
-										</p>
-										<span v-if="selected" :class="active ? 'text-white' : 'text-purple-500'">
-										<CheckIcon class="h-5 w-5" aria-hidden="true" />
-										</span>
-									</div>
-									<p :class="[active ? 'text-purple-200' : 'text-gray-500', 'mt-2']">
-										{{ option.description }}
-									</p>
-									</div>
-								</li>
-								</ListboxOption>
-							</ListboxOptions>
-							</transition>
-						</div>
-					</Listbox>
-				</span>
-
-				<!-- Dropdown Button -->
-				<Menu as="span" class="ml-3 relative">
-					<MenuButton class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-						More
-						<ChevronDownIcon class="-mr-1 ml-2 h-5 w-5 text-gray-500" aria-hidden="true" />
-					</MenuButton>
-
-					<transition enter-active-class="transition ease-out duration-200" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-						<MenuItems class="origin-top-right absolute right-0 mt-2 -mr-1 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-							<MenuItem v-slot="{ active }">
-								<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
-							</MenuItem>
-							<MenuItem v-slot="{ active }">
-								<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
-							</MenuItem>
-						</MenuItems>
-					</transition>
-				</Menu>
-
 				<!-- Create -->
 				<span class="hidden sm:block">
 					<t-button :color="`purple-solid`" class="ml-3">
@@ -178,8 +114,8 @@
 								<td class="px-6 py-4 whitespace-nowrap">
 									<div class="flex items-center">
 										<div class="flex-shrink-0 h-12 w-12">
-											<!-- <img class="h-12 w-12 rounded-full group-hover:opacity-75" :src="item.imageUrl" alt="" /> -->
-											<img class="h-12 w-12 rounded-full group-hover:opacity-75" :src="`https://images.unsplash.com/photo-1563982277846-1299eec465d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`" alt="" />
+											<img class="h-12 w-12 rounded-full group-hover:opacity-75" :src="item.profile.picture" alt="" v-if="item.profile && item.profile.picture" />
+											<img class="h-12 w-12 rounded-full group-hover:opacity-75" :src="`https://images.unsplash.com/photo-1563982277846-1299eec465d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`" alt="" v-else />
 										</div>
 										<div class="ml-4">
 										<div class="text-sm font-medium text-gray-900">
@@ -255,6 +191,23 @@
 </template>
 
 <script>
+
+const tabs = [
+	{ id: 'all', name: 'All', href: '#', current: false },
+	{ id: 'client', name: 'Client', href: '#', current: false },
+	{ id: 'admin', name: 'Admin', href: '#', current: false },
+]
+
+const publishingOptions = [
+	{ id: 'published', name: 'Published', description: 'This job posting can be viewed by anyone who has the link.', current: true },
+	{ id: 'draft', name: 'Draft', description: 'This job posting will no longer be publicly accessible.', current: false },
+];
+
+// API
+import userApi from '@/api/user';
+import { delay } from '@/libraries/helper';
+
+// Components
 import { ref } from 'vue';
 import {
 	Disclosure,
@@ -292,26 +245,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline';
 import Pagination from '@/components/global/Pagination.vue';
 import TButton from '@/components/global/Button.vue';
 import TInput from '@/components/form/Input.vue';
-
-const tabs = [
-	{ id: 'all', name: 'All', href: '#', current: false },
-	{ id: 'client', name: 'Client', href: '#', current: false },
-	{ id: 'admin', name: 'Admin', href: '#', current: false },
-]
-
-const publishingOptions = [
-	{ id: 'published', name: 'Published', description: 'This job posting can be viewed by anyone who has the link.', current: true },
-	{ id: 'draft', name: 'Draft', description: 'This job posting will no longer be publicly accessible.', current: false },
-];
-// API
-import userApi from '@/api/user';
-import { delay } from '@/libraries/helper';
-
-// Components
 import SkeletonPage from '@/components/loader/SkeletonPage.vue';
-import SkeletonBox from '@/components/loader/SkeletonBox.vue';
-import SkeletonLine from '@/components/loader/SkeletonLine.vue';
-
 import Badge from '@/components/global/Badge.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
 
@@ -349,8 +283,6 @@ export default {
 		Pagination,
 		TButton,
 		SkeletonPage,
-		SkeletonBox,
-		SkeletonLine,
 		TInput,
 		EmptyList,
 		Badge,
@@ -392,7 +324,6 @@ export default {
 			}, 500);
 		},
 	},
-
 	methods: {
 		fetchList(isReset = false) {
 			if (isReset) {
@@ -419,7 +350,7 @@ export default {
 				this.__showNotif('error', 'Error', message);
 				this.isFetching = false;
 			};
-			userApi.fetchList(params, callback, errorCallback);
+			userApi.getList(params, callback, errorCallback);
 		},
 		setPage(page) {
 			this.currentPage = page;
@@ -429,13 +360,6 @@ export default {
 		},
 		next() {
 			if (this.currentPage < this.totalPage) this.currentPage++;
-		},
-		scrollToMyEl(id) {	
-			setTimeout(() => {
-				const container = document.getElementById(`${id}`);
-				console.log(container);
-				container.scrollTop = container.scrollHeight;
-			}, 2000);
 		},
 	}
 }
