@@ -89,7 +89,7 @@
 			/>
 
 			<!-- Loader -->
-			<skeleton-page class="p-8" v-if="isFetching" />
+			<skeleton-page class="px-8" v-if="isFetching" />
 
 			<!-- List Table -->
 			<div class="flex flex-col" v-if="!isFetching && items.length > 0">
@@ -161,10 +161,10 @@
 										</div>
 										<transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
 											<MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
-												<MenuItem v-slot="{ active }">
+												<MenuItem v-slot="{ active }" @click="showEdit(item)">
 													<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
 												</MenuItem>
-												<MenuItem v-slot="{ active }">
+												<MenuItem v-slot="{ active }" @click="showDetails(item)">
 													<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
 												</MenuItem>
 												<MenuItem v-slot="{ active }" @click="showRemove(item)">
@@ -196,6 +196,14 @@
 	</main>
 </div>
 
+<!-- Side Details -->
+<side-details
+	:is-show="isShowDetails"
+	:item="selected"
+	@close="closeDetails"
+	@showEdit="showEdit"
+/>
+
 <!-- Modal Remove -->
 <t-modal
 	:is-show="isShowRemove"
@@ -217,10 +225,10 @@
 		</div>
 	</div>
 	<div class="mt-5 sm:mt-4 sm:ml-10 sm:pl-4 sm:flex space-x-2">
-		<t-button :color="`red-solid`" @click="closeRemove">
+		<t-button :color="`red-solid`" :is-loading="isDeleting" :is-disabled="isDeleting" @click="approveRemove">
 			Yes, Please Remove
 		</t-button>
-		<t-button :color="`default`" @click="closeRemove">
+		<t-button :color="`default`" :is-disabled="isDeleting" @click="closeRemove">
 			Cancel
 		</t-button>
 	</div>
@@ -277,6 +285,7 @@ import SkeletonPage from '@/components/loader/SkeletonPage.vue';
 import Badge from '@/components/global/Badge.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
 import TModal from '@/components/global/Modal.vue';
+import SideDetails from '@/components/users/SideDetails.vue';
 
 export default {
 	components: {
@@ -311,6 +320,7 @@ export default {
 		EmptyList,
 		Badge,
 		TModal,
+		SideDetails,
 	},
 	setup() {
 		return {
@@ -322,7 +332,7 @@ export default {
 			tabs,
 			isFetching: false,
 			currentPage: 1,
-			totalPage: 10,
+			totalPage: 1,
 			orderBy: 'created_at',
 			sortBy: 'desc',
 			limit: 10,
@@ -332,6 +342,8 @@ export default {
 			selected: null,
 			isShowCreate: false,
 			isShowRemove: false,
+			isDeleting: false,
+			isShowDetails: false,
 		}
 	},
 	mounted() {
@@ -388,18 +400,62 @@ export default {
 			if (this.currentPage < this.totalPage) this.currentPage++;
 		},
 		showCreate() {
+			this.selected = null;
 			this.isShowCreate = true;
 		},
 		closeCreate() {
 			this.isShowCreate = false;
+			this.selected = null;
+		},
+		showEdit(item) {
+			this.selected = this.__duplicateVar(item);
+			this.isShowCreate = true;
+		},
+		closeEdit() {
+			this.isShowCreate = false;
+			this.selected = null;
 		},
 		showRemove(item) {
 			this.selected = this.__duplicateVar(item);
 			this.isShowRemove = true;
 		},
 		closeRemove() {
-			this.selected = null;
 			this.isShowRemove = false;
+			this.selected = null;
+		},
+		approveRemove() {
+			// If no selected
+			if (!this.selected) return;
+			const selectedId = this.selected.id;
+
+			this.isDeleting = true;
+			const callback = (response) => {
+				this.onRemove(selectedId);
+				this.closeRemove();
+				this.isDeleting = false;
+			};
+			const errorCallback = (error) => {
+				const message = error.response.data.message;
+				this.__showNotif('error', 'Error', message);
+				this.isDeleting = false;
+			};
+			userApi.delete(selectedId, callback, errorCallback);
+		},
+		onRemove(selectedId) {
+			const index = this.items.findIndex(curr => curr.id === selectedId);
+			if (index !== 1) this.items.splice(index, 1);
+		},
+		showDetails(item) {
+			this.selected = this.__duplicateVar(item);
+			this.isShowDetails = true;
+		},
+		closeDetails() {
+			this.isShowDetails = false;
+
+			// Clear after
+			setTimeout(() => {
+				this.selected = null;
+			}, 2000);
 		},
 	}
 }

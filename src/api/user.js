@@ -59,6 +59,30 @@ export default {
 			});
 	},
 
+	// Delete
+	delete(id, cb, errorCb) {
+		const url = `${endpoint}/${id}`;
+		client.delete(url)
+			.then((response) => {
+				cb(response.data);
+			})
+			.catch((e) => {
+				if (errorCb) errorCb(e);
+			});
+	},
+
+	// Delete
+	deleteForever(id, cb, errorCb) {
+		const url = `${endpoint}/permanent/${id}`;
+		client.delete(url)
+			.then((response) => {
+				cb(response.data);
+			})
+			.catch((e) => {
+				if (errorCb) errorCb(e);
+			});
+	},
+
 	// Bulk Delete
 	bulkDelete(ids, cb, errorCb) {
 		const params = {

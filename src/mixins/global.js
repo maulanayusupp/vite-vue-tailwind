@@ -21,8 +21,11 @@ export default {
                 text: message,
             });
         },
+        __dateFormat(dateTime) {
+            return moment(dateTime).format('Do MMMM YYYY');
+        },
         __dateTimeFormat(dateTime) {
-            return moment(dateTime).format('MMMM Do YYYY, h:mm:ss');
+            return moment(dateTime).format('Do MMMM YYYY, hh:mm:ss');
         },
         __parseStringToArray(text) {
             const items = text && typeof text === 'string' ? JSON.parse(text) : [];

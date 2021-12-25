@@ -33,7 +33,7 @@
 	/>
 
 	<!-- Loader -->
-	<skeleton-page class="p-8" v-if="isFetching" />
+	<skeleton-page class="px-8" v-if="isFetching" />
 
 	<!-- List -->
 	<ul
@@ -171,8 +171,7 @@ import TButton from '@/components/global/Button.vue';
 import TModal from '@/components/global/Modal.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
 import Pagination from '@/components/global/Pagination.vue';
-import SkeletonPage from '@/components/loader/SkeletonPage.vue';
-
+import SkeletonPage from '@/components/loader/SkeletonPage.vue';``
 
 export default {
 	components: {
@@ -197,7 +196,7 @@ export default {
 		return {
 			isFetching: false,
 			currentPage: 1,
-			totalPage: 10,
+			totalPage: 1,
 			orderBy: 'created_at',
 			sortBy: 'desc',
 			limit: 8,

@@ -8,7 +8,9 @@
 
 			<div class="fixed inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16">
 				<TransitionChild as="template" enter="transform transition ease-in-out duration-500 sm:duration-700" enter-from="translate-x-full" enter-to="translate-x-0" leave="transform transition ease-in-out duration-500 sm:duration-700" leave-from="translate-x-0" leave-to="translate-x-full">
-					<div class="w-screen max-w-2xl">
+					<div
+						:class="`${widthClass}`"
+						class="w-screen">
 						<slot></slot>
 					</div>
 				</TransitionChild>
@@ -33,6 +35,10 @@ export default {
 		isShow: {
 			type: Boolean,
 			default: () => false,
+		},
+		widthClass: {
+			type: String,
+			default: () => 'max-w-2xl'
 		},
 	},
 	data() {

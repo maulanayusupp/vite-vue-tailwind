@@ -1,4 +1,4 @@
-const items = [
+export const DUMMY_USERS = [
 	{
 		name: 'Emily Selman',
 		email: 'emilyselman@example.com',
@@ -82,4 +82,28 @@ const items = [
 	},
 ];
 
-export default items;
+export const USER_DEFAULT = {
+	id: null,
+	email: null,
+	username: null,
+	password: null,
+	name: null,
+	mobile_phone: null,
+	roles: null,
+	language: 'en',
+	is_verified: true,
+	is_spectator: false,
+	is_allow_notify: false,
+	settings: {},
+	picture: null,
+	gender: null,
+	job_title: null,
+	address: null,
+	city: null,
+	state: null,
+	country: null,
+	postal_code: null,
+	company: null,
+	birth_date: null,
+	biography: null,
+};
