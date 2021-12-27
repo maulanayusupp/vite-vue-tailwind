@@ -10,6 +10,11 @@ const routes = [
   { name: 'Users', path: '/users', component: () => import('@/pages/Users.vue'), meta: { title: 'Users', layout: 'main' }, },
   { name: 'Teams', path: '/teams', component: () => import('@/pages/Teams.vue'), meta: { title: 'Teams', layout: 'main' }, },
   { name: 'Events', path: '/events', component: () => import('@/pages/Events.vue'), meta: { title: 'Events', layout: 'main' }, },
+  { name: 'Templates', path: '/templates', component: () => import('@/pages/Templates.vue'), meta: { title: 'Templates', layout: 'main' }, },
+  { name: 'Categories', path: '/categories', component: () => import('@/pages/Categories.vue'), meta: { title: 'Categories', layout: 'main' }, },
+  { name: 'Announcements', path: '/announcements', component: () => import('@/pages/Announcements.vue'), meta: { title: 'Announcements', layout: 'main' }, },
+  { name: 'Changelogs', path: '/changelogs', component: () => import('@/pages/Changelogs.vue'), meta: { title: 'Changelogs', layout: 'main' }, },
+  { name: 'Tags', path: '/tags', component: () => import('@/pages/Tags.vue'), meta: { title: 'Tags', layout: 'main' }, },
   { name: 'Settings', path: '/settings', component: () => import('@/pages/Settings.vue'), meta: { title: 'Settings', layout: 'main' }, },
   { name: 'NotFound', path: '/:path(.*)', component: () => import('@/pages/NotFound.vue'), meta: { title: 'Not Found', layout: 'main' }, },
 ];

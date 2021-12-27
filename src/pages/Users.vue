@@ -1,5 +1,5 @@
 <template>
-<div class="relative min-h-screen" id="page-user">
+<div class="relative min-h-screen">
 
 	<!-- Page heading -->
 	<header class="bg-gray-50 py-6">
