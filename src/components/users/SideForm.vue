@@ -284,6 +284,9 @@ export default {
 				const item = response.data;
 				this.$emit('onUpdate', item);
 				this.isSaving = false;
+
+				const message = response.message;
+				this.__showNotif('success', 'User', message);
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
@@ -299,8 +302,11 @@ export default {
 			this.isSaving = true;
 			const callback = (response) => {
 				const item = response.data;
-				this.$emit('onCreate', item)
+				this.$emit('onCreate', item);
 				this.isSaving = false;
+
+				const message = response.message;
+				this.__showNotif('success', 'User', message);
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
