@@ -82,6 +82,12 @@ export const DUMMY_USERS = [
 	},
 ];
 
+export const FILTER_TABS = [
+	{ id: 'all', name: 'All', href: '#', current: false },
+	{ id: 'client', name: 'Client', href: '#', current: false },
+	{ id: 'admin', name: 'Admin', href: '#', current: false },
+];
+
 export const USER_DEFAULT = {
 	id: null,
 	email: null,

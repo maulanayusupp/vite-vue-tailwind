@@ -30,7 +30,7 @@
 			<div class="mt-5 flex xl:mt-0 xl:ml-4">
 				<!-- Create -->
 				<span class="hidden sm:block">
-					<t-button :color="`purple-solid`" class="ml-3">
+					<t-button :color="`purple-solid`" class="ml-3" @click="showCreate">
 						<PlusIcon class="-ml-1 mr-2 h-5 w-5 text-white" aria-hidden="true" />
 						Create User
 					</t-button>
@@ -67,7 +67,7 @@
 						<div class="border-b border-gray-200">
 							<div class="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
 								<div
-									v-for="tab in tabs"
+									v-for="tab in filterTabs"
 									:key="tab.name"
 									:href="tab.href"
 									:class="[tab.id === selectedTab ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200', 'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer']"
@@ -91,7 +91,7 @@
 			<!-- Loader -->
 			<skeleton-page class="px-8" v-if="isFetching" />
 
-			<!-- List Table -->
+			<!-- List - Table -->
 			<div class="flex flex-col" v-if="!isFetching && items.length > 0">
 				<div class="-my-2 sm:-mx-6 lg:-mx-8">
 					<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -196,6 +196,13 @@
 	</main>
 </div>
 
+<!-- Side Form -->
+<side-form
+	:is-show="isShowCreate"
+	:item="selected"
+	@close="closeCreate"
+/>
+
 <!-- Side Details -->
 <side-details
 	:is-show="isShowDetails"
@@ -236,16 +243,12 @@
 </template>
 
 <script>
-
-const tabs = [
-	{ id: 'all', name: 'All', href: '#', current: false },
-	{ id: 'client', name: 'Client', href: '#', current: false },
-	{ id: 'admin', name: 'Admin', href: '#', current: false },
-]
-
 // API
 import userApi from '@/api/user';
 import { delay } from '@/libraries/helper';
+
+// Statics
+import { FILTER_TABS } from '@/databags/user';
 
 // Components
 import {
@@ -285,6 +288,7 @@ import SkeletonPage from '@/components/loader/SkeletonPage.vue';
 import Badge from '@/components/global/Badge.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
 import TModal from '@/components/global/Modal.vue';
+import SideForm from '@/components/users/SideForm.vue';
 import SideDetails from '@/components/users/SideDetails.vue';
 
 export default {
@@ -320,6 +324,7 @@ export default {
 		EmptyList,
 		Badge,
 		TModal,
+		SideForm,
 		SideDetails,
 	},
 	setup() {
@@ -329,7 +334,7 @@ export default {
 	},
 	data() {
 		return {
-			tabs,
+			filterTabs: FILTER_TABS,
 			isFetching: false,
 			currentPage: 1,
 			totalPage: 1,
@@ -399,13 +404,19 @@ export default {
 		next() {
 			if (this.currentPage < this.totalPage) this.currentPage++;
 		},
+		clearSelected() {
+			// Clear after
+			setTimeout(() => {
+				this.selected = null;
+			}, 1000);
+		},
 		showCreate() {
 			this.selected = null;
 			this.isShowCreate = true;
 		},
 		closeCreate() {
 			this.isShowCreate = false;
-			this.selected = null;
+			this.clearSelected();
 		},
 		showEdit(item) {
 			this.selected = this.__duplicateVar(item);
@@ -413,7 +424,7 @@ export default {
 		},
 		closeEdit() {
 			this.isShowCreate = false;
-			this.selected = null;
+			this.clearSelected();
 		},
 		showRemove(item) {
 			this.selected = this.__duplicateVar(item);
@@ -421,7 +432,7 @@ export default {
 		},
 		closeRemove() {
 			this.isShowRemove = false;
-			this.selected = null;
+			this.clearSelected();
 		},
 		approveRemove() {
 			// If no selected
@@ -451,11 +462,7 @@ export default {
 		},
 		closeDetails() {
 			this.isShowDetails = false;
-
-			// Clear after
-			setTimeout(() => {
-				this.selected = null;
-			}, 2000);
+			this.clearSelected();
 		},
 	}
 }

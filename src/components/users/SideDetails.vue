@@ -174,7 +174,7 @@ export default {
 			this.close();
 			setTimeout(() => {
 				this.$emit('showEdit', this.item);
-			}, 2000);
+			}, 1000);
 		},
 	},
 }

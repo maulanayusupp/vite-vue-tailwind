@@ -9,7 +9,7 @@
 
 	<!-- Actions -->
 	<div class="mb-8">
-		<div class="mt-6 flex justify-end space-x-2">
+		<div class="flex justify-end space-x-2">
 			<t-button :color="`purple-solid`" @click="showCreate">
 				<PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
 				New Event

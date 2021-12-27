@@ -30,7 +30,7 @@
 
     <!-- List -->
     <div class="mt-8">
-        <div class="hidden sm:block">
+        <div class="block">
             <div class="mx-auto">
                 <div class="flex flex-col mt-2">
                     <div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
