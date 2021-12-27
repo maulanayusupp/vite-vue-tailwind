@@ -113,3 +113,13 @@ export const USER_DEFAULT = {
 	birth_date: null,
 	biography: null,
 };
+
+export const USER_ROLES = [
+	{ id: 'client', name: 'Client' },
+	{ id: 'super_admin', name: 'Admin' },
+];
+
+export const USER_LANGUAGES = [
+	{ id: 'en', name: 'English' },
+	{ id: 'id', name: 'Indonesia' },
+];

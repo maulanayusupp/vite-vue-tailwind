@@ -6,14 +6,20 @@ import {
 	CogIcon,
 	UserGroupIcon,
 	TemplateIcon,
+	CollectionIcon,
+	ColorSwatchIcon,
+	ChatAltIcon,
 } from '@heroicons/vue/outline';
 
 export default [
 	{ name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-	{ name: 'Teams', href: '/teams', icon: UserGroupIcon, current: false },
 	{ name: 'Events', href: '/events', icon: CalendarIcon, current: false },
+	{ name: 'Teams', href: '/teams', icon: UserGroupIcon, current: false },
+	{ name: 'Categories', href: '/categories', icon: CollectionIcon, current: false },
+	{ name: 'Tags', href: '/tags', icon: ColorSwatchIcon, current: false },
 	{ name: 'Templates', href: '/templates', icon: TemplateIcon, current: false },
-	{ name: 'Users', href: '/users', icon: UsersIcon, current: false },
+	{ name: 'Feedbacks', href: '/feedbacks', icon: ChatAltIcon, current: false },
 	{ name: 'Reports', href: '/reports', icon: ChartBarIcon, current: false },
+	{ name: 'Users', href: '/users', icon: UsersIcon, current: false },
 	{ name: 'Settings', href: '/settings', icon: CogIcon, current: false },
 ]

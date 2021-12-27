@@ -11,17 +11,17 @@
 <div class="relative flex items-start">
 	<div class="flex items-center h-5">
 		<input
-			id="comments"
-			aria-describedby="comments-description" 
-			ame="comments"
+			:id="label"
+			aria-describedby="checkbox-description" 
 			type="checkbox"
 			class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
 			@change="toggle"
+			:checked="value"
 		/>
 	</div>
 	<div class="ml-3 text-sm">
-		<label for="comments" class="font-medium text-gray-700" v-if="label">{{ label }}</label>
-		<p id="comments-description" class="text-gray-500" v-if="subLabel">{{ subLabel }}</p>
+		<label :for="label" class="font-medium text-gray-700" v-if="label">{{ label }}</label>
+		<p id="checkbox-description" class="text-gray-500" v-if="subLabel">{{ subLabel }}</p>
 	</div>
 </div>
 </template>

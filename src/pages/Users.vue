@@ -29,8 +29,8 @@
 			</div>
 			<div class="mt-5 flex xl:mt-0 xl:ml-4">
 				<!-- Create -->
-				<span class="hidden sm:block">
-					<t-button :color="`purple-solid`" class="ml-3" @click="showCreate">
+				<span class="">
+					<t-button :color="`purple-solid`" class="" @click="showCreate">
 						<PlusIcon class="-ml-1 mr-2 h-5 w-5 text-white" aria-hidden="true" />
 						Create User
 					</t-button>
@@ -58,7 +58,7 @@
 							id="tabs"
 							name="tabs"
 							class="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md">
-							<option v-for="tab in tabs" :key="tab.name" :value="tab.id" :selected="tab.id === selectedTab">
+							<option v-for="tab in filterTabs" :key="tab.name" :value="tab.id">
 								{{ tab.name }}
 							</option>
 						</select>
@@ -201,6 +201,8 @@
 	:is-show="isShowCreate"
 	:item="selected"
 	@close="closeCreate"
+	@onCreate="onCreate"
+	@onUpdate="onUpdate"
 />
 
 <!-- Side Details -->
@@ -418,6 +420,10 @@ export default {
 			this.isShowCreate = false;
 			this.clearSelected();
 		},
+		onCreate(item) {
+			this.items.push(item);
+			this.closeCreate();
+		},
 		showEdit(item) {
 			this.selected = this.__duplicateVar(item);
 			this.isShowCreate = true;
@@ -425,6 +431,11 @@ export default {
 		closeEdit() {
 			this.isShowCreate = false;
 			this.clearSelected();
+		},
+		onUpdate(item) {
+			const itemIndex = this.items.findIndex(curr => curr.id === item.id);
+			if (itemIndex !== -1) Object.assign(this.items[itemIndex], item);
+			this.closeEdit();
 		},
 		showRemove(item) {
 			this.selected = this.__duplicateVar(item);

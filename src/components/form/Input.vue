@@ -5,6 +5,7 @@
 		:name="name"
 		:value="value"
 		:placeholder="placeholder"
+		:autocomplete="autocomplete"
 		@input="onInput"
 		@change="onChange"
 	/>
@@ -26,6 +27,10 @@ export default {
 		placeholder: {
 			type: String,
 			default: () => '',
+		},
+		autocomplete: {
+			type: String,
+			default: () => 'off',
 		},
 	},
 	data() {
