@@ -19,7 +19,7 @@ export default ({ store, next, from, to }) => {
     // http://localhost:3000/#/?token=48072824D4413C2A29844F567BB7C6AE    
     if (query.hasOwnProperty("token")) {
         let token = query.token;
-        store.dispatch("session/setToken", token);
+        store.dispatch("auth/setToken", token);
 
         // Then remove the query.
         delete to.query.token;
@@ -33,13 +33,15 @@ export default ({ store, next, from, to }) => {
     const allowedPaths = [
         '/login',
         '/logout',
-        '/reset-password',
+        '/forgot-password',
+        '/password/reset',
         '/register',
         '/magic-link',
         '/change-password',
         '/auto_login',
         '/user/verify',
         '/confirmation-email',
+        '/resend-email',
     ];
 
     // Rules

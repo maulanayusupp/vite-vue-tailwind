@@ -1,16 +1,31 @@
 <template>
 <div class="min-h-screen bg-white flex">
 	<div class="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-		<div div class="mx-auto w-full max-w-sm lg:w-96">
+		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
 				<img class="h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
-				<h2 class="mt-6 text-3xl font-extrabold text-gray-900">Reset Password</h2>
+				<h2 class="mt-6 text-3xl font-extrabold text-gray-900">Register</h2>
 			</div>
 
-			<div v-if="token && !isError" class="mt-8">
+			<div class="mt-8">
 
 				<div class="mt-6">
 					<form @submit.prevent="submit" class="space-y-6">
+						<div>
+							<label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+							<div class="mt-1">
+								<t-input :type="`text`" :value="name" v-model="name" class="w-full" />
+							</div>
+						</div>
+						<div>
+							<label for="email" class="block text-sm font-medium text-gray-700">
+							Email address
+							</label>
+							<div class="mt-1">
+								<t-input :type="`email`" :value="email" v-model="email" class="w-full" />
+								<span v-if="!isValidEmailAddress && email && email.length !== 0" class="text-red-500 text-xs">{{$t('Invalid Email Address')}}</span>
+							</div>
+						</div>
 						<div>
 							<div class="flex justify-between">
 								<div for="password" class="block text-sm font-medium text-gray-700">Password</div>
@@ -34,13 +49,11 @@
 							</div>
 							<label class="text-red-500 text-xs" v-if="confirm_password && confirm_password !== password">Password do not match</label>
 						</div>
-
 						<div>
-							<t-button :type="'submit'" :color="`purple-solid`" class="w-full" :is-loading="isSaving" :is-disabled="!isFormValid || isSaving">
-								Reset Email
+							<t-button :type="'submit'" :color="`purple-solid`" class="w-full" :is-loading="isSendingEmail" :is-disabled="isSendingEmail || !isFormValid">
+								Sign in
 							</t-button>
 						</div>
-
 						<div class="flex items-center justify-start">
 							<div class="text-sm">
 								<router-link to="/login" class="font-medium text-indigo-600 hover:text-indigo-500">
@@ -50,12 +63,6 @@
 						</div>
 					</form>
 				</div>
-			</div>
-			<div v-if="!token || isError">
-				Your token is invalid / Expired,
-				<router-link to="/login" class="font-medium text-indigo-600 hover:text-indigo-500">
-					Back to Login
-				</router-link>
 			</div>
 		</div>
 	</div>
@@ -68,9 +75,9 @@
 <script>
 
 import authApi from '@/api/auth';
-import TInput from '@/components/form/Input.vue';
 import TButton from '@/components/global/Button.vue';
-import { checkPassword  } from '@/libraries/helper';
+import TInput from '@/components/form/Input.vue';
+import { isValidEmail, checkPassword } from '@/libraries/helper';
 
 export default {
 	
@@ -80,11 +87,12 @@ export default {
 	},
 	data() {
 		return {
+			email: null,
+			isSendingEmail: false,
+			name: null,
 			password: null,
 			confirm_password: null,
-			isSaving: false,
 			warningError: '',
-			isError: false,
 		}
 	},
 	setup() {
@@ -95,51 +103,42 @@ export default {
 	},
 	methods: {
 		submit() {
-			this.isSaving = true;
-			this.isError = false;
-
+			this.isSendingEmail = true;
 			const params = {
+				name: this.name,
 				email: this.email,
-				token: this.token,
-				new_password: this.password,
-				confirm_password: this.password,
+				password: this.password,
+				confirm_password: this.confirm_password,
 			};
 			const callback = (response) => {
 				const message = response.message;
 				this.__showNotif('success', 'User', message);
-				this.$router.push('/');
-				this.isSaving = false;
-				this.isError = false;
-				this.doLogout();
+				this.isSendingEmail = false;
+				this.name = null;
+				this.email = null;
+				this.password = null;
+				this.confirm_password = null;
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
-				this.__showNotif('error', 'Error', message);
-				this.isSaving = false;
-				this.isError = true;
-				this.doLogout();
+					this.__showNotif('error', 'Error', message);
+				this.isSendingEmail = false;
 			};
-			authApi.reset(params, callback, errorCallback);
-		},
-		doLogout() {
-			console.log('DO LOGOUT');
-			this.$store.dispatch('auth/clearAuth');
+			authApi.register(params, callback, errorCallback);
 		},
 	},
 	computed: {
-		token() {
-			return localStorage.getItem('access_token');
-		},
-		email() {
-			const { email } = this.$route.query ? this.$route.query : '';
-			return email;
+		isValidEmailAddress() {
+			return isValidEmail(this.email);
 		},
 		isFormValid() {
+			console.log(!this.name);
 			return (
-				this.password === this.confirm_password
-				&& this.warningError !== 'Weak'
-				&& this.warningError !== 'Too weak'
-				&& this.password
+				this.isValidEmailAddress
+				&& this.name
+				&& this.email
+				&& this.password === this.confirm_password
+				&& this.warningError !== 'Weak' || this.warningError !== 'Too weak'
 			);
 		},
 	},
@@ -154,9 +153,6 @@ export default {
 			}
 			if (!this.password) this.warningError = '';
 		},
-	},
-	beforeUnmount() {
-		this.doLogout();
-	},
+	}
 }
 </script>

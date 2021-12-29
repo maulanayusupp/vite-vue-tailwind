@@ -1,28 +1,54 @@
-import { buildQuery } from '@/libraries/helper';
 import client from '@/libraries/http-client';
+import { buildQuery } from '@/libraries/helper';
 
-const endpoint = '/v1/events';
+const endpoint = '/v1/tags';
 
 export default {
-	/*
-	 * Get list
-	*/
+	// Get List
 	getList(params, cb, errorCb) {
+		const responseHandler = (response) => {
+			if (cb) cb(response.data);
+		};
+		const errorHandler = (e) => {
+			if (errorCb) errorCb(e);
+		};
 		const query = buildQuery(params);
 		const url = `${endpoint}?${query}`;
 		client.get(url)
+			.then(responseHandler)
+			.catch(errorHandler);
+	},
+
+	// Create
+	create(params, cb, errorCb) {
+		const responseHandler = (response) => {
+			if (cb) cb(response.data);
+		};
+		const errorHandler = (e) => {
+			if (errorCb) errorCb(e);
+		};
+		const url = `${endpoint}`;
+		client.post(url, params)
+			.then(responseHandler)
+			.catch(errorHandler);
+	},
+
+	// Update
+	update(id, params, cb, errorCb) {
+		const url = `${endpoint}/${id}`;
+		client.put(url, params)
 			.then((response) => {
 				cb(response.data);
 			})
 			.catch((e) => {
-				errorCb(e);
+				if (errorCb) {
+					errorCb(e);
+				}
 			});
 	},
 
-	/*
-	 * Get details
-	*/
-	getDetails(id, cb, errorCb) {
+	// Get details
+	get(id, cb, errorCb) {
 		const url = `${endpoint}/${id}`;
 		client.get(url)
 			.then((response) => {
@@ -33,26 +59,10 @@ export default {
 			});
 	},
 
-	/*
-	 * Create
-	*/
-	create(params, cb, errorCb) {
-		const url = endpoint;
-		client.post(url, params)
-			.then((response) => {
-				cb(response.data);
-			})
-			.catch((e) => {
-				errorCb(e);
-			});
-	},
-
-	/*
-	 * Update
-	*/
-	update(id, params, cb, errorCb) {
-		const url = `${endpoint}/${id}`;
-		client.put(url, params)
+	// Get details by slug
+	getBySlug(slug, cb, errorCb) {
+		const url = `${endpoint}/slug/${slug}`;
+		client.get(url)
 			.then((response) => {
 				cb(response.data);
 			})

@@ -1,7 +1,7 @@
 <template>
-	<input
+	<textarea
+		:rows="rows"
 		:class="theClass"
-		:type="type"
 		:name="name"
 		:value="value"
 		:placeholder="placeholder"
@@ -16,10 +16,6 @@ export default {
 	components: {
 	},
 	props: {
-		type: {
-			type: String,
-			default: () => 'text',
-		},
 		value: {
 			type: String,
 			default: () => '',
@@ -32,6 +28,10 @@ export default {
 		autocomplete: {
 			type: String,
 			default: () => 'off',
+		},
+		rows: {
+			type: String,
+			default: () => '3',
 		},
 	},
 	data() {
@@ -53,10 +53,10 @@ export default {
 	},
 	computed: {
 		name() {
-			return this.value && typeof this.value === 'string' ? this.value.toLowerCase() : '';
+			return this.value ? this.value.toLowerCase() : '';
 		},
 		theClass() {
-			const myClass = `appearance-none block px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`;
+			const myClass = `block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md`;
 			return myClass;
 		},
 	},

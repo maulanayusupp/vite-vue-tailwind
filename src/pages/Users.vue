@@ -200,7 +200,7 @@
 <side-form
 	:is-show="isShowCreate"
 	:item="selected"
-	@close="closeCreate"
+	@onClose="closeCreate"
 	@onCreate="onCreate"
 	@onUpdate="onUpdate"
 />
@@ -209,14 +209,14 @@
 <side-details
 	:is-show="isShowDetails"
 	:item="selected"
-	@close="closeDetails"
+	@onClose="closeDetails"
 	@showEdit="showEdit"
 />
 
 <!-- Modal Remove -->
 <t-modal
 	:is-show="isShowRemove"
-	@close="closeRemove">
+	@onClose="closeRemove">
 	<div class="sm:flex sm:items-start">
 		<div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
 			<ExclamationIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
@@ -421,7 +421,8 @@ export default {
 			this.clearSelected();
 		},
 		onCreate(item) {
-			this.items.push(item);
+			if (this.sortBy === 'desc') this.items.unshift(item);
+			else if (this.sortBy === 'asc') this.items.push(item);
 			this.closeCreate();
 		},
 		showEdit(item) {

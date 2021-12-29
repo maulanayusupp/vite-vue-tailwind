@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import {passwordStrength} from 'check-password-strength';
 
 export const duplicateVar = value => JSON.parse(JSON.stringify(value));
 
@@ -530,4 +531,10 @@ export const transformArray = (array = [], asType = false) => {
 export const numberFormat = (value) => {
     const total = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	return total + ".00";
+};
+
+// Date format
+export const checkPassword = (password) => {
+	const result = passwordStrength(password).id;
+	return result;
 };

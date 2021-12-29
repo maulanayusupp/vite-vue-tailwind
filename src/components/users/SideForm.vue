@@ -40,6 +40,7 @@
 						<label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
 						<div class="mt-1">
 							<t-input :type="`email`" :value="user.email" v-model="user.email" class="w-full" />
+							<span v-if="!isValidEmailAddress && user.email && user.email.length !== 0" class="text-red-500 text-xs">{{$t('Invalid Email Address')}}</span>
 						</div>
 					</div>
 
@@ -141,7 +142,7 @@
 		<!-- Action buttons -->
 		<div class="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
 			<div class="space-x-3 flex justify-end">
-				<t-button :color="`purple-solid`" :is-loading="isSaving" :is-disabled="isSaving" @click="submit">
+				<t-button :color="`purple-solid`" :is-loading="isSaving" :is-disabled="isSaving || !isFormValid" @click="submit">
 					{{ isEdit ? 'Update User' : 'Create User' }}
 				</t-button>
 				<t-button :color="`default`" :is-disabled="isSaving" @click="close">
@@ -156,6 +157,7 @@
 <script>
 import { USER_DEFAULT, USER_ROLES, USER_LANGUAGES } from '@/databags/user';
 import userApi from '@/api/user';
+import { isValidEmail } from '@/libraries/helper';
 import VueMultiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.css';
 
@@ -242,11 +244,22 @@ export default {
 				is_allow_notify: this.user.is_allow_notify,
 			};
 			return params;
-		}
+		},
+		isValidEmailAddress() {
+			return isValidEmail(this.user.email);
+		},
+		isFormValid() {
+			return (
+				this.isValidEmailAddress
+				&& this.user.username !== ''
+				&& this.user.name !== ''
+				&& this.user.mobile_phone !== ''
+			);
+		},
 	},
 	methods: {
 		close() {
-			this.$emit('close');
+			this.$emit('onClose');
 		},
 		setData() {
 			if (this.item) {

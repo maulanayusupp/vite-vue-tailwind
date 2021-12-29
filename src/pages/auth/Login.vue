@@ -71,6 +71,7 @@
 					</label>
 					<div class="mt-1">
 						<t-input :type="`email`" :value="email" v-model="email" class="w-full" />
+						<span v-if="!isValidEmailAddress && email && email.length !== 0" class="text-red-500 text-xs">{{$t('Invalid Email Address')}}</span>
 					</div>
 				</div>
 
@@ -92,18 +93,29 @@
 					</div>
 
 					<div class="text-sm">
-					<router-link to="/reset-password" class="font-medium text-indigo-600 hover:text-indigo-500">
+					<router-link to="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500">
 						Forgot your password?
 					</router-link>
 					</div>
 				</div>
 
 				<div>
-					<t-button :type="'submit'" :color="`purple-solid`" class="w-full" :is-loading="isSubmitting" :is-disabled="isSubmitting">
+					<t-button :type="'submit'" :color="`purple-solid`" class="w-full" :is-loading="isSubmitting" :is-disabled="isSubmitting || !isFormValid">
 						Sign in
 					</t-button>
 				</div>
 				</form>
+				<div class="text-sm mt-5 text-right">
+					Doesn't have an account?
+					<router-link to="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
+						Register
+					</router-link>
+				</div>
+				<div class="text-sm mt-5 text-right">
+					<router-link to="/resend-email" class="font-medium text-indigo-600 hover:text-indigo-500">
+						Resend Email Verification
+					</router-link>
+				</div>
 			</div>
 			</div>
 		</div>
@@ -119,6 +131,7 @@
 import authApi from '@/api/auth';
 import TButton from '@/components/global/Button.vue';
 import TInput from '@/components/form/Input.vue';
+import { isValidEmail } from '@/libraries/helper';
 
 export default {
 	components: {
@@ -159,6 +172,17 @@ export default {
 				this.isSubmitting = false;
 			};
 			authApi.login(params, callback, errorCallback);
+		},
+	},
+	computed: {
+		isValidEmailAddress() {
+			return isValidEmail(this.email);
+		},
+		isFormValid() {
+			return (
+				this.isValidEmailAddress
+				&& this.password !== ''
+			);
 		},
 	},
 }

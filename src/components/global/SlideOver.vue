@@ -1,6 +1,6 @@
 <template>
 <TransitionRoot as="template" :show="isShow">
-	<Dialog as="div" class="fixed inset-0 overflow-hidden top-0 z-20" @close="close()">
+	<Dialog as="div" class="fixed inset-0 overflow-hidden top-0 z-20">
 		<div class="absolute inset-0 overflow-hidden">
 			<TransitionChild as="template" enter="ease-in-out duration-500" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-500" leave-from="opacity-100" leave-to="opacity-0">
 				<DialogOverlay class="absolute inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
@@ -45,9 +45,11 @@ export default {
 		return {
 		}
 	},
+	mounted() {
+	},
 	methods: {
 		close() {
-			this.$emit('close');
+			this.$emit('onClose');
 		},
 	},
 }
