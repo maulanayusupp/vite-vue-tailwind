@@ -16,7 +16,7 @@
     "secure-ls": "^1.2.6",
     "velocity-animate": "^1.5.2",
     "vue": "^3.2.26",
-    "vue-i18n": "^9.2.0-beta.25",
+    "vue-i18n": "^9.2.0-beta.26",
     "vue-multiselect": "^3.0.0-alpha.2",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2",
@@ -32,7 +32,7 @@
     "@tailwindcss/typography": "^0.5.0",
     "@types/tailwindcss": "^2.2.4",
     "@vitejs/plugin-vue": "^1.10.2",
-    "autoprefixer": "^10.4.0",
+    "autoprefixer": "^10.4.1",
     "sass": "^1.45.1",
     "tailwindcss": "^3.0.8",
     "vite": "^2.7.9"
