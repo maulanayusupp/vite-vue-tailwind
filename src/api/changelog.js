@@ -1,7 +1,7 @@
 import client from '@/libraries/http-client';
 import { buildQuery } from '@/libraries/helper';
 
-const endpoint = '/v1/categories';
+const endpoint = '/v1/changelogs';
 
 export default {
 	// Get List

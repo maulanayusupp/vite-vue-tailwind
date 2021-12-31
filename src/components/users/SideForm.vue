@@ -251,9 +251,9 @@ export default {
 		isFormValid() {
 			return (
 				this.isValidEmailAddress
-				&& this.user.username !== ''
-				&& this.user.name !== ''
-				&& this.user.mobile_phone !== ''
+				&& this.user.username
+				&& this.user.name
+				&& this.user.mobile_phone
 			);
 		},
 	},
@@ -263,7 +263,7 @@ export default {
 		},
 		setData() {
 			if (this.item) {
-				this.user = this.item;
+				this.user = this.__duplicateVar(this.item);
 
 				// Roles
 				let roles = this.__duplicateVar(this.user.roles);

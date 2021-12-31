@@ -7,7 +7,7 @@
 				<div class="flex items-start justify-between space-x-3">
 					<div class="space-y-1">
 						<div class="text-lg font-medium text-gray-900">
-							{{ isEdit ? 'Update Announcement' : 'Create Announcement' }}
+							{{ isEdit ? 'Update Changelog' : 'Create Changelog' }}
 						</div>
 					</div>
 					<div class="h-7 flex items-center">
@@ -22,74 +22,63 @@
 			<!-- Body -->
 			<div class="px-4 py-6">
 				<form @submit.prevent="submit" class="space-y-3">
+					<!-- Title -->
 					<div>
-						<label for="announcement" class="block text-sm font-medium text-gray-700">Announcement</label>
+						<label class="block text-sm font-medium text-gray-700">Title</label>
 						<div class="mt-1">
-							<t-input :type="`text`" :value="announcement.title" v-model="announcement.title" class="w-full" />
+							<t-input :type="`text`" :value="changelog.title" v-model="changelog.title" class="w-full" />
 						</div>
 					</div>
-					
-					<div>
-						<label for="event_id" class="block text-sm font-medium text-gray-700">Event</label>
-							<div class="mt-1">
-								<VueMultiselect
-									v-model="announcement.event_id"
-									:options="events"
-									:multiple="false"
-									:close-on-select="true"
-									placeholder="Select an option"
-									label="name"
-									track-by="id">
-								</VueMultiselect>
-							</div>
-					</div>
 
-					<div>
-						<label for="type" class="block text-sm font-medium text-gray-700">Type</label>
-							<div class="mt-1">
-								<VueMultiselect
-									v-model="announcement.type"
-									:options="typeAnnouncementOptions"
-									:multiple="false"
-									:close-on-select="true"
-									placeholder="Select an option"
-									label="name"
-									track-by="id">
-								</VueMultiselect>
-							</div>
-					</div>
-
+					<!-- Content -->
 					<div>
 						<label for="content" class="block text-sm font-medium text-gray-700">Content</label>
 						<div class="mt-1">
-							<t-textarea :type="`text`" :value="announcement.content" v-model="announcement.content" class="w-full" />
+							<t-textarea :type="`text`" :value="changelog.content" v-model="changelog.content" class="w-full" />
 						</div>
 					</div>
 
+					<!-- Types -->
+					<div>
+						<label for="type" class="block text-sm font-medium text-gray-700">Type</label>
+						<div class="mt-1">
+							<VueMultiselect
+								v-model="changelog.type"
+								:options="typeOptions"
+								:multiple="false"
+								:close-on-select="true"
+								placeholder="Select an option"
+								label="name"
+								track-by="id">
+							</VueMultiselect>
+						</div>
+					</div>
+
+					<!-- Start - End -->
 					<div class="sm:col-span-2">
 						<div class="space-x-3 grid grid-cols-2">
 							<div>
 								<label for="start_time" class="block text-sm font-medium text-gray-700">Start</label>
 								<div class="mt-1">
-									<t-input :type="`date`" :value="announcement.start_date" v-model="announcement.start_date" class="w-full" />
+									<t-input :type="`date`" :value="changelog.start_date" v-model="changelog.start_date" class="w-full" />
 								</div>
 							</div>
 							<div>
 								<label for="end_date" class="block text-sm font-medium text-gray-700">End</label>
 								<div class="mt-1">
-									<t-input :type="`date`" :value="announcement.end_date" v-model="announcement.end_date" class="w-full" />
+									<t-input :type="`date`" :value="changelog.end_date" v-model="changelog.end_date" class="w-full" />
 								</div>
 							</div>
 						</div>
 					</div>
 
-
+					<!-- Is Published -->
 					<div>
 						<t-checkbox
 							:label="`Published`"
 							:sub-label="``"
-							:value="announcement.is_published"
-							v-model="announcement.is_published"
+							:value="changelog.is_published"
+							v-model="changelog.is_published"
 						/>
 					</div>
 				</form>
@@ -100,7 +89,7 @@
 		<div class="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
 			<div class="space-x-3 flex justify-end">
 				<t-button :color="`purple-solid`" :is-loading="isSaving" :is-disabled="isSaving || !isFormValid" @click="submit">
-					{{ isEdit ? 'Update Announcement' : 'Create Announcement' }}
+					{{ isEdit ? 'Update Changelog' : 'Create Changelog' }}
 				</t-button>
 				<t-button :color="`default`" :is-disabled="isSaving" @click="close">
 					Cancel
@@ -112,8 +101,8 @@
 </template>
 
 <script>
-import { ANNOUNCEMENT_DEFAULT, TYPE_ANNOUNCEMENTS } from '@/databags/announcement';
-import announcementApi from '@/api/announcement';
+import { CHANGELOG_DEFAULT, TYPE_CHANGELOGS } from '@/databags/changelog';
+import changelogApi from '@/api/changelog';
 import VueMultiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.css';
 
@@ -163,8 +152,8 @@ export default {
 	data() {
 		return {
 			isSaving: false,
-			announcement: this.__duplicateVar(ANNOUNCEMENT_DEFAULT),
-			typeAnnouncements: this.__duplicateVar(TYPE_ANNOUNCEMENTS),
+			changelog: this.__duplicateVar(CHANGELOG_DEFAULT),
+			typeChangelogs: this.__duplicateVar(TYPE_CHANGELOGS),
 		}
 	},
 	mounted() {
@@ -183,37 +172,35 @@ export default {
 		isEdit() {
 			return this.item && this.item.id;
 		},
-		typeAnnouncementValues() {
-			return this.announcement.type ? this.announcement.type.id : 'announcement';
+		typeValue() {
+			return this.changelog.type ? this.changelog.type.id : null;
 		},
 		eventValues() {
-			return this.announcement.event_id ? this.announcement.event_id.id : null;
+			return this.changelog.event_id ? this.changelog.event_id.id : null;
 		},
 		params() {
 			const params = {
-				title: this.announcement.title,
-				event_id: this.eventValues,
-				content: this.announcement.content,
-				type: this.typeAnnouncementValues,
-				file_path: null,
-				timezone: 'Asia/Jakarta',
-				end_date: this.announcement.end_date,
-				start_date: this.announcement.start_date,
-				is_published: this.announcement.is_published,
+				title: this.changelog.title,
+				content: this.changelog.content,
+				type: this.typeValue,
+				start_date: this.changelog.start_date,
+				end_date: this.changelog.end_date,
+				is_published: this.changelog.is_published,
 			};
 			return params;
 		},
 
 		isFormValid() {
 			return (
-				this.announcement.title
-				&& this.announcement.start_date
-				&& this.announcement.end_date
-				&& this.announcement.type
+				this.changelog.title
+				&& this.changelog.content
+				&& this.changelog.type
+				// && this.changelog.start_date
+				// && this.changelog.end_date
 			);
 		},
-		typeAnnouncementOptions() {
-			const items = this.typeAnnouncements.filter(curr => curr.id !== 'all');
+		typeOptions() {
+			const items = this.typeChangelogs.filter(curr => curr.id !== 'all');
 			return items;
 		},
 	},
@@ -224,19 +211,15 @@ export default {
 		},
 		setData() {
 			if (this.item) {
-				this.announcement = this.__duplicateVar(this.item);
+				this.changelog = this.__duplicateVar(this.item);
 
 				// Type
-				const type = this.typeAnnouncements.find(curr => curr.id === this.announcement.type);
-				this.announcement.type = type;
-
-				// Event Id
-				const eventId = this.events.find(curr => curr.id === this.announcement.event_id);
-				this.announcement.event_id = eventId;
+				const type = this.typeChangelogs.find(curr => curr.id === this.changelog.type);
+				this.changelog.type = type;
 			}
 		},
 		resetForm() {
-			this.announcement = this.__duplicateVar(ANNOUNCEMENT_DEFAULT);
+			this.changelog = this.__duplicateVar(CHANGELOG_DEFAULT);
 		},
 		submit() {
 			if (this.isEdit) this.update();
@@ -244,7 +227,6 @@ export default {
 		},
 		update() {
 			const params = this.params;
-
 			this.isSaving = true;
 			const callback = (response) => {
 				const item = response.data;
@@ -252,14 +234,14 @@ export default {
 				this.isSaving = false;
 
 				const message = response.message;
-				this.__showNotif('success', 'Announcement', message);
+				this.__showNotif('success', 'Changelog', message);
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
 				this.__showNotif('error', 'Error', message);
 				this.isSaving = false;
 			};
-			announcementApi.update(this.announcement.id, params, callback, errorCallback);
+			changelogApi.update(this.changelog.id, params, callback, errorCallback);
 		},
 		save() {
 			this.isSaving = true;
@@ -269,14 +251,14 @@ export default {
 				this.isSaving = false;
 
 				const message = response.message;
-				this.__showNotif('success', 'Announcement', message);
+				this.__showNotif('success', 'Changelog', message);
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
 				this.__showNotif('error', 'Error', message);
 				this.isSaving = false;
 			};
-			announcementApi.create(this.params, callback, errorCallback);
+			changelogApi.create(this.params, callback, errorCallback);
 		},
 	},
 }

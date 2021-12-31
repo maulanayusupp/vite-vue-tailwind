@@ -181,7 +181,7 @@ export default {
 		isFormValid() {
 			return (
 				this.isValidEmailAddress
-				&& this.password !== ''
+				&& this.password
 			);
 		},
 	},

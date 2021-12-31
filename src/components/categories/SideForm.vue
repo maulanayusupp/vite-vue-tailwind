@@ -7,7 +7,7 @@
 				<div class="flex items-start justify-between space-x-3">
 					<div class="space-y-1">
 						<div class="text-lg font-medium text-gray-900">
-							{{ isEdit ? 'Update Announcement' : 'Create Announcement' }}
+							{{ isEdit ? 'Update Category' : 'Create Category' }}
 						</div>
 					</div>
 					<div class="h-7 flex items-center">
@@ -23,18 +23,18 @@
 			<div class="px-4 py-6">
 				<form @submit.prevent="submit" class="space-y-3">
 					<div>
-						<label for="announcement" class="block text-sm font-medium text-gray-700">Announcement</label>
+						<label for="category" class="block text-sm font-medium text-gray-700">Category</label>
 						<div class="mt-1">
-							<t-input :type="`text`" :value="announcement.title" v-model="announcement.title" class="w-full" />
+							<t-input :type="`text`" :value="category.name" v-model="category.name" class="w-full" />
 						</div>
 					</div>
-					
+
 					<div>
-						<label for="event_id" class="block text-sm font-medium text-gray-700">Event</label>
+						<label for="parent_id" class="block text-sm font-medium text-gray-700">Parent Category</label>
 							<div class="mt-1">
 								<VueMultiselect
-									v-model="announcement.event_id"
-									:options="events"
+									v-model="category.parent_id"
+									:options="filteredCategories"
 									:multiple="false"
 									:close-on-select="true"
 									placeholder="Select an option"
@@ -44,12 +44,12 @@
 							</div>
 					</div>
 
-					<div>
+					<!-- <div>
 						<label for="type" class="block text-sm font-medium text-gray-700">Type</label>
 							<div class="mt-1">
 								<VueMultiselect
-									v-model="announcement.type"
-									:options="typeAnnouncementOptions"
+									v-model="category.type"
+									:options="typeCategories"
 									:multiple="false"
 									:close-on-select="true"
 									placeholder="Select an option"
@@ -57,41 +57,29 @@
 									track-by="id">
 								</VueMultiselect>
 							</div>
-					</div>
+					</div> -->
 
 					<div>
-						<label for="content" class="block text-sm font-medium text-gray-700">Content</label>
+						<label for="icon" class="block text-sm font-medium text-gray-700">Icon</label>
 						<div class="mt-1">
-							<t-textarea :type="`text`" :value="announcement.content" v-model="announcement.content" class="w-full" />
+							<t-input :type="`text`" :value="category.icon" v-model="category.icon" class="w-full" />
 						</div>
 					</div>
-
-					<div class="sm:col-span-2">
-						<div class="space-x-3 grid grid-cols-2">
-							<div>
-								<label for="start_time" class="block text-sm font-medium text-gray-700">Start</label>
-								<div class="mt-1">
-									<t-input :type="`date`" :value="announcement.start_date" v-model="announcement.start_date" class="w-full" />
-								</div>
-							</div>
-							<div>
-								<label for="end_date" class="block text-sm font-medium text-gray-700">End</label>
-								<div class="mt-1">
-									<t-input :type="`date`" :value="announcement.end_date" v-model="announcement.end_date" class="w-full" />
-								</div>
-							</div>
-						</div>
-					</div>
-
 
 					<div>
-						<t-checkbox
-							:label="`Published`"
-							:sub-label="``"
-							:value="announcement.is_published"
-							v-model="announcement.is_published"
-						/>
+						<label for="background_color" class="block text-sm font-medium text-gray-700">Bckground Color</label>
+						<div class="mt-1">
+							<t-input :type="`text`" :value="category.background_color" v-model="category.background_color" class="w-full" />
+						</div>
 					</div>
+
+					<div>
+						<label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+						<div class="mt-1">
+							<t-input :type="`text`" :value="category.description" v-model="category.description" class="w-full" />
+						</div>
+					</div>
+
 				</form>
 			</div>
 		</div>
@@ -100,7 +88,7 @@
 		<div class="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
 			<div class="space-x-3 flex justify-end">
 				<t-button :color="`purple-solid`" :is-loading="isSaving" :is-disabled="isSaving || !isFormValid" @click="submit">
-					{{ isEdit ? 'Update Announcement' : 'Create Announcement' }}
+					{{ isEdit ? 'Update Category' : 'Create Category' }}
 				</t-button>
 				<t-button :color="`default`" :is-disabled="isSaving" @click="close">
 					Cancel
@@ -112,8 +100,8 @@
 </template>
 
 <script>
-import { ANNOUNCEMENT_DEFAULT, TYPE_ANNOUNCEMENTS } from '@/databags/announcement';
-import announcementApi from '@/api/announcement';
+import { CATEGORY_DEFAULT, TYPE_CATEGORIES } from '@/databags/category';
+import categoryApi from '@/api/category';
 import VueMultiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.css';
 
@@ -155,7 +143,7 @@ export default {
 			type: Object,
 			default: () => null,
 		},
-		events: {
+		categories: {
 			type: Array,
 			default: () => [],
 		}
@@ -163,8 +151,8 @@ export default {
 	data() {
 		return {
 			isSaving: false,
-			announcement: this.__duplicateVar(ANNOUNCEMENT_DEFAULT),
-			typeAnnouncements: this.__duplicateVar(TYPE_ANNOUNCEMENTS),
+			category: this.__duplicateVar(CATEGORY_DEFAULT),
+			typeCategories: this.__duplicateVar(TYPE_CATEGORIES),
 		}
 	},
 	mounted() {
@@ -183,38 +171,34 @@ export default {
 		isEdit() {
 			return this.item && this.item.id;
 		},
-		typeAnnouncementValues() {
-			return this.announcement.type ? this.announcement.type.id : 'announcement';
+		typeCategoryValues() {
+			return this.category.type ? this.category.type.id : 'clothing';
 		},
-		eventValues() {
-			return this.announcement.event_id ? this.announcement.event_id.id : null;
+		parentValues() {
+			return this.category.parent_id ? this.category.parent_id.id : null;
 		},
 		params() {
 			const params = {
-				title: this.announcement.title,
-				event_id: this.eventValues,
-				content: this.announcement.content,
-				type: this.typeAnnouncementValues,
-				file_path: null,
-				timezone: 'Asia/Jakarta',
-				end_date: this.announcement.end_date,
-				start_date: this.announcement.start_date,
-				is_published: this.announcement.is_published,
+				name: this.category.name,
+				type: this.typeCategoryValues,
+				parent_id: this.parentValues,
+				icon: this.category.icon,
+				background_color: this.category.background_color,
+				description: this.category.description || 'Description Category',
 			};
 			return params;
 		},
 
 		isFormValid() {
 			return (
-				this.announcement.title
-				&& this.announcement.start_date
-				&& this.announcement.end_date
-				&& this.announcement.type
+				this.category.name !== ''
+				// && this.category.background_color
+				// && this.category.icon
+				
 			);
 		},
-		typeAnnouncementOptions() {
-			const items = this.typeAnnouncements.filter(curr => curr.id !== 'all');
-			return items;
+		filteredCategories() {
+			return this.categories.filter(item => item.id !== this.category.id);
 		},
 	},
 	created() {},
@@ -224,19 +208,19 @@ export default {
 		},
 		setData() {
 			if (this.item) {
-				this.announcement = this.__duplicateVar(this.item);
+				this.category = this.__duplicateVar(this.item);
 
 				// Type
-				const type = this.typeAnnouncements.find(curr => curr.id === this.announcement.type);
-				this.announcement.type = type;
+				const type = this.typeCategories.find(curr => curr.id === this.category.type);
+				this.category.type = type || this.typeCategories[0];
 
-				// Event Id
-				const eventId = this.events.find(curr => curr.id === this.announcement.event_id);
-				this.announcement.event_id = eventId;
+				// parent Id
+				const parent = this.categories.find(curr => curr.id === this.category.parent_id);
+				this.category.parent_id = parent;
 			}
 		},
 		resetForm() {
-			this.announcement = this.__duplicateVar(ANNOUNCEMENT_DEFAULT);
+			this.category = this.__duplicateVar(CATEGORY_DEFAULT);
 		},
 		submit() {
 			if (this.isEdit) this.update();
@@ -252,14 +236,14 @@ export default {
 				this.isSaving = false;
 
 				const message = response.message;
-				this.__showNotif('success', 'Announcement', message);
+				this.__showNotif('success', 'Category', message);
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
 				this.__showNotif('error', 'Error', message);
 				this.isSaving = false;
 			};
-			announcementApi.update(this.announcement.id, params, callback, errorCallback);
+			categoryApi.update(this.category.id, params, callback, errorCallback);
 		},
 		save() {
 			this.isSaving = true;
@@ -269,14 +253,14 @@ export default {
 				this.isSaving = false;
 
 				const message = response.message;
-				this.__showNotif('success', 'Announcement', message);
+				this.__showNotif('success', 'Category', message);
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
 				this.__showNotif('error', 'Error', message);
 				this.isSaving = false;
 			};
-			announcementApi.create(this.params, callback, errorCallback);
+			categoryApi.create(this.params, callback, errorCallback);
 		},
 	},
 }

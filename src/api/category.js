@@ -82,4 +82,17 @@ export default {
 				if (errorCb) errorCb(e);
 			});
 	},
+	// reorder
+	reorder(params, cb, errorCb) {
+		const responseHandler = (response) => {
+			if (cb) cb(response.data);
+		};
+		const errorHandler = (e) => {
+			if (errorCb) errorCb(e);
+		};
+		const url = `${endpoint}/reorder`;
+		client.post(url, params)
+			.then(responseHandler)
+			.catch(errorHandler);
+	},
 };

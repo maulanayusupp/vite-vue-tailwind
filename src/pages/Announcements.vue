@@ -100,7 +100,7 @@
 							</tr>
 							</thead>
 							<tbody class="bg-white divide-y divide-gray-200">
-							<tr v-for="item in items" :key="item.email">
+							<tr v-for="item in items" :key="item.id">
 								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
 									<p class="text-xs text-gray-500">
 										{{ item.title }}

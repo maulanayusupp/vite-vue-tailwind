@@ -254,11 +254,6 @@ import { FILTER_TABS } from '@/databags/user';
 
 // Components
 import {
-	Listbox,
-	ListboxButton,
-	ListboxLabel,
-	ListboxOption,
-	ListboxOptions,
 	Menu,
 	MenuButton,
 	MenuItem,
@@ -295,11 +290,6 @@ import SideDetails from '@/components/users/SideDetails.vue';
 
 export default {
 	components: {
-		Listbox,
-		ListboxButton,
-		ListboxLabel,
-		ListboxOption,
-		ListboxOptions,
 		Menu,
 		MenuButton,
 		MenuItem,

@@ -288,7 +288,7 @@ export default {
 		},
 		setData() {
 			if (this.item) {
-				this.event = this.item;
+				this.event = this.__duplicateVar(this.item);
 			}
 		},
 		resetForm() {
