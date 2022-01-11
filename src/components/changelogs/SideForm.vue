@@ -34,12 +34,8 @@
 					<div>
 						<label for="content" class="block text-sm font-medium text-gray-700">Content</label>
 						<div class="mt-1">
-<<<<<<< HEAD
-							<t-textarea :type="`text`" :value="changelog.content" v-model="changelog.content" class="w-full" />
-=======
 							<!-- <t-textarea :type="`text`" :value="changelog.content" v-model="changelog.content" class="w-full" /> -->
 							<tiptap v-model="changelog.content" />
->>>>>>> c673ba5 (Update libraries and other functionalities)
 						</div>
 					</div>
 
@@ -65,9 +61,6 @@
 							<div>
 								<label for="start_time" class="block text-sm font-medium text-gray-700">Start</label>
 								<div class="mt-1">
-<<<<<<< HEAD
-									<t-input :type="`date`" :value="changelog.start_date" v-model="changelog.start_date" class="w-full" />
-=======
 									<date-picker
 										class="w-full-important"
 										v-model:value="changelog.start_date"
@@ -75,15 +68,11 @@
 										format="YYYY-MM-DD HH:mm:ss"
 										value-type="YYYY-MM-DD HH:mm:ss">
 									</date-picker>
->>>>>>> c673ba5 (Update libraries and other functionalities)
 								</div>
 							</div>
 							<div>
 								<label for="end_date" class="block text-sm font-medium text-gray-700">End</label>
 								<div class="mt-1">
-<<<<<<< HEAD
-									<t-input :type="`date`" :value="changelog.end_date" v-model="changelog.end_date" class="w-full" />
-=======
 									<date-picker
 										class="w-full-important"
 										v-model:value="changelog.end_date"
@@ -91,7 +80,6 @@
 										format="YYYY-MM-DD HH:mm:ss"
 										value-type="YYYY-MM-DD HH:mm:ss">
 									</date-picker>
->>>>>>> c673ba5 (Update libraries and other functionalities)
 								</div>
 							</div>
 						</div>
@@ -102,11 +90,7 @@
 						<t-checkbox
 							:label="`Published`"
 							:sub-label="``"
-<<<<<<< HEAD
-							:value="changelog.is_published"
-=======
 							:value="!!changelog.is_published"
->>>>>>> c673ba5 (Update libraries and other functionalities)
 							v-model="changelog.is_published"
 						/>
 					</div>
@@ -142,20 +126,11 @@ import TButton from '@/components/global/Button.vue';
 import TInput from '@/components/form/Input.vue';
 import TTextarea from '@/components/form/Textarea.vue';
 import TCheckbox from '@/components/form/Checkbox.vue';
-<<<<<<< HEAD
-import {
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuItems,
-} from '@headlessui/vue';
-=======
 import Tiptap from '@/components/form/Tiptap.vue';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
->>>>>>> c673ba5 (Update libraries and other functionalities)
 
 export default {
 	components: {
@@ -171,11 +146,8 @@ export default {
 		VueMultiselect,
 		TCheckbox,
 		TTextarea,
-<<<<<<< HEAD
-=======
 		DatePicker,
 		Tiptap,
->>>>>>> c673ba5 (Update libraries and other functionalities)
 	},
 	props: {
 		isShow: {
@@ -254,11 +226,8 @@ export default {
 		setData() {
 			if (this.item) {
 				this.changelog = this.__duplicateVar(this.item);
-<<<<<<< HEAD
-=======
 				if (this.changelog.start_date) this.changelog.start_date = this.__dateTimeFormatISO(this.changelog.start_date);
 				if (this.changelog.end_date) this.changelog.end_date = this.__dateTimeFormatISO(this.changelog.end_date);
->>>>>>> c673ba5 (Update libraries and other functionalities)
 
 				// Type
 				const type = this.typeChangelogs.find(curr => curr.id === this.changelog.type);

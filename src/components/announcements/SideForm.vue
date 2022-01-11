@@ -239,11 +239,8 @@ export default {
 		setData() {
 			if (this.item) {
 				this.announcement = this.__duplicateVar(this.item);
-<<<<<<< HEAD
-=======
 				if (this.announcement.start_date) this.announcement.start_date = this.__dateTimeFormatISO(this.announcement.start_date);
 				if (this.announcement.end_date) this.announcement.end_date = this.__dateTimeFormatISO(this.announcement.end_date);
->>>>>>> c673ba5 (Update libraries and other functionalities)
 
 				// Type
 				const type = this.typeAnnouncements.find(curr => curr.id === this.announcement.type);

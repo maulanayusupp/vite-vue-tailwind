@@ -35,12 +35,7 @@
 							<dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
 								Content
 							</dt>
-<<<<<<< HEAD
-							<dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
-								<p>{{ item.content }}</p>
-=======
 							<dd class="mt-1 text-sm text-gray-900 sm:col-span-2" v-html="item.content">
->>>>>>> c673ba5 (Update libraries and other functionalities)
 							</dd>
 						</div>
 
