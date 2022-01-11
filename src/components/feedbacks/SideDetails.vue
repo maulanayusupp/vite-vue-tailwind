@@ -31,16 +31,11 @@
 							</dd>
 						</div>
 
-						<div v-if="item.content">
+						<div v-if="item.description">
 							<dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
-								Content
+								Description
 							</dt>
-<<<<<<< HEAD
-							<dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
-								<p>{{ item.content }}</p>
-=======
-							<dd class="mt-1 text-sm text-gray-900 sm:col-span-2" v-html="item.content">
->>>>>>> c673ba5 (Update libraries and other functionalities)
+							<dd class="mt-1 text-sm text-gray-900 sm:col-span-2" v-html="item.description">
 							</dd>
 						</div>
 
@@ -53,21 +48,21 @@
 							</dd>
 						</div>
 
-						<div v-if="item.start_date">
+						<div v-if="item.category">
 							<dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
-								Start
+								Category
 							</dt>
 							<dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
-								<time :datetime="__dateFormat(item.start_date)">{{ __dateFormat(item.start_date) }}</time>
+								{{ item.category }}
 							</dd>
 						</div>
 
-						<div v-if="item.end_date">
+						<div v-if="item.mood_level">
 							<dt class="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
-								End
+								Mood Level
 							</dt>
 							<dd class="mt-1 text-sm text-gray-900 sm:col-span-2">
-								<time :datetime="__dateFormat(item.end_date)">{{ __dateFormat(item.end_date) }}</time>
+								{{ item.mood_level }}
 							</dd>
 						</div>
 					</dl>

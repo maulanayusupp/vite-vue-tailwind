@@ -1,0 +1,18 @@
+.ProseMirror {
+	min-height: 150px;
+	max-height: 300px;
+	overflow: auto;
+	padding: 8px;
+	> * + * {
+		margin-top: 0.5em;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+
+		&.ProseMirror-selectednode {
+		outline: 3px solid #68CEF8;
+		}
+	}
+}

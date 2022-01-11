@@ -4,14 +4,17 @@
 		<left-navigation-drawer />
 
 		<!-- Static sidebar for desktop -->
-		<left-sidebar />
+		<!-- <left-sidebar /> -->
 
 		<!-- Body -->
 		<div class="flex flex-col w-0 flex-1 overflow-hidden">
 			<!-- Top navigation -->
-			<top-navigation />
+			<!-- <top-navigation /> -->
+			<top-navigation-new />
 
-			<main class="flex-1 relative overflow-y-auto focus:outline-none">
+			<main
+				ref="mainView"
+				class="flex-1 relative overflow-y-auto focus:outline-none">
 				<div>
 					<router-view v-slot="{ Component }">
 						<!-- <transition name="slide"> -->
@@ -28,14 +31,31 @@
 import LeftNavigationDrawer from '@/layouts/partials/LeftNavigationDrawer.vue';
 import LeftSidebar from '@/layouts/partials/LeftSidebar.vue';
 import TopNavigation from '@/layouts/partials/TopNavigation.vue';
+import TopNavigationNew from '@/layouts/partials/TopNavigationNew.vue';
 
 export default {
 	components: {
 		LeftNavigationDrawer,
 		LeftSidebar,
 		TopNavigation,
+		TopNavigationNew,
 	},
 	setup() {
+	},
+	watch: {
+		$route (to, from) {
+			this.scrollDown();
+		},
+	},
+	methods: {
+		scrollDown() {
+            const objDiv = this.$refs.mainView;
+			// Scroll top div
+            objDiv.scrollTop = 0;
+
+			// Scroll bottom of div
+            // objDiv.scrollTop = objDiv.scrollHeight;
+        },
 	},
 }
 </script>

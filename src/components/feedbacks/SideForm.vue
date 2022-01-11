@@ -7,7 +7,7 @@
 				<div class="flex items-start justify-between space-x-3">
 					<div class="space-y-1">
 						<div class="text-lg font-medium text-gray-900">
-							{{ isEdit ? 'Update Changelog' : 'Create Changelog' }}
+							{{ isEdit ? 'Update Feedback' : 'Create Feedback' }}
 						</div>
 					</div>
 					<div class="h-7 flex items-center">
@@ -26,20 +26,16 @@
 					<div>
 						<label class="block text-sm font-medium text-gray-700">Title</label>
 						<div class="mt-1">
-							<t-input :type="`text`" :value="changelog.title" v-model="changelog.title" class="w-full" />
+							<t-input :type="`text`" :value="feedback.title" v-model="feedback.title" class="w-full" />
 						</div>
 					</div>
 
-					<!-- Content -->
+					<!-- description -->
 					<div>
-						<label for="content" class="block text-sm font-medium text-gray-700">Content</label>
+						<label for="Description" class="block text-sm font-medium text-gray-700">description</label>
 						<div class="mt-1">
-<<<<<<< HEAD
-							<t-textarea :type="`text`" :value="changelog.content" v-model="changelog.content" class="w-full" />
-=======
-							<!-- <t-textarea :type="`text`" :value="changelog.content" v-model="changelog.content" class="w-full" /> -->
-							<tiptap v-model="changelog.content" />
->>>>>>> c673ba5 (Update libraries and other functionalities)
+							<!-- <t-textarea :type="`text`" :value="feedback.description" v-model="feedback.description" class="w-full" /> -->
+							<tiptap v-model="feedback.description" />
 						</div>
 					</div>
 
@@ -48,7 +44,7 @@
 						<label for="type" class="block text-sm font-medium text-gray-700">Type</label>
 						<div class="mt-1">
 							<VueMultiselect
-								v-model="changelog.type"
+								v-model="feedback.type"
 								:options="typeOptions"
 								:multiple="false"
 								:close-on-select="true"
@@ -59,57 +55,22 @@
 						</div>
 					</div>
 
-					<!-- Start - End -->
-					<div class="sm:col-span-2">
-						<div class="space-x-3 grid grid-cols-2">
-							<div>
-								<label for="start_time" class="block text-sm font-medium text-gray-700">Start</label>
-								<div class="mt-1">
-<<<<<<< HEAD
-									<t-input :type="`date`" :value="changelog.start_date" v-model="changelog.start_date" class="w-full" />
-=======
-									<date-picker
-										class="w-full-important"
-										v-model:value="changelog.start_date"
-										type="datetime"
-										format="YYYY-MM-DD HH:mm:ss"
-										value-type="YYYY-MM-DD HH:mm:ss">
-									</date-picker>
->>>>>>> c673ba5 (Update libraries and other functionalities)
-								</div>
-							</div>
-							<div>
-								<label for="end_date" class="block text-sm font-medium text-gray-700">End</label>
-								<div class="mt-1">
-<<<<<<< HEAD
-									<t-input :type="`date`" :value="changelog.end_date" v-model="changelog.end_date" class="w-full" />
-=======
-									<date-picker
-										class="w-full-important"
-										v-model:value="changelog.end_date"
-										type="datetime"
-										format="YYYY-MM-DD HH:mm:ss"
-										value-type="YYYY-MM-DD HH:mm:ss">
-									</date-picker>
->>>>>>> c673ba5 (Update libraries and other functionalities)
-								</div>
-							</div>
+					<!-- Mood Level -->
+					<div>
+						<label for="type" class="block text-sm font-medium text-gray-700">Mood Level</label>
+						<div class="mt-1">
+							<VueMultiselect
+								v-model="feedback.mood_level"
+								:options="typeOptions"
+								:multiple="false"
+								:close-on-select="true"
+								placeholder="Select an option"
+								label="name"
+								track-by="id">
+							</VueMultiselect>
 						</div>
 					</div>
 
-					<!-- Is Published -->
-					<div>
-						<t-checkbox
-							:label="`Published`"
-							:sub-label="``"
-<<<<<<< HEAD
-							:value="changelog.is_published"
-=======
-							:value="!!changelog.is_published"
->>>>>>> c673ba5 (Update libraries and other functionalities)
-							v-model="changelog.is_published"
-						/>
-					</div>
 				</form>
 			</div>
 		</div>
@@ -118,7 +79,7 @@
 		<div class="flex-shrink-0 px-4 border-t border-gray-200 py-5 sm:px-6">
 			<div class="space-x-3 flex justify-end">
 				<t-button :color="`purple-solid`" :is-loading="isSaving" :is-disabled="isSaving || !isFormValid" @click="submit">
-					{{ isEdit ? 'Update Changelog' : 'Create Changelog' }}
+					{{ isEdit ? 'Update Feedback' : 'Create Feedback' }}
 				</t-button>
 				<t-button :color="`default`" :is-disabled="isSaving" @click="close">
 					Cancel
@@ -130,8 +91,8 @@
 </template>
 
 <script>
-import { CHANGELOG_DEFAULT, TYPE_CHANGELOGS } from '@/databags/changelog';
-import changelogApi from '@/api/changelog';
+import { FEEDBACK_DEFAULT, TYPE_FEEDBACKS } from '@/databags/feedback';
+import feedbackApi from '@/api/feedback';
 import VueMultiselect from 'vue-multiselect'
 import 'vue-multiselect/dist/vue-multiselect.css';
 
@@ -142,20 +103,8 @@ import TButton from '@/components/global/Button.vue';
 import TInput from '@/components/form/Input.vue';
 import TTextarea from '@/components/form/Textarea.vue';
 import TCheckbox from '@/components/form/Checkbox.vue';
-<<<<<<< HEAD
-import {
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuItems,
-} from '@headlessui/vue';
-=======
 import Tiptap from '@/components/form/Tiptap.vue';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
-
-import DatePicker from 'vue-datepicker-next';
-import 'vue-datepicker-next/index.css';
->>>>>>> c673ba5 (Update libraries and other functionalities)
 
 export default {
 	components: {
@@ -171,11 +120,7 @@ export default {
 		VueMultiselect,
 		TCheckbox,
 		TTextarea,
-<<<<<<< HEAD
-=======
-		DatePicker,
 		Tiptap,
->>>>>>> c673ba5 (Update libraries and other functionalities)
 	},
 	props: {
 		isShow: {
@@ -194,8 +139,8 @@ export default {
 	data() {
 		return {
 			isSaving: false,
-			changelog: this.__duplicateVar(CHANGELOG_DEFAULT),
-			typeChangelogs: this.__duplicateVar(TYPE_CHANGELOGS),
+			feedback: this.__duplicateVar(FEEDBACK_DEFAULT),
+			feedbackTypes: this.__duplicateVar(TYPE_FEEDBACKS),
 		}
 	},
 	mounted() {
@@ -215,34 +160,29 @@ export default {
 			return this.item && this.item.id;
 		},
 		typeValue() {
-			return this.changelog.type ? this.changelog.type.id : null;
+			return this.feedback.type ? this.feedback.type.id : null;
 		},
-		eventValues() {
-			return this.changelog.event_id ? this.changelog.event_id.id : null;
+		moodLevelValue() {
+			return this.feedback.mood_level ? this.feedback.mood_level.id : null;
 		},
 		params() {
 			const params = {
-				title: this.changelog.title,
-				content: this.changelog.content,
+				title: this.feedback.title,
+				description: this.feedback.description,
 				type: this.typeValue,
-				start_date: this.changelog.start_date,
-				end_date: this.changelog.end_date,
-				is_published: this.changelog.is_published,
+				mood_level: this.moodLevelValue,
 			};
 			return params;
 		},
 
 		isFormValid() {
 			return (
-				this.changelog.title
-				&& this.changelog.content
-				&& this.changelog.type
-				// && this.changelog.start_date
-				// && this.changelog.end_date
+				this.feedback.title
+				&& this.feedback.description
 			);
 		},
 		typeOptions() {
-			const items = this.typeChangelogs.filter(curr => curr.id !== 'all');
+			const items = this.feedbackTypes.filter(curr => curr.id !== 'all');
 			return items;
 		},
 	},
@@ -253,20 +193,19 @@ export default {
 		},
 		setData() {
 			if (this.item) {
-				this.changelog = this.__duplicateVar(this.item);
-<<<<<<< HEAD
-=======
-				if (this.changelog.start_date) this.changelog.start_date = this.__dateTimeFormatISO(this.changelog.start_date);
-				if (this.changelog.end_date) this.changelog.end_date = this.__dateTimeFormatISO(this.changelog.end_date);
->>>>>>> c673ba5 (Update libraries and other functionalities)
+				this.feedback = this.__duplicateVar(this.item);
 
 				// Type
-				const type = this.typeChangelogs.find(curr => curr.id === this.changelog.type);
-				this.changelog.type = type;
+				const type = this.feedbackTypes.find(curr => curr.id === this.feedback.type);
+				this.feedback.type = type;
+
+				// Type
+				const moodLevel = this.feedbackTypes.find(curr => curr.id === this.feedback.mood_level);
+				this.feedback.mood_level = moodLevel;
 			}
 		},
 		resetForm() {
-			this.changelog = this.__duplicateVar(CHANGELOG_DEFAULT);
+			this.feedback = this.__duplicateVar(FEEDBACK_DEFAULT);
 		},
 		submit() {
 			if (this.isEdit) this.update();
@@ -281,14 +220,14 @@ export default {
 				this.isSaving = false;
 
 				const message = response.message;
-				this.__showNotif('success', 'Changelog', message);
+				this.__showNotif('success', 'Feedback', message);
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
 				this.__showNotif('error', 'Error', message);
 				this.isSaving = false;
 			};
-			changelogApi.update(this.changelog.id, params, callback, errorCallback);
+			feedbackApi.update(this.feedback.id, params, callback, errorCallback);
 		},
 		save() {
 			this.isSaving = true;
@@ -298,14 +237,14 @@ export default {
 				this.isSaving = false;
 
 				const message = response.message;
-				this.__showNotif('success', 'Changelog', message);
+				this.__showNotif('success', 'Feedback', message);
 			};
 			const errorCallback = (error) => {
 				const message = error.response.data.message;
 				this.__showNotif('error', 'Error', message);
 				this.isSaving = false;
 			};
-			changelogApi.create(this.params, callback, errorCallback);
+			feedbackApi.create(this.params, callback, errorCallback);
 		},
 	},
 }

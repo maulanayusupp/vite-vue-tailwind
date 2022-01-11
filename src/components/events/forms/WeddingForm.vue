@@ -7,6 +7,10 @@ export default {
 	components: {
 	},
 	props: {
+		event: {
+			type: Object,
+			default: () => null,
+		}
 	},
 	data() {
 		return {

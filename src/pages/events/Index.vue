@@ -43,23 +43,38 @@
 			<!-- List -->
 			<ul
 				role="list"
-				class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+				class="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-0"
 				v-if="!isFetching && items.length > 0">
-				<li v-for="item in items" :key="item.email" class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+				<li
+					v-for="item in items"
+					:key="item.email"
+					class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
 					<div class="flex-1 flex flex-col">
-						<div class="relative h-32 sm:h-36">
+						<div class="relative h-32 sm:h-36 cursor-pointer" @click.stop="goToDetails(item)">
 							<img class="absolute h-full w-full object-cover rounded-tl-lg rounded-tr-lg" :src="item.icon" alt="">
+
+							<div class="absolute flex space-x-1 top-1 right-1">
+								<badge :color="`green`" v-if="item.is_paid">Paid</badge>
+								<badge :color="`${item.is_paid ? 'yellow' : ''}`">{{ `${item.is_paid ? 'Published' : 'Not published'}` }}</badge>
+							</div>
 						</div>
 
-						<div class="p-5">
-							<h3 class="text-gray-900 text-lg font-medium truncate">{{ item.name }}</h3>
-							<dl class="mt-1 flex-grow flex flex-col justify-between">
+						<div class="p-3 md:p-5">
+							<h3
+								class="text-gray-900 text-sm md:text-lg font-medium truncate cursor-pointer"
+								@click.stop="goToDetails(item)">
+								{{ item.name }}
+							</h3>
+							<dl class="mt-1 flex-grow flex flex-col justify-between text-xs md:text-sm">
 								<dt class="sr-only">{{ $t('Title') }}</dt>
-								<dd class="text-gray-500 text-sm truncate">{{ item.description }}</dd>
+								<dd class="text-gray-500 text-sm truncate">{{ item.information }}</dd>
 
 								<dt class="sr-only">{{ $t('Status') }}</dt>
-								<dd class="mt-3">
-									<span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{ item.status }}</span>
+								<dd class="mt-3 truncate">
+									<badge :color="`green`">{{ item.status }}</badge>
+									<div class="mt-2">
+										<badge :color="``" class="truncate capitalize">{{ item.type }}</badge>
+									</div>
 								</dd>
 							</dl>
 						</div>
@@ -68,9 +83,11 @@
 						<!-- Actions -->
 						<div class="-mt-px flex divide-x divide-gray-200">
 							<div class="w-0 flex-1 flex">
-								<a :href="`#`" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
-								<EyeIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
-								<span class="ml-3">{{ $t('View') }}</span>
+								<a
+									@click="goToDetails(item)"
+									:href="`#`" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+									<EyeIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
+									<span class="ml-3">{{ $t('View') }}</span>
 								</a>
 							</div>
 							<div class="-ml-px w-0 flex-1 flex">
@@ -87,7 +104,7 @@
 											<MenuItem v-slot="{ active }" @click="showEdit(item)">
 												<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
 											</MenuItem>
-											<MenuItem v-slot="{ active }">
+											<MenuItem v-slot="{ active }" @click="goToDetails(item)">
 												<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
 											</MenuItem>
 											<MenuItem v-slot="{ active }" @click="showRemove(item)">
@@ -122,7 +139,7 @@
 </div>
 
 <!-- Event Creator -->
-<event-creator
+<side-form
 	:is-show="isShowCreate"
 	:item="selected"
 	@onClose="closeCreate"
@@ -174,13 +191,14 @@ import { delay } from '@/libraries/helper';
 import { PlusIcon, EyeIcon, DotsVerticalIcon, XIcon, ExclamationIcon } from '@heroicons/vue/solid';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 
-import EventCreator from '@/components/events/EventCreator.vue';
+import SideForm from '@/components/events/SideForm.vue';
 import TInput from '@/components/form/Input.vue';
 import TButton from '@/components/global/Button.vue';
 import TModal from '@/components/global/Modal.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
 import Pagination from '@/components/global/Pagination.vue';
-import SkeletonPage from '@/components/loader/SkeletonPage.vue';``
+import SkeletonPage from '@/components/loader/SkeletonPage.vue';
+import Badge from '@/components/global/Badge.vue';
 
 export default {
 	components: {
@@ -193,13 +211,14 @@ export default {
 		MenuButton,
 		MenuItem,
 		MenuItems,
-		EventCreator,
+		SideForm,
 		TInput,
 		TButton,
 		TModal,
 		EmptyList,
 		Pagination,
 		SkeletonPage,
+		Badge,
 	},
 	data() {
 		return {
@@ -269,6 +288,9 @@ export default {
 		next() {
 			if (this.currentPage < this.totalPage) this.currentPage++;
 		},
+		goToDetails(item) {
+			this.$router.push(`/events/${item.slug}`);
+		},
 		clearSelected() {
 			// Clear after
 			setTimeout(() => {
@@ -328,7 +350,7 @@ export default {
 		},
 		onRemove(selectedId) {
 			const index = this.items.findIndex(curr => curr.id === selectedId);
-			if (index !== 1) this.items.splice(index, 1);
+			if (index !== -1) this.items.splice(index, 1);
 
 
 			if (this.items.length === 4) this.fetchList();

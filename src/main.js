@@ -25,5 +25,13 @@ import Notifications from '@kyvg/vue3-notification';
 import velocity from 'velocity-animate';
 app.use(Notifications, { velocity });
 
+// Fontawesome
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBold, faUnderline, faItalic, faImage, faAlignCenter, faAlignLeft, faAlignRight, faAlignJustify, faHighlighter, faStrikethrough } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+library.add(faBold, faUnderline, faItalic, faImage, faAlignCenter, faAlignLeft, faAlignRight, faAlignJustify, faHighlighter, faStrikethrough);
+app.component('font-awesome-icon', FontAwesomeIcon);
+
+
 // Mount
 app.mount('#app');

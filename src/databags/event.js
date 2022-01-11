@@ -21,3 +21,21 @@ export const EVENT_DEFAULT = {
 	settings: {},
 	custom_attendees: [],
 };
+
+
+export const EVENT_TYPES = [
+	{ id: 'wedding', name: 'Wedding' },
+	{ id: 'exhibition', name: 'Exhibitions' },
+	{ id: 'seminar', name: 'Seminars' },
+	{ id: 'conference', name: 'Conferences' },
+	{ id: 'reunion', name: 'Reunions' },
+	{ id: 'themed_party', name: 'Themed Parties' },
+	{ id: 'webinar', name: 'Webinars' },
+	{ id: 'classes', name: 'Classes' },
+	{ id: 'auction', name: 'Auctions' },
+	{ id: 'sales', name: 'Sales' },
+	{ id: 'dinner', name: 'Dinners' },
+	{ id: 'music_festival', name: 'Music Festivals' },
+	{ id: 'food_festival', name: 'Food Festivals' },
+	{ id: 'boutique_shop', name: 'Boutique shops' },
+]
