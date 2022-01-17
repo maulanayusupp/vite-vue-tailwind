@@ -7,14 +7,17 @@
 		item-key="id"
 		@change="changeDragAndDrop"
 		handle=".category-handler"
-		filter=".has-child"
-	>
+		filter=".has-child">
 		<template #item="{ element }">
-			<div class="pl-6" :class="element.subCategories && element.subCategories.length ? 'has-child' : ''">
+			<div
+				class="pl-6"
+				:class="[element.subCategories && element.subCategories.length > 0 ? 'has-child' : '']">
 				<div class="flex justify-between list-draggable pl-3">
 					<div class="flex">
 						<div class="flex items-center">
-							<MenuIcon class="category-handler pt-1 h-5 w-5 mr-5 text-gray-400 group-hover:text-gray-700" aria-hidden="true" 
+							<MenuIcon
+								class="category-handler pt-1 h-5 w-5 mr-5 text-gray-400 group-hover:text-gray-700 cursor-move"
+								aria-hidden="true" 
 								:class="{ 'text-light-gray': element.subCategories && element.subCategories.length > 0 }"
 							/>
 						</div>
@@ -50,61 +53,66 @@
 						</transition>
 					</Menu>
 				</div>
+
 				<!-- nested - rekursif -->
-				<nested v-if="!element.parent_id" 
-				class="pl-2" :categories="element.subCategories" @onUpdate="showEdit" @onRemove="showRemove"/>
+				<nested
+					v-if="!element.parent_id"
+					class="pl-2"
+					:categories="element.subCategories"
+					@onUpdate="showEdit"
+					@onRemove="showRemove"
+				/>
 			</div>
 		</template>
 	</draggable>
 </template>
 <script>
-	import { PlusIcon, DotsVerticalIcon, MenuIcon } from '@heroicons/vue/solid';
-	import TButton from '@/components/global/Button.vue';
-	// Components
-	import {
+import { PlusIcon, DotsVerticalIcon, MenuIcon } from '@heroicons/vue/solid';
+import TButton from '@/components/global/Button.vue';
+// Components
+import {
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuItems,
+} from '@headlessui/vue'
+import draggable from 'vuedraggable';
+export default {
+	name: "nested-draggable",
+	props: {
+	categories: {
+		required: true,
+		type: Array
+	}
+	},
+	components: {
+		MenuIcon,
+		draggable,
+		PlusIcon,
+		TButton,
+		DotsVerticalIcon,
 		Menu,
 		MenuButton,
 		MenuItem,
 		MenuItems,
-	} from '@headlessui/vue'
-	import draggable from 'vuedraggable';
-	export default {
-		name: "nested-draggable",
-		props: {
-		categories: {
-			required: true,
-			type: Array
-		}
-		},
-		components: {
-			MenuIcon,
-			draggable,
-			PlusIcon,
-			TButton,
-			DotsVerticalIcon,
-			Menu,
-			MenuButton,
-			MenuItem,
-			MenuItems,
-		},
-		
-		data() {
-			return {
-			}
-		},
-		methods: {
-			changeDragAndDrop(item) {
-				this.$emit('onDragged', item);
-			},
-			showRemove(item) {
-				this.$emit('onRemove', item);
-			},
-			showEdit(item) {
-				this.$emit('onUpdate', item);
-			},
-		},
-	};
+	},
 	
+	data() {
+		return {
+		}
+	},
+	methods: {
+		changeDragAndDrop(item) {
+			this.$emit('onDragged', item);
+		},
+		showRemove(item) {
+			this.$emit('onRemove', item);
+		},
+		showEdit(item) {
+			this.$emit('onUpdate', item);
+		},
+	},
+};
 </script>
 <style>
 	.list-draggable{

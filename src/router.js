@@ -22,6 +22,7 @@ const routes = [
   { name: 'Feedbacks', path: '/feedbacks', component: () => import('@/pages/feedbacks/Index.vue'), meta: { title: 'Feedbacks', layout: 'main' }, },
   { name: 'Tags', path: '/tags', component: () => import('@/pages/tags/Index.vue'), meta: { title: 'Tags', layout: 'main' }, },
   { name: 'Settings', path: '/settings', component: () => import('@/pages/settings/Index.vue'), meta: { title: 'Settings', layout: 'main' }, },
+  { name: 'Profile', path: '/profile', component: () => import('@/pages/profile/Index.vue'), meta: { title: 'Profile', layout: 'main' }, },
   { name: 'NotFound', path: '/:path(.*)', component: () => import('@/pages/errors/NotFound.vue'), meta: { title: 'Not Found', layout: 'main' }, },
 ];
 
@@ -50,8 +51,6 @@ export default {
       },
       routes
     });
-
-    console.log('router, tesdf');
 
     router.beforeEach(vueMiddleware({ store: _store }));
     return router;

@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, defineCustomElement } from 'vue';
 import '@/tailwind.css';
 import App from '@/App.vue';
 const app = createApp(App);
@@ -31,7 +31,6 @@ import { faBold, faUnderline, faItalic, faImage, faAlignCenter, faAlignLeft, faA
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 library.add(faBold, faUnderline, faItalic, faImage, faAlignCenter, faAlignLeft, faAlignRight, faAlignJustify, faHighlighter, faStrikethrough);
 app.component('font-awesome-icon', FontAwesomeIcon);
-
 
 // Mount
 app.mount('#app');

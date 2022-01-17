@@ -123,3 +123,10 @@ export const USER_LANGUAGES = [
 	{ id: 'en', name: 'English' },
 	{ id: 'id', name: 'Indonesia' },
 ];
+
+export const USER_MENUS = [
+	{ name: 'Your Profile', href: '/profile' },
+	{ name: 'Settings', href: '/settings' },
+	{ name: 'Support', href: '/support' },
+	{ name: 'Sign out', href: '/logout' },
+];

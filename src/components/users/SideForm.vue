@@ -90,51 +90,55 @@
 						</div>
 					</div>
 
-					<div>
-						<t-checkbox
-							:label="`Verified`"
-							:sub-label="``"
-							:value="user.is_verified"
-							v-model="user.is_verified"
-						/>
-					</div>
+					<div class="grid grid-cols-2">
+						<div class="space-y-4">
+							<div>
+								<t-checkbox
+									:label="`Verified`"
+									:sub-label="``"
+									:value="user.is_verified"
+									v-model="user.is_verified"
+								/>
+							</div>
 
-					<div>
-						<t-checkbox
-							:label="`Activated`"
-							:sub-label="``"
-							:value="user.is_active"
-							v-model="user.is_active"
-						/>
-					</div>
+							<div>
+								<t-checkbox
+									:label="`Activated`"
+									:sub-label="``"
+									:value="user.is_active"
+									v-model="user.is_active"
+								/>
+							</div>
 
-					<div>
-						<t-checkbox
-							:label="`Banned`"
-							:sub-label="``"
-							:value="user.is_banned"
-							v-model="user.is_banned"
-						/>
-					</div>
+							<div>
+								<t-checkbox
+									:label="`Banned`"
+									:sub-label="``"
+									:value="user.is_banned"
+									v-model="user.is_banned"
+								/>
+							</div>
+						</div>
+						<div class="space-y-4">
+							<div>
+								<t-checkbox
+									:label="`Spectator`"
+									:sub-label="`Simultaneous Login`"
+									:value="user.is_spectator"
+									v-model="user.is_spectator"
+								/>
+							</div>
 
-					<div>
-						<t-checkbox
-							:label="`Spectator`"
-							:sub-label="`Simultaneous Login`"
-							:value="user.is_spectator"
-							v-model="user.is_spectator"
-						/>
+							<div>
+								<t-checkbox
+									:label="`Notification Allowed`"
+									:sub-label="``"
+									:value="user.is_allow_notify"
+									v-model="user.is_allow_notify"
+								/>
+							</div>
+						</div>
 					</div>
-
-					<div>
-						<t-checkbox
-							:label="`Notification Allowed`"
-							:sub-label="``"
-							:value="user.is_allow_notify"
-							v-model="user.is_allow_notify"
-						/>
-					</div>
-
 				</form>
 			</div>
 		</div>

@@ -11,14 +11,14 @@
 				<div class="flex-1 min-w-0">
 					<div class="flex items-center">
 						<!-- Back -->
-						<span class="mr-4 bg-gray-300 hover:bg-gray-200 p-1 rounded-full cursor-pointer" @click="goToIndex()">
-							<ArrowLeftIcon class="h-6 w-6 text-gray-600" aria-hidden="true" />
+						<span class="mr-6 bg-gray-300 hover:bg-gray-200 p-2 rounded-full cursor-pointer" @click="goBack()">
+							<ArrowLeftIcon class="h-4 w-4 text-gray-600" aria-hidden="true" />
 						</span>
 
 						<!-- Name -->
-						<h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+						<div class="text-2xl font-bold text-gray-900 sm:text-3xl sm:truncate">
 							{{ item.name }}
-						</h1>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -82,6 +82,9 @@ export default {
 		},
 		goToIndex() {
 			this.$router.push(`/events`);
+		},
+		goBack() {
+			this.$router.go(-1);
 		},
 	},
 }

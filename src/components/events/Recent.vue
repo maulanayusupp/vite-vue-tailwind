@@ -1,37 +1,12 @@
 <template>
 <div class="relative min-h-screen">
-	<!-- Page heading -->
-	<header class="bg-gray-50 py-6">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
-			<div class="flex-1 min-w-0">
-				<h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-					Events
-				</h1>
-			</div>
-			<div class="mt-5 flex xl:mt-0 xl:ml-4">
-				<!-- Create -->
-				<span class="space-x-2">
-					<t-button :color="`purple-solid`" @click="showCreator">
-						<PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-						Event Creator
-					</t-button>
-					<t-button :color="`purple-solid`" @click="showCreate">
-						<PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-						New Event
-					</t-button>
-				</span>
-			</div>
-		</div>
-	</header>
-
 	<main class="pb-16">
-		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-			<div class="px-4 sm:px-0 mb-6">
-				<!-- Filter -->
-				<div class="flex justify-end mt-4">
-					<t-input :type="`text`" :value="keyword" v-model="keyword" :placeholder="`Search...`" />
-				</div>
-			</div>
+		<div class="">
+
+			<!-- Page heading -->
+			<h1 class="text-2xl font-bold text-gray-900 sm:text-3xl sm:truncate mb-4">
+				Recent events
+			</h1>
 
 
 			<!-- Empty Placeholder -->
@@ -53,7 +28,7 @@
 					v-for="item in items"
 					:key="item.email"
 					class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
-					
+
 					<!-- Item Card -->
 					<item-card
 						:item="item"
@@ -62,17 +37,6 @@
 					/>
 				</li>
 			</ul>
-
-			<!-- Pagination -->
-			<pagination
-				:is-number-pages-enabled="true"
-				:current-page="currentPage"
-				:total-page="totalPage"
-				@next="next"
-				@previous="previous"
-				@setPage="setPage"
-				v-if="totalPage > 1"
-			/>
 		</div>
 	</main>
 </div>
@@ -198,8 +162,7 @@ export default {
 			totalPage: 1,
 			orderBy: 'created_at',
 			sortBy: 'desc',
-			limit: 8,
-			keyword: '',
+			limit: 4,
 			items: [],
 			selectedTab: 'all',
 			isShowCreate: false,
@@ -217,11 +180,6 @@ export default {
 		},
 		selectedTab() {
 			this.fetchList(true);
-		},
-		keyword() {
-			delay(() => {
-				this.fetchList(true);
-			}, 500);
 		},
 	},
 	methods: {
