@@ -5,7 +5,13 @@ import vueI18n from '@intlify/vite-plugin-vue-i18n';
 
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          // isCustomElement: tag => tag.startsWith('t-input') || tag.startsWith('Listbox')
+        }
+      }
+    }),
 
     vueI18n({
       // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
@@ -21,5 +27,6 @@ export default defineConfig({
   },
   server: {
     open: true,
+    port: '4444',
   },
 })

@@ -45,20 +45,10 @@
 
 <script>
 import { ref } from 'vue';
-import {
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuItems,
-} from '@headlessui/vue';
+import { USER_MENUS } from "@/databags/user";
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import { BellIcon, MenuAlt2Icon } from '@heroicons/vue/outline';
 import { SearchIcon } from '@heroicons/vue/solid';
-
-const userNavigations = [
-	{ name: 'Your Profile', href: '/profile' },
-	{ name: 'Settings', href: '/settings' },
-	{ name: 'Sign out', href: '/logout' },
-]
 
 export default {
 	components: {
@@ -71,7 +61,7 @@ export default {
 		SearchIcon,
 	},
 	setup() {
-		const userMenus = ref(userNavigations);
+		const userMenus = ref(USER_MENUS);
 		return {
 			userMenus,
 		}

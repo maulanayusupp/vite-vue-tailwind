@@ -2,10 +2,10 @@
 <div class="relative min-h-screen">
 
 	<!-- Page heading -->
-	<header class="bg-gray-50 py-6">
+	<header class="py-4 mt-6">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
 			<div class="flex-1 min-w-0">
-				<h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+				<h1 class="text-2xl font-semibold text-gray-900 sm:truncate">
 					Users
 				</h1>
 				<!-- <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-8">
@@ -111,7 +111,7 @@
 								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
 									Created
 								</th>
-								<th scope="col" class="relative px-6 py-3">
+								<th scope="col" class="relative px-6 py-3" width="5%">
 									<span class="sr-only">Edit</span>
 								</th>
 							</tr>
@@ -456,7 +456,7 @@ export default {
 		},
 		onRemove(selectedId) {
 			const index = this.items.findIndex(curr => curr.id === selectedId);
-			if (index !== 1) this.items.splice(index, 1);
+			if (index !== -1) this.items.splice(index, 1);
 		},
 		showDetails(item) {
 			this.selected = this.__duplicateVar(item);

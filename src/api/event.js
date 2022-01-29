@@ -22,8 +22,22 @@ export default {
 	/*
 	 * Get details
 	*/
-	getDetails(id, cb, errorCb) {
+	get(id, cb, errorCb) {
 		const url = `${endpoint}/${id}`;
+		client.get(url)
+			.then((response) => {
+				cb(response.data);
+			})
+			.catch((e) => {
+				errorCb(e);
+			});
+	},
+
+	/*
+	 * Get details by slug
+	*/
+	getBySlug(slug, cb, errorCb) {
+		const url = `${endpoint}/slug/${slug}`;
 		client.get(url)
 			.then((response) => {
 				cb(response.data);

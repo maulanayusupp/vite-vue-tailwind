@@ -1,5 +1,5 @@
 <template>
-<slide-over :is-show="isShow" :width-class="`max-w-lg`">
+<slide-over :is-show="isShow" :width-class="`max-w-3xl`">
 	<div class="h-full flex flex-col bg-white shadow-xl overflow-y-auto">
 		<div class="flex-1">
 			<!-- Header -->
@@ -62,7 +62,8 @@
 					<div>
 						<label for="content" class="block text-sm font-medium text-gray-700">Content</label>
 						<div class="mt-1">
-							<t-textarea :type="`text`" :value="announcement.content" v-model="announcement.content" class="w-full" />
+							<!-- <t-textarea :type="`text`" :value="announcement.content" v-model="announcement.content" class="w-full" /> -->
+							<tiptap v-model="announcement.content" />
 						</div>
 					</div>
 
@@ -71,13 +72,25 @@
 							<div>
 								<label for="start_time" class="block text-sm font-medium text-gray-700">Start</label>
 								<div class="mt-1">
-									<t-input :type="`date`" :value="announcement.start_date" v-model="announcement.start_date" class="w-full" />
+									<date-picker
+										class="w-full-important"
+										v-model:value="announcement.start_date"
+										type="datetime"
+										format="YYYY-MM-DD HH:mm:ss"
+										value-type="YYYY-MM-DD HH:mm:ss">
+									</date-picker>
 								</div>
 							</div>
 							<div>
 								<label for="end_date" class="block text-sm font-medium text-gray-700">End</label>
 								<div class="mt-1">
-									<t-input :type="`date`" :value="announcement.end_date" v-model="announcement.end_date" class="w-full" />
+									<date-picker
+										class="w-full-important"
+										v-model:value="announcement.end_date"
+										type="datetime"
+										format="YYYY-MM-DD HH:mm:ss"
+										value-type="YYYY-MM-DD HH:mm:ss">
+									</date-picker>
 								</div>
 							</div>
 						</div>
@@ -124,12 +137,11 @@ import TButton from '@/components/global/Button.vue';
 import TInput from '@/components/form/Input.vue';
 import TTextarea from '@/components/form/Textarea.vue';
 import TCheckbox from '@/components/form/Checkbox.vue';
-import {
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuItems,
-} from '@headlessui/vue';
+import Tiptap from '@/components/form/Tiptap.vue';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+
+import DatePicker from 'vue-datepicker-next';
+import 'vue-datepicker-next/index.css';
 
 export default {
 	components: {
@@ -145,6 +157,8 @@ export default {
 		VueMultiselect,
 		TCheckbox,
 		TTextarea,
+		DatePicker,
+		Tiptap,
 	},
 	props: {
 		isShow: {
@@ -225,6 +239,8 @@ export default {
 		setData() {
 			if (this.item) {
 				this.announcement = this.__duplicateVar(this.item);
+				if (this.announcement.start_date) this.announcement.start_date = this.__dateTimeFormatISO(this.announcement.start_date);
+				if (this.announcement.end_date) this.announcement.end_date = this.__dateTimeFormatISO(this.announcement.end_date);
 
 				// Type
 				const type = this.typeAnnouncements.find(curr => curr.id === this.announcement.type);

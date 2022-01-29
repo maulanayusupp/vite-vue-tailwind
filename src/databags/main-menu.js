@@ -14,16 +14,63 @@ import {
 } from '@heroicons/vue/outline';
 
 export default [
-	{ name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-	{ name: 'Events', href: '/events', icon: CalendarIcon, current: false },
-	{ name: 'Teams', href: '/teams', icon: UserGroupIcon, current: false },
-	{ name: 'Categories', href: '/categories', icon: CollectionIcon, current: false },
-	{ name: 'Tags', href: '/tags', icon: ColorSwatchIcon, current: false },
-	{ name: 'Templates', href: '/templates', icon: TemplateIcon, current: false },
-	{ name: 'Announcements', href: '/announcements', icon: SpeakerphoneIcon, current: false },
-	{ name: 'Changelogs', href: '/changelogs', icon: ClockIcon, current: false },
-	{ name: 'Feedbacks', href: '/feedbacks', icon: ChatAltIcon, current: false },
-	{ name: 'Reports', href: '/reports', icon: ChartBarIcon, current: false },
-	{ name: 'Users', href: '/users', icon: UsersIcon, current: false },
-	{ name: 'Settings', href: '/settings', icon: CogIcon, current: false },
+	{ 
+		name: 'Dashboard', href: '/', icon: HomeIcon,
+		description: '',
+		childrens: [],
+	},
+	{
+		name: 'Events', href: '/events', icon: CalendarIcon,
+		description: '',
+		childrens: [],
+	},
+	{
+		name: 'Teams', href: '/teams', icon: UserGroupIcon,
+		description: '',
+		childrens: [],
+	},
+	{
+		name: 'Templates', href: '/templates', icon: TemplateIcon,
+		description: '',
+		childrens: [],
+	},
+	// {
+	// 	name: 'Settings', href: '/settings', icon: CogIcon,
+	// 	description: '',
+	// 	childrens: [],
+	// },
+	{
+		name: 'Manage', href: '', icon: CollectionIcon,
+		description: 'Manage',
+		childrens: [
+			{
+				name: 'Categories', href: '/categories', icon: CollectionIcon,
+				description: 'Manage and organize the data.',
+			},
+			{
+				name: 'Tags', href: '/tags', icon: ColorSwatchIcon,
+				description: "Manage and classify the tags for any data.",
+			},
+			{
+				name: 'Announcements', href: '/announcements', icon: SpeakerphoneIcon,
+				description: "Let's inform the user's everything what happened.",
+			},
+			{
+				name: 'Changelogs', href: '/changelogs', icon: ClockIcon,
+				description: "Organize our updates and let's user keep up to date.",
+			},
+			{
+				name: 'Feedbacks', href: '/feedbacks', icon: ChatAltIcon,
+				description: "Manage feedbacks from user's and let's build.",
+			},
+			{
+				name: 'Reports', href: '/reports', icon: ChartBarIcon,
+				description: 'A result of research and analysis of data and of issues.',
+			},
+			{
+				name: 'Users', href: '/users', icon: UsersIcon,
+				description: "Manage all user's in the system.",
+			},
+		]
+	},
 ]

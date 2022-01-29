@@ -26,7 +26,7 @@
 						<a v-for="item in subNavigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-blue-50 bg-opacity-50' : 'hover:bg-blue-50 hover:bg-opacity-50', 'flex p-6 border-b border-blue-gray-200']" :aria-current="item.current ? 'page' : undefined">
 						<component :is="item.icon" class="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400" aria-hidden="true" />
 						<div class="ml-3 text-sm">
-							<p class="font-medium text-blue-gray-900">{{ item.name }}</p>
+							<p class="font-medium text-blue-gray-500">{{ item.name }}</p>
 							<p class="mt-1 text-blue-gray-500">{{ item.description }}</p>
 						</div>
 						</a>
@@ -37,7 +37,7 @@
 				<!-- style="max-height: calc(100% - 800px);" -->
 				<div
 					class="flex-1 xl:overflow-y-auto">
-					<div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
+					<div class="max-w-5xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
 						<h1 class="text-3xl font-extrabold text-blue-gray-900">Account</h1>
 
 						<form class="mt-6 space-y-8 divide-y divide-y-blue-gray-200">

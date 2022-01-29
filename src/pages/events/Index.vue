@@ -1,16 +1,20 @@
 <template>
 <div class="relative min-h-screen">
 	<!-- Page heading -->
-	<header class="bg-gray-50 py-6">
+	<header class="py-4 mt-6">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
 			<div class="flex-1 min-w-0">
-				<h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+				<h1 class="text-2xl font-semibold text-gray-900 sm:truncate">
 					Events
 				</h1>
 			</div>
 			<div class="mt-5 flex xl:mt-0 xl:ml-4">
 				<!-- Create -->
-				<span class="">
+				<span class="space-x-2">
+					<t-button :color="`purple-solid`" @click="showCreator">
+						<PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+						Event Creator
+					</t-button>
 					<t-button :color="`purple-solid`" @click="showCreate">
 						<PlusIcon class="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
 						New Event
@@ -43,67 +47,19 @@
 			<!-- List -->
 			<ul
 				role="list"
-				class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+				class="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-0"
 				v-if="!isFetching && items.length > 0">
-				<li v-for="item in items" :key="item.email" class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
-					<div class="flex-1 flex flex-col">
-						<div class="relative h-32 sm:h-36">
-							<img class="absolute h-full w-full object-cover rounded-tl-lg rounded-tr-lg" :src="item.icon" alt="">
-						</div>
-
-						<div class="p-5">
-							<h3 class="text-gray-900 text-lg font-medium truncate">{{ item.name }}</h3>
-							<dl class="mt-1 flex-grow flex flex-col justify-between">
-								<dt class="sr-only">{{ $t('Title') }}</dt>
-								<dd class="text-gray-500 text-sm truncate">{{ item.description }}</dd>
-
-								<dt class="sr-only">{{ $t('Status') }}</dt>
-								<dd class="mt-3">
-									<span class="px-2 py-1 text-green-800 text-xs font-medium bg-green-100 rounded-full">{{ item.status }}</span>
-								</dd>
-							</dl>
-						</div>
-					</div>
-					<div>
-						<!-- Actions -->
-						<div class="-mt-px flex divide-x divide-gray-200">
-							<div class="w-0 flex-1 flex">
-								<a :href="`#`" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
-								<EyeIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
-								<span class="ml-3">{{ $t('View') }}</span>
-								</a>
-							</div>
-							<div class="-ml-px w-0 flex-1 flex">
-								<!-- Dropdown Actions -->
-								<Menu as="div" class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
-									<div>
-									<MenuButton class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-										<DotsVerticalIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-700" aria-hidden="true" />
-										<span class="ml-3">{{ $t('More') }}</span>
-									</MenuButton>
-									</div>
-									<transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-										<MenuItems class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10 text-right">
-											<MenuItem v-slot="{ active }" @click="showEdit(item)">
-												<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
-											</MenuItem>
-											<MenuItem v-slot="{ active }">
-												<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
-											</MenuItem>
-											<MenuItem v-slot="{ active }" @click="showRemove(item)">
-												<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-500']">Delete</a>
-											</MenuItem>
-										</MenuItems>
-									</transition>
-								</Menu>
-
-								<!-- <button class="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
-									<DotsVerticalIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
-									<span class="ml-3">{{ $t('More') }}</span>
-								</button> -->
-							</div>
-						</div>
-					</div>
+				<li
+					v-for="item in items"
+					:key="item.email"
+					class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+					
+					<!-- Item Card -->
+					<item-card
+						:item="item"
+						@showEdit="showEdit"
+						@showRemove="showRemove"
+					/>
 				</li>
 			</ul>
 
@@ -122,7 +78,7 @@
 </div>
 
 <!-- Event Creator -->
-<event-creator
+<side-form
 	:is-show="isShowCreate"
 	:item="selected"
 	@onClose="closeCreate"
@@ -163,6 +119,32 @@
 		</t-button>
 	</div>
 </t-modal>
+
+<!-- Modal - Creator -->
+<t-modal
+	:max-width-class="`max-w-lg`"
+	:is-show="isShowCreator"
+	@onClose="closeCreator">
+	<div class="sm:flex sm:items-start">
+		<div class="mt-3 sm:mt-0 sm:ml-4 sm:text-left w-full">
+			<div class="flex justify-between items-center">
+				<div as="h3" class="text-lg leading-6 font-medium text-gray-900">
+					Create Event
+				</div>
+				<div>
+					<XCircleIcon class="w-6 h-6 text-gray-400 cursor-pointer" aria-hidden="true" @click="closeCreator" />
+				</div>
+			</div>
+
+			<div class="mt-2">
+				<event-creator
+					:item="selected"
+					@onClose="closeCreator"
+				/>
+			</div>
+		</div>
+	</div>
+</t-modal>
 </template>
 
 <script>
@@ -172,15 +154,19 @@ import { delay } from '@/libraries/helper';
 
 // Components
 import { PlusIcon, EyeIcon, DotsVerticalIcon, XIcon, ExclamationIcon } from '@heroicons/vue/solid';
+import { XCircleIcon } from '@heroicons/vue/outline';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 
-import EventCreator from '@/components/events/EventCreator.vue';
+import SideForm from '@/components/events/SideForm.vue';
 import TInput from '@/components/form/Input.vue';
 import TButton from '@/components/global/Button.vue';
 import TModal from '@/components/global/Modal.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
 import Pagination from '@/components/global/Pagination.vue';
-import SkeletonPage from '@/components/loader/SkeletonPage.vue';``
+import SkeletonPage from '@/components/loader/SkeletonPage.vue';
+import Badge from '@/components/global/Badge.vue';
+import EventCreator from '@/components/events/EventCreator.vue';
+import ItemCard from '@/components/events/ItemCard.vue';
 
 export default {
 	components: {
@@ -189,17 +175,21 @@ export default {
 		DotsVerticalIcon,
 		XIcon,
 		ExclamationIcon,
+		XCircleIcon,
 		Menu,
 		MenuButton,
 		MenuItem,
 		MenuItems,
-		EventCreator,
+		SideForm,
 		TInput,
 		TButton,
 		TModal,
 		EmptyList,
 		Pagination,
 		SkeletonPage,
+		Badge,
+		EventCreator,
+		ItemCard,
 	},
 	data() {
 		return {
@@ -215,6 +205,7 @@ export default {
 			isShowCreate: false,
 			isShowRemove: false,
 			selected: null,
+			isShowCreator: false,
 		}
 	},
 	mounted() {
@@ -268,6 +259,9 @@ export default {
 		},
 		next() {
 			if (this.currentPage < this.totalPage) this.currentPage++;
+		},
+		goToDetails(item) {
+			this.$router.push(`/events/${item.slug}`);
 		},
 		clearSelected() {
 			// Clear after
@@ -324,14 +318,20 @@ export default {
 				this.__showNotif('error', 'Error', message);
 				this.isDeleting = false;
 			};
-			eventApi.delete(selectedId, callback, errorCallback);
+			eventApi.deleteForever(selectedId, callback, errorCallback);
 		},
 		onRemove(selectedId) {
 			const index = this.items.findIndex(curr => curr.id === selectedId);
-			if (index !== 1) this.items.splice(index, 1);
+			if (index !== -1) this.items.splice(index, 1);
 
 
 			if (this.items.length === 4) this.fetchList();
+		},
+		showCreator() {
+			this.isShowCreator = true;
+		},
+		closeCreator() {
+			this.isShowCreator = false;
 		},
 	},
 }

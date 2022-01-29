@@ -2,11 +2,11 @@
 <div class="relative min-h-screen">
 
 	<!-- Page heading -->
-	<header class="bg-gray-50 py-6">
+	<header class="py-4 mt-6">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
 			<div class="flex-1 min-w-0">
-				<h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-					Announcements
+				<h1 class="text-2xl font-semibold text-gray-900 sm:truncate">
+					Feedbacks
 				</h1>
 			</div>
 			<div class="mt-5 flex xl:mt-0 xl:ml-4">
@@ -14,7 +14,7 @@
 				<span class="">
 					<t-button :color="`purple-solid`" class="" @click="showCreate">
 						<PlusIcon class="-ml-1 mr-2 h-5 w-5 text-white" aria-hidden="true" />
-						Create Announcement
+						Create Feedback
 					</t-button>
 				</span>
 			</div>
@@ -23,51 +23,24 @@
 
 	<main class="pb-16">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-			<!-- Filter -->
-				<div class="flex justify-end mt-4">
+
+			<div class="px-4 sm:px-0">
+				<!-- Filter -->
+				<div class="flex justify-end mt-4 mb-4">
 					<t-input :type="`text`" :value="keyword" v-model="keyword" :placeholder="`Search...`" />
 				</div>
-			<div class="px-4 sm:px-0">
-				<!-- Tabs -->
-				<div class="mb-4">
-					<div class="sm:hidden">
-						<label for="tabs" class="sr-only">Select a tab</label>
-						<!-- Use an "onChange" listener to redirect the announcement to the selected tab URL. -->
-						<select
-							v-model="selectedTab"
-							id="tabs"
-							name="tabs"
-							class="mt-4 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md">
-							<option v-for="tab in filterTabs" :key="tab.name" :value="tab.id">
-								{{ tab.name }}
-							</option>
-						</select>
-					</div>
-					<div class="hidden sm:block">
-						<div class="border-b border-gray-200">
-							<div class="mt-2 -mb-px flex space-x-8" aria-label="Tabs">
-								<div
-									v-for="tab in filterTabs"
-									:key="tab.name"
-									:href="tab.href"
-									:class="[tab.id === selectedTab ? 'border-purple-500 text-purple-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-200', 'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm cursor-pointer']"
-									@click="selectedTab = tab.id">
-									{{ tab.name }}
-									<span v-if="tab.count" :class="[tab.id === selectedTab ? 'bg-purple-100 text-purple-600' : 'bg-gray-100 text-gray-900', 'hidden ml-2 py-0.5 px-2.5 rounded-full text-xs font-medium md:inline-block']">{{ tab.count }}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
+
 			<!-- Empty Placeholder -->
 			<empty-list
 				:title="`No data available`"
 				:sub-title="`There are no data available at the moment`"
 				v-if="items.length === 0 && !isFetching"
 			/>
+
 			<!-- Loader -->
 			<skeleton-page class="px-8" v-if="isFetching" />
+
 			<!-- List - Table -->
 			<div class="flex flex-col" v-if="!isFetching && items.length > 0">
 				<div class="-my-2 sm:-mx-6 lg:-mx-8">
@@ -80,56 +53,27 @@
 									Title
 								</th>
 								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
-									Event
+									Created
 								</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
-									Type
-								</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
-									Start Date
-								</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
-									End Date
-								</th>
-								<th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
-									Published
-								</th>
-								<th scope="col" class="relative px-6 py-3">
+								<th scope="col" class="relative px-6 py-3" width="5%">
 									<span class="sr-only">Edit</span>
 								</th>
 							</tr>
 							</thead>
 							<tbody class="bg-white divide-y divide-gray-200">
 							<tr v-for="item in items" :key="item.id">
-								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-									<p class="text-xs text-gray-500">
-										{{ item.title }}
-									</p>
+								<td class="px-6 py-4 whitespace-nowrap">
+									<div class="flex items-center">
+										<div class="">
+											<div class="text-sm font-medium text-gray-900">
+												{{ item.title }}
+											</div>
+										</div>
+									</div>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-									<p class="text-xs text-gray-500">
-										{{ getEventName(item.event_id) }}
-									</p>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-									<p class="text-xs text-gray-500">
-										{{ item.type }}
-									</p>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-									<p class="text-xs text-gray-500">
-										<time :datetime="item.created_at">{{ __dateTimeFormat(item.start_date) }}</time>
-									</p>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-									<p class="text-xs text-gray-500">
-										<time :datetime="item.created_at">{{ __dateTimeFormat(item.end_date) }}</time>
-									</p>
-								</td>
-								<td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
-									<p class="mt-2 flex items-center text-xs text-gray-500">
-										<CheckCircleIcon class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" v-if="item.is_published" />
-										{{ item.is_published ? 'Published' : 'Unpublished' }}
+									<p class="text-xs text-gray-500" v-if="item.created_at">
+										<time :datetime="item.created_at">{{ __dateTimeFormat(item.created_at) }}</time>
 									</p>
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -145,9 +89,9 @@
 												<MenuItem v-slot="{ active }" @click="showEdit(item)">
 													<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Edit</a>
 												</MenuItem>
-												<!-- <MenuItem v-slot="{ active }" @click="showDetails(item)">
+												<MenuItem v-slot="{ active }" @click="showDetails(item)">
 													<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">View</a>
-												</MenuItem> -->
+												</MenuItem>
 												<MenuItem v-slot="{ active }" @click="showRemove(item)">
 													<a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-red-500']">Delete</a>
 												</MenuItem>
@@ -176,14 +120,22 @@
 		</div>
 	</main>
 </div>
+
 <!-- Side Form -->
 <side-form
 	:is-show="isShowCreate"
 	:item="selected"
-	:events="events"
 	@onClose="closeCreate"
 	@onCreate="onCreate"
 	@onUpdate="onUpdate"
+/>
+
+<!-- Side Details -->
+<side-details
+	:is-show="isShowDetails"
+	:item="selected"
+	@onClose="closeDetails"
+	@showEdit="showEdit"
 />
 
 <!-- Modal Remove -->
@@ -196,11 +148,11 @@
 		</div>
 		<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
 			<div as="h3" class="text-lg leading-6 font-medium text-gray-900">
-				Delete Announcement
+				Delete feedback
 			</div>
 			<div class="mt-2">
 				<p class="text-sm text-gray-500">
-					Are you sure you want to delete this Announcement? This data will be permanently removed from our servers forever.
+					Are you sure you want to delete this feedback? This data will be permanently removed from our servers forever.
 					<span class="text-red-500 text-xs mt-2 block">This action cannot be undone.</span>
 				</p>
 			</div>
@@ -219,20 +171,11 @@
 
 <script>
 // API
-import eventApi from '@/api/event';
-import announcementApi from '@/api/announcement';
+import feedbackApi from '@/api/feedback';
 import { delay } from '@/libraries/helper';
-
-// Statics
-import { TYPE_ANNOUNCEMENTS } from '@/databags/announcement';
 
 // Components
 import {
-	Listbox,
-	ListboxButton,
-	ListboxLabel,
-	ListboxOption,
-	ListboxOptions,
 	Menu,
 	MenuButton,
 	MenuItem,
@@ -264,15 +207,11 @@ import SkeletonPage from '@/components/loader/SkeletonPage.vue';
 import Badge from '@/components/global/Badge.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
 import TModal from '@/components/global/Modal.vue';
-import SideForm from '@/components/announcements/SideForm.vue';
+import SideForm from '@/components/feedbacks/SideForm.vue';
+import SideDetails from '@/components/feedbacks/SideDetails.vue';
 
 export default {
 	components: {
-		Listbox,
-		ListboxButton,
-		ListboxLabel,
-		ListboxOption,
-		ListboxOptions,
 		Menu,
 		MenuButton,
 		MenuItem,
@@ -300,10 +239,15 @@ export default {
 		Badge,
 		TModal,
 		SideForm,
+		SideDetails,
+	},
+	setup() {
+		return {
+			
+		}
 	},
 	data() {
 		return {
-			filterTabs: TYPE_ANNOUNCEMENTS,
 			isFetching: false,
 			currentPage: 1,
 			totalPage: 1,
@@ -312,26 +256,22 @@ export default {
 			limit: 10,
 			keyword: '',
 			items: [],
-			selectedTab: 'all',
+			selectedType: 'all',
 			selected: null,
 			isShowCreate: false,
 			isShowRemove: false,
 			isDeleting: false,
 			isShowDetails: false,
-			events: [],
-			isFetchingEvent: false,
 		}
 	},
-	created() {},
 	mounted() {
 		this.fetchList();
-		this.fetchEventList();
 	},
 	watch: {
 		currentPage() {
 			this.fetchList();
 		},
-		selectedTab() {
+		selectedType() {
 			this.fetchList(true);
 		},
 		keyword() {
@@ -354,7 +294,7 @@ export default {
 				page: this.currentPage,
 			};
 			if (this.keyword) params.keyword = this.keyword;
-			if (this.selectedTab !== 'all') params.type = this.selectedTab;
+			if (this.selectedType !== 'all') params.type = this.selectedType;
 			const callback = (response) => {
 				const data = response.data;
 				this.totalPage = response.last_page;
@@ -366,7 +306,7 @@ export default {
 				this.__showNotif('error', 'Error', message);
 				this.isFetching = false;
 			};
-			announcementApi.getList(params, callback, errorCallback);
+			feedbackApi.getList(params, callback, errorCallback);
 		},
 		setPage(page) {
 			this.currentPage = page;
@@ -433,39 +373,20 @@ export default {
 				this.__showNotif('error', 'Error', message);
 				this.isDeleting = false;
 			};
-			announcementApi.delete(selectedId, callback, errorCallback);
+			feedbackApi.delete(selectedId, callback, errorCallback);
 		},
 		onRemove(selectedId) {
 			const index = this.items.findIndex(curr => curr.id === selectedId);
-			if (index !== 1) this.items.splice(index, 1);
+			if (index !== -1) this.items.splice(index, 1);
 		},
-		getEventName(id) {
-			// Event Id
-			const event = this.events.find(curr => curr.id === id);
-			return event && event.name ? event.name : '';
+		showDetails(item) {
+			this.selected = this.__duplicateVar(item);
+			this.isShowDetails = true;
 		},
-		fetchEventList() {
-			this.isFetchingEvent = true;
-			const params = {
-				order_by: 'created_at',
-				sort_by: 'created_at',
-				limit: 1000,
-				page: 1,
-			};
-			const callback = (response) => {
-				const data = response.data;
-				this.events = data;
-				this.isFetchingEvent = false;
-			};
-			const errorCallback = (error) => {
-				const message = error.response.data.message;
-				this.__showNotif('error', 'Error', message);
-				this.isFetchingEvent = false;
-			};
-			eventApi.getList(params, callback, errorCallback);
+		closeDetails() {
+			this.isShowDetails = false;
+			this.clearSelected();
 		},
-	},
-	computed: {},
-	beforeUnmount() {},	
+	}
 }
 </script>

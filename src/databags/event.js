@@ -6,8 +6,8 @@ export const EVENT_DEFAULT = {
 	information: '',
 	dress_code: '',
 	performance: '',
-	latitude: '',
-	longitude: '',
+	latitude: 0,
+	longitude: 0,
 	company: '',
 	status: '',
 	start_time: '',
@@ -21,3 +21,22 @@ export const EVENT_DEFAULT = {
 	settings: {},
 	custom_attendees: [],
 };
+
+
+export const EVENT_TYPES = [
+	{ id: 'wedding', name: 'Wedding', is_available: true },
+	{ id: 'birthday', name: 'Birthday', is_available: true },
+	{ id: 'exhibition', name: 'Exhibitions', is_available: true },
+	{ id: 'seminar', name: 'Seminars', is_available: false },
+	{ id: 'conference', name: 'Conferences', is_available: false },
+	{ id: 'reunion', name: 'Reunions', is_available: false },
+	{ id: 'themed_party', name: 'Themed Parties', is_available: false },
+	{ id: 'webinar', name: 'Webinars', is_available: false },
+	{ id: 'classes', name: 'Classes', is_available: false },
+	{ id: 'auction', name: 'Auctions', is_available: false },
+	{ id: 'sales', name: 'Sales', is_available: false },
+	{ id: 'dinner', name: 'Dinners', is_available: false },
+	{ id: 'music_festival', name: 'Music Festivals', is_available: false },
+	{ id: 'food_festival', name: 'Food Festivals', is_available: false },
+	{ id: 'boutique_shop', name: 'Boutique shops', is_available: false },
+]

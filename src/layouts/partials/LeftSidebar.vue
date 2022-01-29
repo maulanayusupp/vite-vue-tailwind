@@ -10,7 +10,7 @@
 				<nav class="flex-1 px-2 bg-white">
           <div class="space-y-1">
             <router-link
-              v-for="item in MainMenuItems"
+              v-for="item in mainMenuFiltered"
               :to="item.href"
               :key="item.name"
               :class="[isActive(item.href) ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900']"
@@ -51,7 +51,7 @@
 
 <script>
 import { ref } from 'vue';
-import MainMenuItems from "@/databags/main-menu.js";
+import mainMenuItems from "@/databags/main-menu.js";
 import SecondaryMenuItems from "@/databags/secondary-menu.js";
 export default {
   components: {
@@ -62,7 +62,7 @@ export default {
   },
   data(){
     return {
-      MainMenuItems,
+      mainMenuItems,
       SecondaryMenuItems,
     }
   },
@@ -72,6 +72,22 @@ export default {
       if (string === '/') isActive = this.$route.path === string;
       else if (string !== '/') isActive = window.location.href.indexOf(string) > -1;
       return isActive;
+    },
+  },
+  computed: {
+    mainMenuFiltered() {
+      const items = this.mainMenuItems;
+      const filtered = [];
+      for (let index = 0; index < items.length; index++) {
+        const item = items[index];
+        if (item.href) filtered.push(item);
+        if (item.childrens.length > 0) {
+          item.childrens.forEach(subItem => {
+            if (subItem.href) filtered.push(subItem);
+          });
+        }
+      }
+      return filtered;
     },
   },
 }
