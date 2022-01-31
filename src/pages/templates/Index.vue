@@ -2,10 +2,17 @@
 <div class="relative min-h-screen">
 
 	<!-- Page heading -->
+<<<<<<< HEAD
 	<header class="py-4 mt-6">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
 			<div class="flex-1 min-w-0">
 				<h1 class="text-2xl font-semibold text-gray-900 sm:truncate">
+=======
+	<header class="bg-gray-50 py-6">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
+			<div class="flex-1 min-w-0">
+				<h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 					Templates
 				</h1>
 			</div>

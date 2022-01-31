@@ -4,7 +4,11 @@
 	<div v-if="step === 1">
 		<label for="icon" class="block text-sm font-medium text-gray-700">Bride name</label>
 		<div class="mt-1">
+<<<<<<< HEAD
 			<t-input :type="`text`" :value="event.name" v-model="event.name" class="w-full" />
+=======
+			<t-input :type="`text`" :value="event.bride_name" v-model="event.bride_name" class="w-full" />
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 		</div>
 	</div>
 
@@ -84,6 +88,7 @@ export default {
 		next() {
 			if (this.step < this.totalStep) this.step++;
 		},
+<<<<<<< HEAD
 		resetForm() {
 			this.event = this.__duplicateVar(EVENT_DEFAULT);
 		},
@@ -91,6 +96,9 @@ export default {
 			if (this.isEdit) this.$emit('update');
 			else this.$emit('save');
 		},
+=======
+		submit() {},
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 	},
 	computed: {
 		isFirstStep() {
@@ -99,9 +107,12 @@ export default {
 		isLastStep() {
 			return this.step === this.totalStep;
 		},
+<<<<<<< HEAD
 		isEdit() {
 			return this.event && this.event.id;
 		},
+=======
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 	},
 	watch: {},
 }

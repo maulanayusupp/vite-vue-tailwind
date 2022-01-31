@@ -1,5 +1,6 @@
 <template>
 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 md:px-8">
+<<<<<<< HEAD
     <!-- Header -->
     <div class="flex justify-between pt-2 pb-4">
         <div class="text-2xl font-semibold mb-2">Hello</div>
@@ -179,11 +180,24 @@ import Recent from '@/components/events/Recent.vue';
 import TButton from '@/components/global/Button.vue';
 import TModal from '@/components/global/Modal.vue';
 import EventCreator from '@/components/events/EventCreator.vue';
+=======
+
+    <!-- Recent events -->
+    <recent />
+</div>
+</template>
+
+<script>
+import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/vue/solid'
+import EmptyList from '@/components/global/EmptyList.vue';
+import Recent from '@/components/events/Recent.vue';
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 
 export default {
     components: {
         ArrowSmDownIcon,
         ArrowSmUpIcon,
+<<<<<<< HEAD
         CheckCircleIcon,
         PlusIcon,
         XCircleIcon,
@@ -196,10 +210,19 @@ export default {
     data() {
         return {
             isShowCreator: false,
+=======
+        EmptyList,
+        Recent,
+    },
+    data() {
+        return {
+            isFetching: false,
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
         }
     },
     mounted() {
     },
+<<<<<<< HEAD
     methods: {
         showCreator() {
 			this.isShowCreator = true;
@@ -208,5 +231,7 @@ export default {
 			this.isShowCreator = false;
 		},
     },
+=======
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 }
 </script>

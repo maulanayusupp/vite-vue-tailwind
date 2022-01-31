@@ -6,7 +6,11 @@
 	<!-- Content -->
 	<template v-if="!isFetching && item">
 		<!-- Page heading -->
+<<<<<<< HEAD
 		<header class="py-4">
+=======
+		<header class="bg-gray-50 py-6">
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
 				<div class="flex-1 min-w-0">
 					<div class="flex items-center">
@@ -16,7 +20,11 @@
 						</span>
 
 						<!-- Name -->
+<<<<<<< HEAD
 						<div class="text-xl font-semibold text-gray-900 sm:truncate">
+=======
+						<div class="text-2xl font-bold text-gray-900 sm:text-3xl sm:truncate">
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 							{{ item.name }}
 						</div>
 					</div>
@@ -25,6 +33,7 @@
 		</header>
 
 		<!-- Main -->
+<<<<<<< HEAD
 		<main class="pb-16 mt-1">
 			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 				<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -172,6 +181,11 @@
 					</div>
 					</div>
 				</div>
+=======
+		<main class="pb-16">
+			<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+				
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 			</div>
 		</main>
 	</template>
@@ -184,6 +198,7 @@
 import eventApi from '@/api/event';
 
 // Components
+<<<<<<< HEAD
 import SkeletonPage from '@/components/loader/SkeletonPage.vue';
 
 import {
@@ -309,17 +324,28 @@ export default {
 		ClockIcon,
 		ReceiptRefundIcon,
 		UsersIcon,
+=======
+import { ArrowLeftIcon } from '@heroicons/vue/outline';
+import SkeletonPage from '@/components/loader/SkeletonPage.vue';
+
+export default {
+	components: {
+		ArrowLeftIcon,
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 		SkeletonPage,
 	},
 	data() {
 		return {
 			isFetching: false,
 			item: null,
+<<<<<<< HEAD
 			user,
 			stats,
 			actions,
 			recentHires,
 			announcements,
+=======
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 		}
 	},
 	mounted() {

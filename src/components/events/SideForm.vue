@@ -158,6 +158,28 @@
 									v-model="event.type"
 								/>
 							</div>
+<<<<<<< HEAD
+=======
+							<hr class="border-gray-200" />
+							<div class="flex flex-col space-between space-y-4 sm:flex-row sm:items-center sm:space-between sm:space-y-0">
+								<div class="flex-1">
+									<a href="#" class="group flex items-center text-sm text-indigo-600 hover:text-indigo-900 font-medium space-x-2.5">
+										<LinkIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-900" aria-hidden="true" />
+										<span>
+										Copy link
+										</span>
+									</a>
+								</div>
+								<div>
+									<a href="#" class="group flex items-center text-sm text-gray-500 hover:text-gray-900 space-x-2.5">
+										<QuestionMarkCircleIcon class="h-5 w-5 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+										<span>
+										Learn more about sharing
+										</span>
+									</a>
+								</div>
+							</div>
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 						</div>
 					</div>
 				</fieldset>

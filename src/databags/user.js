@@ -125,8 +125,15 @@ export const USER_LANGUAGES = [
 ];
 
 export const USER_MENUS = [
+<<<<<<< HEAD
 	{ name: 'My Account', href: '/profile', type: 'page' },
 	{ name: 'Settings', href: '/settings', type: 'page' },
 	{ name: 'Support', href: '/support', type: 'page' },
 	{ name: 'Sign out', href: '/logout', type: 'action' },
+=======
+	{ name: 'Your Profile', href: '/profile' },
+	{ name: 'Settings', href: '/settings' },
+	{ name: 'Support', href: '/support' },
+	{ name: 'Sign out', href: '/logout' },
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 ];

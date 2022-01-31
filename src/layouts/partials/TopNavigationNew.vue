@@ -127,12 +127,20 @@
 									</div>
 									<div class="bg-gray-50 grid grid-cols-2">
 										<div class="w-full cursor-pointer" @click="closeMenu(close)">
+<<<<<<< HEAD
 											<div class="rounded-md text-center px-3 py-3 text-sm md:text-sm text-gray-900 hover:bg-gray-100">
+=======
+											<div class="rounded-md text-center px-4 py-4 text-sm md:text-base text-gray-900 hover:bg-gray-100">
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 												<span>View all notifications</span>
 											</div>
 										</div>
 										<div class="w-full cursor-pointer" @click="closeMenu(close)">
+<<<<<<< HEAD
 											<div class="rounded-md text-center px-3 py-3 text-sm md:text-sm text-gray-900 hover:bg-gray-100">
+=======
+											<div class="rounded-md text-center px-4 py-4 text-sm md:text-base text-gray-900 hover:bg-gray-100">
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 												<span>Clear all</span>
 											</div>
 										</div>
@@ -169,7 +177,11 @@
 									:key="item.name" v-slot="{ active }">
 									<router-link
 										:to="item.href"
+<<<<<<< HEAD
 										:class="[active ? 'bg-gray-100' : '', item.type === 'action' ? 'border-t' : '', 'block px-4 py-2 text-sm text-gray-700']">
+=======
+										:class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 										{{ item.name }}
 									</router-link>
 								</MenuItem>

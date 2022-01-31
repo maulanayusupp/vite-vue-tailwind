@@ -2,8 +2,12 @@
 <div>
 	<div class="flex-1 flex flex-col">
 		<div class="relative h-32 sm:h-36 cursor-pointer" @click.stop="goToDetails(item)">
+<<<<<<< HEAD
 			<img class="absolute h-full w-full object-cover rounded-tl-lg rounded-tr-lg" :src="item.icon" alt="" v-if="item.icon">
 			<img class="absolute h-full w-full object-cover rounded-tl-lg rounded-tr-lg" :src="`http://placeimg.com/640/480`" alt="" v-else>
+=======
+			<img class="absolute h-full w-full object-cover rounded-tl-lg rounded-tr-lg" :src="item.icon" alt="">
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 
 			<div class="absolute flex space-x-1 top-1 right-1">
 				<badge :color="`green`" v-if="item.is_paid">Paid</badge>
@@ -15,6 +19,7 @@
 			<h3
 				class="text-gray-900 text-sm md:text-lg font-medium truncate cursor-pointer"
 				@click.stop="goToDetails(item)">
+<<<<<<< HEAD
 				{{ item.name || '-' }}
 			</h3>
 			<dl class="mt-1 flex-grow flex flex-col justify-between text-xs md:text-sm">
@@ -24,6 +29,17 @@
 				<dt class="sr-only">{{ $t('Status') }}</dt>
 				<dd class="mt-3 truncate">
 					<badge :color="`green`">{{ item.status || '-' }}</badge>
+=======
+				{{ item.name }}
+			</h3>
+			<dl class="mt-1 flex-grow flex flex-col justify-between text-xs md:text-sm">
+				<dt class="sr-only">{{ $t('Title') }}</dt>
+				<dd class="text-gray-500 text-sm truncate">{{ item.information }}</dd>
+
+				<dt class="sr-only">{{ $t('Status') }}</dt>
+				<dd class="mt-3 truncate">
+					<badge :color="`green`">{{ item.status }}</badge>
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 					<div class="mt-2">
 						<badge :color="``" class="truncate capitalize">{{ item.type }}</badge>
 					</div>

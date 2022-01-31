@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 <div class="relative">
 	<!-- Page heading -->
 	<h1 class="text-2xl font-semiboldsm:truncate mb-4" v-if="!isHideTitle">
@@ -44,6 +45,48 @@
 			<span class="cursor-pointer text-gray-500 text-sm pb-1" @click="goViewAll">View all</span>
 		</div>
 	</div>
+=======
+<div class="relative min-h-screen">
+	<main class="pb-16">
+		<div class="">
+
+			<!-- Page heading -->
+			<h1 class="text-2xl font-bold text-gray-900 sm:text-3xl sm:truncate mb-4">
+				Recent events
+			</h1>
+
+
+			<!-- Empty Placeholder -->
+			<empty-list
+				:title="`No data available`"
+				:sub-title="`There are no data available at the moment`"
+				v-if="items.length === 0 && !isFetching"
+			/>
+
+			<!-- Loader -->
+			<skeleton-page class="px-8" v-if="isFetching" />
+
+			<!-- List -->
+			<ul
+				role="list"
+				class="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-4 md:p-0"
+				v-if="!isFetching && items.length > 0">
+				<li
+					v-for="item in items"
+					:key="item.email"
+					class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+
+					<!-- Item Card -->
+					<item-card
+						:item="item"
+						@showEdit="showEdit"
+						@showRemove="showRemove"
+					/>
+				</li>
+			</ul>
+		</div>
+	</main>
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 </div>
 
 <!-- Event Creator -->
@@ -125,18 +168,29 @@ import { delay } from '@/libraries/helper';
 import { PlusIcon, EyeIcon, DotsVerticalIcon, XIcon, ExclamationIcon } from '@heroicons/vue/solid';
 import { XCircleIcon } from '@heroicons/vue/outline';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 import SideForm from '@/components/events/SideForm.vue';
 import TInput from '@/components/form/Input.vue';
 import TButton from '@/components/global/Button.vue';
 import TModal from '@/components/global/Modal.vue';
 import EmptyList from '@/components/global/EmptyList.vue';
 import Pagination from '@/components/global/Pagination.vue';
+<<<<<<< HEAD
 import Badge from '@/components/global/Badge.vue';
 import EventCreator from '@/components/events/EventCreator.vue';
 import ItemCardRow from '@/components/events/ItemCardRow.vue';
 // Loader
 import SkeletonPage from '@/components/loader/SkeletonPage.vue';
 import CircleLoader from '@/components/loader/CircleLoader.vue';
+=======
+import SkeletonPage from '@/components/loader/SkeletonPage.vue';
+import Badge from '@/components/global/Badge.vue';
+import EventCreator from '@/components/events/EventCreator.vue';
+import ItemCard from '@/components/events/ItemCard.vue';
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 
 export default {
 	components: {
@@ -159,6 +213,7 @@ export default {
 		SkeletonPage,
 		Badge,
 		EventCreator,
+<<<<<<< HEAD
 		ItemCardRow,
 		CircleLoader,
 	},
@@ -167,6 +222,9 @@ export default {
 			type: Boolean,
 			default: () => true,
 		},
+=======
+		ItemCard,
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 	},
 	data() {
 		return {
@@ -175,7 +233,11 @@ export default {
 			totalPage: 1,
 			orderBy: 'created_at',
 			sortBy: 'desc',
+<<<<<<< HEAD
 			limit: 3,
+=======
+			limit: 4,
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 			items: [],
 			selectedTab: 'all',
 			isShowCreate: false,
@@ -234,9 +296,12 @@ export default {
 		goToDetails(item) {
 			this.$router.push(`/events/${item.slug}`);
 		},
+<<<<<<< HEAD
 		goViewAll() {
 			this.$router.push(`/events`);
 		},
+=======
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 		clearSelected() {
 			// Clear after
 			setTimeout(() => {
@@ -292,14 +357,22 @@ export default {
 				this.__showNotif('error', 'Error', message);
 				this.isDeleting = false;
 			};
+<<<<<<< HEAD
 			eventApi.deleteForever(selectedId, callback, errorCallback);
+=======
+			eventApi.delete(selectedId, callback, errorCallback);
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 		},
 		onRemove(selectedId) {
 			const index = this.items.findIndex(curr => curr.id === selectedId);
 			if (index !== -1) this.items.splice(index, 1);
 
 
+<<<<<<< HEAD
 			if (this.items.length === 0) this.fetchList();
+=======
+			if (this.items.length === 4) this.fetchList();
+>>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 		},
 		showCreator() {
 			this.isShowCreator = true;
