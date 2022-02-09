@@ -22,7 +22,6 @@ export const EVENT_DEFAULT = {
 	custom_attendees: [],
 };
 
-
 export const EVENT_TYPES = [
 	{ id: 'wedding', name: 'Wedding', is_available: true },
 	{ id: 'birthday', name: 'Birthday', is_available: true },

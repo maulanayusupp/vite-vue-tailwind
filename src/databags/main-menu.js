@@ -11,7 +11,12 @@ import {
 	ChatAltIcon,
 	ClockIcon,
 	SpeakerphoneIcon,
+	UserIcon,
 } from '@heroicons/vue/outline';
+
+import {
+	CollectionIcon as CollectionIconSolid,
+} from '@heroicons/vue/solid';
 
 export default [
 	{ 
@@ -21,6 +26,16 @@ export default [
 	},
 	{
 		name: 'Events', href: '/events', icon: CalendarIcon,
+		description: '',
+		childrens: [],
+	},
+	{
+		name: 'Groups', href: '/groups', icon: CollectionIconSolid,
+		description: '',
+		childrens: [],
+	},
+	{
+		name: 'Contacts', href: '/contacts', icon: UserIcon,
 		description: '',
 		childrens: [],
 	},

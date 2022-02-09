@@ -21,8 +21,8 @@ export default {
 			default: () => 'text',
 		},
 		value: {
-			type: String,
-			default: () => '',
+			type: [String, Object],
+			default: () => '' || null,
 			required: true,
 		},
 		placeholder: {

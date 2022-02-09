@@ -15,33 +15,24 @@
 			<!-- Wedding -->
 			<wedding-form
 				:event="event"
-<<<<<<< HEAD
 				@update="update"
 				@save="save"
-=======
->>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 				v-if="selectedType === 'wedding'"
 			/>
 
 			<!-- Birthday -->
 			<birthday-form
 				:event="event"
-<<<<<<< HEAD
 				@update="update"
 				@save="save"
-=======
->>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 				v-if="selectedType === 'birthday'"
 			/>
 
 			<!-- Exhibition -->
 			<exhibition-form
 				:event="event"
-<<<<<<< HEAD
 				@update="update"
 				@save="save"
-=======
->>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 				v-if="selectedType === 'exhibition'"
 			/>
 
@@ -61,10 +52,7 @@
 </template>
 <script>
 
-<<<<<<< HEAD
 import eventApi from '@/api/event';
-=======
->>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 import { EVENT_DEFAULT, EVENT_TYPES } from '@/databags/event';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption, ListboxLabel } from '@headlessui/vue';
 import { ChevronDownIcon, CheckIcon } from '@heroicons/vue/outline';
@@ -120,7 +108,6 @@ export default {
 		setData() {
 			if (this.item) this.event = this.__duplicateVar(this.item);
 		},
-<<<<<<< HEAD
 		update() {
 			const params = this.params;
 			this.isSaving = true;
@@ -175,13 +162,6 @@ export default {
 			return params;
 		},
 	},
-=======
-		submit() {
-			console.log('SUBMIT');
-		},
-	},
-	computed: {},
->>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 	watch: {
 		item() {
 			this.setData();

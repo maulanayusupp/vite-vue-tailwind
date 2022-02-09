@@ -23,14 +23,18 @@
         </template> -->
     </notifications>
 
+    <!-- Popup software update -->
+    <popup-software-update />
 </template>
 
 <script>
 import Layout from '@/layouts/index.vue';
+import PopupSoftwareUpdate from '@/layouts/partials/PopupSoftwareUpdate.vue';
 
 export default {
     components: {
         Layout,
+        PopupSoftwareUpdate,
     },
     setup() {},
     data () {

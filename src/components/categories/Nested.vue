@@ -10,11 +10,7 @@
 		filter=".has-child">
 		<template #item="{ element }">
 			<div
-<<<<<<< HEAD
 				class=""
-=======
-				class="pl-6"
->>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 				:class="[element.subCategories && element.subCategories.length > 0 ? 'has-child' : '']">
 				<div class="flex justify-between list-draggable pl-3">
 					<div class="flex">
@@ -31,13 +27,7 @@
 								<img class="h-10 w-10 rounded-full group-hover:opacity-75" :src="`https://images.unsplash.com/photo-1563982277846-1299eec465d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`" alt="" v-else />
 							</div>
 							<div class="ml-2">
-<<<<<<< HEAD
 								<div class="text-md font-medium text-gray-900">{{ element.name }}</div>
-=======
-								<div class="text-md font-medium text-gray-900">
-									{{ element.name }}
-								</div>
->>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 								<p class="flex items-center text-xs">{{ element.type }}</p>
 							</div>
 						</div>
@@ -65,11 +55,7 @@
 				<!-- nested - rekursif -->
 				<nested
 					v-if="!element.parent_id"
-<<<<<<< HEAD
 					class="pl-10"
-=======
-					class="pl-2"
->>>>>>> 3775ee6f1f4e34f8147215b8375cd7964e1048f4
 					:categories="element.subCategories"
 					@onUpdate="showEdit"
 					@onRemove="showRemove"

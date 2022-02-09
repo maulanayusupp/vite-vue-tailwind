@@ -8,13 +8,15 @@ import store from "@/store/index";
 app.use(store);
 
 // Routes
-import routes from '@/router.js';
+import routes from '@/router/index.js';
 const router = routes.createRouter(store);
 app.use(router);
 
 // Add global mixin
 import globalMixin from '@/mixins/global.js';
+import serviceWorker from '@/mixins/service-worker';
 app.mixin(globalMixin);
+app.mixin(serviceWorker);
 
 // I18n
 import i18n from "@/libraries/i18n.js";
